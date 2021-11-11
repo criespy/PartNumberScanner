@@ -7,4 +7,8 @@ h1 a, h2 a {
 }
 .header {
     background-color: #17377E;
+
+}
+h1 {
+    color: white;
 }

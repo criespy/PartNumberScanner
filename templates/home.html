@@ -1,10 +1,68 @@
 <!-- templates/home.html -->
 {% load static %}
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'css/frina.css' %}"
-</head>
-<div>
-    <div class="header"><h1>Print Barcode</h1></div>
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-</div>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <title>Print Barcode - PT. Frina Lestari Nusantara</title>
+  </head>
+  <body>
+    <div class="container p-5 my-5 bg-dark text-white">
+      <h1>Print Barcode</h1>
+    </div>
+    <div class="">
+      <div class="row">
+      <form>
+        <table class="table table-striped">
+          <tr>
+            <td class="">Part Number</td>
+            <td class="">
+                <select>
+                    <option value="option-1" selected="true" id="select-1636600948190-0">BJ01-SCL0100-XL-B0</option>
+                    <option value="option-1" selected="true" id="select-1636600948190-0">BJ01-SCL0100-XL-BL</option>
+                    <option value="option-1" selected="true" id="select-1636600948190-0">BJ01-SCL0100-XL-GR</option>
+                    <option value="option-1" selected="true" id="select-1636600948190-0">BJ01-SCL0100-XL-R0</option>
+                    <option value="option-1" selected="true" id="select-1636600948190-0">BJ01-SCL0100-XL-S0</option>
+                    <option value="option-1" selected="true" id="select-1636600948190-0">BJ01-SCL0100-XL-S1</option>
+                    <option value="option-1" selected="true" id="select-1636600948190-0">BJ01-SCL0100-XL-W0</option>
+                    <option value="option-1" selected="true" id="select-1636600948190-0">BJ01-SCL0100-XL-W1</option>
+                    <option value="option-1" selected="true" id="select-1636600948190-0">BJ01-SCL0100-XL-XX</option>
+                    <option value="option-1" selected="true" id="select-1636600948190-0">BJ01-SCL0100-XR-B0</option>
+                    <option value="option-1" selected="true" id="select-1636600948190-0">BJ01-SCL0100-XR-BL</option>
+                    <option value="option-1" selected="true" id="select-1636600948190-0">BJ01-SCL0100-XR-GR</option>
+                    <option value="option-1" selected="true" id="select-1636600948190-0">BJ01-SCL0100-XR-R0</option>
+                    <option value="option-1" selected="true" id="select-1636600948190-0">BJ01-SCL0100-XR-S0</option>
+                    <option value="option-1" selected="true" id="select-1636600948190-0">BJ01-SCL0100-XR-S1</option>
+                    <option value="option-1" selected="true" id="select-1636600948190-0">BJ01-SCL0100-XR-W0</option>
+                    <option value="option-1" selected="true" id="select-1636600948190-0">BJ01-SCL0100-XR-W1</option>
+                    <option value="option-1" selected="true" id="select-1636600948190-0">BJ01-SCL0100-XR-XX</option>
+                </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-right"><input type="submit" value="Print" > </td>
+          </tr>
+        </table>
+        </div>
+      </div>
+    </form>
+
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>
