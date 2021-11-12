@@ -25,31 +25,24 @@
             <td class="">Part Number</td>
             <td class="">
                 <select>
-                    <option value="option-1" selected="true" id="select-1636600948190-0">BJ01-SCL0100-XL-B0</option>
-                    <option value="option-1" selected="true" id="select-1636600948190-0">BJ01-SCL0100-XL-BL</option>
-                    <option value="option-1" selected="true" id="select-1636600948190-0">BJ01-SCL0100-XL-GR</option>
-                    <option value="option-1" selected="true" id="select-1636600948190-0">BJ01-SCL0100-XL-R0</option>
-                    <option value="option-1" selected="true" id="select-1636600948190-0">BJ01-SCL0100-XL-S0</option>
-                    <option value="option-1" selected="true" id="select-1636600948190-0">BJ01-SCL0100-XL-S1</option>
-                    <option value="option-1" selected="true" id="select-1636600948190-0">BJ01-SCL0100-XL-W0</option>
-                    <option value="option-1" selected="true" id="select-1636600948190-0">BJ01-SCL0100-XL-W1</option>
-                    <option value="option-1" selected="true" id="select-1636600948190-0">BJ01-SCL0100-XL-XX</option>
-                    <option value="option-1" selected="true" id="select-1636600948190-0">BJ01-SCL0100-XR-B0</option>
-                    <option value="option-1" selected="true" id="select-1636600948190-0">BJ01-SCL0100-XR-BL</option>
-                    <option value="option-1" selected="true" id="select-1636600948190-0">BJ01-SCL0100-XR-GR</option>
-                    <option value="option-1" selected="true" id="select-1636600948190-0">BJ01-SCL0100-XR-R0</option>
-                    <option value="option-1" selected="true" id="select-1636600948190-0">BJ01-SCL0100-XR-S0</option>
-                    <option value="option-1" selected="true" id="select-1636600948190-0">BJ01-SCL0100-XR-S1</option>
-                    <option value="option-1" selected="true" id="select-1636600948190-0">BJ01-SCL0100-XR-W0</option>
-                    <option value="option-1" selected="true" id="select-1636600948190-0">BJ01-SCL0100-XR-W1</option>
-                    <option value="option-1" selected="true" id="select-1636600948190-0">BJ01-SCL0100-XR-XX</option>
+                    {% for barang in object_list %}
+                    <option value="option-1" selected="" id="select-1636600948190-0">{{ barang.part_number }} == {{ barang.description }}</option>
+                    {% endfor %}
                 </select>
             </td>
           </tr>
           <tr>
             <td class="text-right"><input type="submit" value="Print" > </td>
+            <button onclick="window.print()">Print this page</button>
+
           </tr>
         </table>
+        </div>
+        <div class="row">
+          <p>link debuging</p>
+          {% for barcode in object_list %}
+          <a href="{% static 'images/' %}{{ barcode.barcode }}">{{ barcode.part_number }} </a>
+          {% endfor %}
         </div>
       </div>
     {% endblock content %}
