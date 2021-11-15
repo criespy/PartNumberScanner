@@ -1,0 +1,14 @@
+{% load static %}
+<html>
+<body onload="window.print()">
+    {% block content %}
+    <img src="{% static 'images/' %}{{ object.barcode }}"/><br>
+    <img src="{% static 'images/' %}{{ object.barcode }}"/><br>
+    <img src="{% static 'images/' %}{{ object.barcode }}"/><br>
+    <img src="{% static 'images/' %}{{ object.barcode }}"/><br>
+    <img src="{% static 'images/' %}{{ object.barcode }}"/><br>
+    <img src="{% static 'images/' %}{{ object.barcode }}"/><br>
+    <img src="{% static 'images/' %}{{ object.barcode }}"/><br>
+    {% endblock content %}
+</body>
+</html>

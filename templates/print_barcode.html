@@ -1,0 +1,14 @@
+{% load static %}
+<html>
+<body onload="window.print()">
+    {% block content %}
+    <img src="{% static 'images/' %}{{ barang }}"/><br>
+    <img src="{% static 'images/' %}{{ barang }}"/><br>
+    <img src="{% static 'images/' %}{{ barang }}"/><br>
+    <img src="{% static 'images/' %}{{ barang }}"/><br>
+    <img src="{% static 'images/' %}{{ barang }}"/><br>
+    <img src="{% static 'images/' %}{{ barang }}"/><br>
+    <img src="{% static 'images/' %}{{ barang }}"/><br>
+    {% endblock content %}
+</body>
+</html>
