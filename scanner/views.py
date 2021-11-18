@@ -1,8 +1,9 @@
 import io
-from django.http import FileResponse
+from django.http import FileResponse, HttpResponse, HttpRequest
+from django.template.response import TemplateResponse
 from reportlab.pdfgen import canvas
 from django.shortcuts import render
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView, ListView, DetailView
 from .models import Barang
 
 
@@ -13,6 +14,18 @@ class HomePageView(ListView):
 class Delivery(TemplateView):
     model = Barang
     template_name = 'delivery.html'
+
+class PrintBarcode(DetailView):
+    model = Barang
+    template_name = 'print_barcode.html'
+
+    def getURL(request):
+        #bikin variabel buat simpen value dari url
+        barang = request.GET.get('item')
+        context = {"part_number":barang}
+        #return HttpResponse.("Berhasil %s" % barang)
+        #kirim id ke print_barcode.html
+        return TemplateResponse(request, 'print_barcode.html', context)
 
 def bikinPDF(request):
     # Create a file-like buffer to receive PDF data.

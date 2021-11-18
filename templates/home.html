@@ -17,36 +17,26 @@
       <h1>Print Barcode</h1>
     </div>
     {% block content %}
-    <div class="">
-      <div class="row">
-      <form>
-        <table class="table table-striped">
-          <tr>
-            <td class="">Part Number</td>
-            <td class="">
-                <select>
-                    {% for barang in object_list %}
-                    <option value="option-1" selected="" id="select-1636600948190-0">{{ barang.part_number }} == {{ barang.description }}</option>
-                    {% endfor %}
-                </select>
-            </td>
-          </tr>
-          <tr>
-            <td class="text-right"><input type="submit" value="Print" > </td>
-            <button onclick="window.print()">Print this page</button>
-
-          </tr>
-        </table>
+    <div class="container">
+      <form action="print_barcode" target="_blank">
+        <div class="form-group row">
+          <label for="barang" class="col-3 col-form-label" >Part Number</label>
+          <div class="col-8">
+            <select name="item" id="barang" class="custom-select">
+              {% for barang in object_list %}
+              <option value="{{ barang.part_number }}">{{ barang.part_number }} == {{ barang.description }}</option>
+              {% endfor %}
+            </select>
+          </div>
         </div>
-        <div class="row">
-          <p>link debuging</p>
-          {% for barcode in object_list %}
-          <a href="{% static 'images/' %}{{ barcode.barcode }}">{{ barcode.part_number }} </a>
-          {% endfor %}
+        <div class="form-group row">
+          <div class="offset-3 col-8">
+            <input type="submit" value="Print" class="btn btn-success">
+          </div>
         </div>
-      </div>
+      </form>
+    </div>
     {% endblock content %}
-    </form>
 
 
     <!-- Optional JavaScript; choose one of the two! -->
