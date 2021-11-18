@@ -25,9 +25,11 @@
         </div>
       </div>
     </div>
+    {% block content %}
     <div class="">
       <div class="text-right">
-        Nomor surat jalan: 381461
+        <div class="sm-6">Nomor surat jalan: {{ object.nomor_sj }}</div>
+        <div class="sm-6">Tanggal : {{ object.tanggal }}</div>
       </div>
       <div class="row">
       <form>
@@ -38,25 +40,24 @@
             <th class="">Description</th>
             <th class="">Box Qty</th>
             <th class="">Scan</th>
+            <th>Scan QTY</th>
           </tr>
+          {% for detail in object.rencanakirimdetails.all  %}
           <tr>
-            <td class="">1</td>
-            <td class="">BJ02-SCL0100-XL-B0</td>
-            <td class="">SCALP OS RR VIEW MRR LH NB9 BLK</td>
-            <td class="">10</td>
-            <td class=""><input type="text"> </td>
+            <td class="">{{ detail.nomor_line }}</td>
+            <td id="part_number{{ detail.nomor_line }}" class="">{{ detail.barang.part_number }}</td>
+            <td class="">{{ detail.barang.description }}</td>
+            <td id='qty_box{{ detail.nomor_line }}' class="">{{ detail.qty }}</td>
+            <td class=""><input id='scan{{ detail.nomor_line }}' type="text" value="" autofocus maxlength="18" size="18" oninput="cekPartNumber()" class="" ></td>
+            <td id="qty_scanned{{ detail.nomor_line }}">0</td>
           </tr>
-          <tr>
-            <td class="">2</td>
-            <td class="">BJ02-SCL0100-XR-B0</td>
-            <td class="">SCALP OS RR VIEW MRR RH NB9 BLK</td>
-            <td class="">10</td>
-            <td class=""><input type="text"> </td>
-          </tr>
+          {% endfor %}
         </table>
         </div>
+      </form>
       </div>
-    </form>
+
+    {% endblock content %}
 
 
     <!-- Optional JavaScript; choose one of the two! -->
@@ -69,5 +70,102 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     -->
+  <script>
+    //var scanned = tambahScanned();
+    var line = 1;
+    var scanned = 0;
+    var part_number_id =  "part_number" + line
+    var scan_id =  "scan" + line
+    var qty_scanned_id =  "qty_scanned" + line
+    var qty_box_id =  "qty_box" + line
+    var scan_id =  "scan" + line
+
+    //var element_id = gantiElementId();
+
+    function tambahScanned(){
+      scanned = scanned + 1;
+      document.getElementById(qty_scanned_id).innerHTML = scanned;
+      //return scanned
+    }
+
+    function cekPartNumber(){
+
+      //alert(part_number_id);
+
+      var part_number =  document.getElementById(part_number_id).innerHTML;
+      var part_number_scan =  document.getElementById(scan_id).value;
+      var qty_scanned = document.getElementById(qty_scanned_id).innerHTML;
+      var qty_box = document.getElementById(qty_box_id).innerHTML;
+      var max_length = document.getElementById(scan_id).maxLength;
+      var inputed_length = document.getElementById(scan_id).value.length;
+
+      //alert(part_number + " " + part_number_scan);
+
+      if (part_number == part_number_scan && max_length == inputed_length ){
+        tambahScanned();
+        //harus minus satu qty_box karena flow
+        //alert(qty_scanned);
+        if (scanned == qty_box){
+        //pakai timeout supaya scanner sempat ngetik HM01-GFQ0100-XL-S0
+          setTimeout(gantiFokus, 1000);
+          //alert(qty_box);
+        } else {
+          //document.getElementById(scan_id).value = "OK";
+          //kasih timeout supaya keliatan textnya
+          setTimeout(clearInput,500);
+          //alert("belum penuh kuota");
+        }
+      } else {
+        alert("Part Tidak Sesuai!");
+        //jadikan input box merah
+        document.getElementById(scan_id).class = "form-control is-invalid";
+      }
+
+
+
+
+    }
+
+    function gantiFokus(){
+      document.getElementById(scan_id).disabled = true;
+      element = gantiElementId();
+      alert("Scan = " + scan_id + " Qty box id = " + qty_box_id + " Qty scan = " + qty_scanned_id);
+      document.getElementById(scan_id).focus();
+
+    }
+
+    function gantiElementId(){
+      line = line + 1;
+      part_number_id =  "part_number" + line;
+      scan_id =  "scan" + line;
+      qty_scanned_id =  "qty_scanned" + line;
+      qty_box_id =  "qty_box" + line;
+      scan_id =  "scan" + line;
+      scanned = 0
+      //return [part_number_id, scan_id, qty_scanned_id, qty_box_id, scan_id];
+    }
+
+    function clearInput(){
+      document.getElementById(scan_id).value = "";
+    }
+
+
+    function panduTab() {
+      $("input").keyup(function() {
+      var parta = $('#part').val();
+      var index = $(this).index("input");
+      var partb = $(this).val();
+
+      if (parta == partb && this.value.length == this.maxLength) {
+        $("input:eq(" + index + ")").attr('disabled', true);
+        $("input:eq(" + (index+2) + ")").focus();
+      } else {
+        $("input:eq(" + index + ")").attr('disabled', false);
+        $("input:eq(" + index + ")").focus();
+      }
+     })
+    }
+
+  </script>
   </body>
 </html>
