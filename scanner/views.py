@@ -3,7 +3,7 @@ from django.http import FileResponse, HttpResponse, HttpRequest
 from django.template.response import TemplateResponse
 from reportlab.pdfgen import canvas
 from django.shortcuts import render
-from django.views.generic import TemplateView, ListView, DetailView
+from django.views.generic import TemplateView, ListView, DetailView, UpdateView
 from .models import Barang, RencanaKirim, RencanaKirimDetail
 
 
@@ -11,14 +11,20 @@ class HomePageView(ListView):
     model = Barang
     template_name = 'home.html'
 
-class Delivery(DetailView):
+class Delivery(UpdateView):
     model = RencanaKirim
     template_name = 'delivery.html'
+    fields = ['nomor_sj', 'status']
+
+    def update_status(self):
+        status = "apaan"
+
     #untuk menampilkan item barang di admin backend
     def get_context_data(self, **kwargs):
         detail = super(Delivery, self).get_context_data(**kwargs)
         detail['barang'] = RencanaKirimDetail.objects.all()
         return detail
+
 
 class DeliveryKosong(TemplateView):
     template_name = 'delivery.html'

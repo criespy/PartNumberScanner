@@ -11,7 +11,7 @@
 
     <title>Scan Box - PT. Frina Lestari Nusantara</title>
   </head>
-  <body>
+  <body onload="cekStatus()">
     <div class="container p-5 my-5 bg-dark text-white">
       <h1>Scan Box</h1>
     </div>
@@ -28,8 +28,8 @@
     {% block content %}
     <div class="">
       <div class="text-right">
-        <div class="sm-6">Nomor surat jalan: {{ object.nomor_sj }}</div>
-        <div class="sm-6">Tanggal : {{ object.tanggal }}</div>
+        <div class="sm-6"><p>Nomor surat jalan: {{ object.nomor_sj }} <button id="status" type="button" value="{{ object.status }}" class="btn btn-primary" disabled>{{ object.status }}</button></p></div>
+        <div class="sm-6"><p>Tanggal : {{ object.tanggal }}</p></div>
       </div>
       <div id="jumlahLine" hidden>
         {{ object.rencanakirimdetails.all|length  }}
@@ -58,6 +58,12 @@
         </table>
         </div>
       </form>
+      <div>
+        <form id="update" action="" method="post" hidden>{% csrf_token %}
+          {{ form.as_table }}
+          <input type="submit">
+        </form>
+      </div>
       </div>
 
     {% endblock content %}
@@ -96,9 +102,7 @@
     }
 
     function cekPartNumber(){
-
       //alert(part_number_id);
-
       var part_number =  document.getElementById(part_number_id).innerHTML;
       var part_number_scan =  document.getElementById(scan_id).value;
       var qty_scanned = document.getElementById(qty_scanned_id).innerHTML;
@@ -118,20 +122,17 @@
         } else {
           //document.getElementById(scan_id).value = "OK";
           //kasih timeout supaya keliatan textnya
-          setTimeout(clearInput,500);
+          setTimeout(clearInput, 1000);
           //alert("belum penuh kuota");
         }
         document.getElementById(scan_id).classList.remove("is-invalid");
       } else {
         //alert("Part Tidak Sesuai!");
-        clearInput();
+        setTimeout(clearInput, 5000);
         //jadikan input box merah
         //document.getElementById(scan_id).classList.add("");
         document.getElementById(scan_id).classList.add("is-invalid");
       }
-
-
-
 
     }
 
@@ -144,6 +145,10 @@
         document.getElementById(scan_id).focus();
       } else {
         alert("Scan Complete!");
+        document.getElementById("id_status").selectedIndex = 1;
+        document.forms["update"].submit();
+        //alert(window.location.href);
+        //window.location.replace = "localhost:8000/update_status/1"
       }
 
     }
@@ -161,6 +166,20 @@
 
     function clearInput(){
       document.getElementById(scan_id).value = "";
+    }
+
+    function cekStatus(){
+      stat = document.getElementById("status").value;
+      //alert(stat);
+      if(stat == "Scanned"){
+        alert("sudah discan!");
+        for (let field = 1; field <= jumlahLine - 1; field++){
+          let scanBox = "scan" + field;
+          //alert(jumlahLine);
+          //alert(scanBox);
+          document.getElementById(scanBox).disabled = true;
+        }
+      }
     }
 
   </script>

@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.urls import reverse
 
 class Barang(models.Model):
     part_number = models.CharField(max_length=18)
@@ -14,13 +15,19 @@ class RencanaKirim(models.Model):
     nomor_sj = models.CharField(max_length=6)
     tanggal = models.DateTimeField()
     class Status(models.TextChoices):
-        OPEN = 'OP',_('Open')
-        SCANNED = 'SC',_('Scanned')
-    status = models.CharField(max_length=2, choices=Status.choices, default=Status.OPEN)
+        OPEN = 'Open',_('Open')
+        SCANNED = 'Scanned',_('Scanned')
+    status = models.CharField(max_length=7, choices=Status.choices, default=Status.OPEN)
     #nomor_line = models.CharField(max_length=2)
 
     def __str__(self):
         return self.nomor_sj
+
+    #url setelah update data
+    def get_absolute_url(self):
+        return reverse('delivery')
+
+
 
 class RencanaKirimDetail(models.Model):
     nomor_line = models.CharField(max_length=2)
