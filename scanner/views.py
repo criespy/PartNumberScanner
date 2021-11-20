@@ -3,7 +3,7 @@ from django.http import FileResponse, HttpResponse, HttpRequest
 from django.template.response import TemplateResponse
 from reportlab.pdfgen import canvas
 from django.shortcuts import render
-from django.views.generic import TemplateView, ListView, DetailView, UpdateView
+from django.views.generic import TemplateView, ListView, DetailView, UpdateView, CreateView
 from .models import Barang, RencanaKirim, RencanaKirimDetail
 
 
@@ -15,9 +15,6 @@ class Delivery(UpdateView):
     model = RencanaKirim
     template_name = 'delivery.html'
     fields = ['nomor_sj', 'status']
-
-    def update_status(self):
-        status = "apaan"
 
     #untuk menampilkan item barang di admin backend
     def get_context_data(self, **kwargs):
@@ -48,6 +45,16 @@ class RencanaKirimView(DetailView):
 class ScanBarcode(DetailView):
     model = RencanaKirim
     template_name = 'scan_barcode.html'
+
+class BuatRencanaKirim(CreateView):
+    model = RencanaKirim
+    template_name = 'buat_rencana_kirim.html'
+    fields = '__all__'
+
+    def get_context_data(self, **kwargs):
+        detail = super(BuatRencanaKirim, self).get_context_data(**kwargs)
+        detail['barang'] = RencanaKirimDetail.objects.all()
+        return detail
 
 def bikinPDF(request):
     # Create a file-like buffer to receive PDF data.

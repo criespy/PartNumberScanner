@@ -7,4 +7,5 @@ urlpatterns = [
     path('delivery/', views.DeliveryKosong.as_view(), name='delivery'),
     path('print_barcode/<int:pk>', views.PrintBarcode.as_view(), name='print_barcode'),
     re_path(r'^print_barcode/$', views.PrintBarcode.getURL, name='print_barcode2'),
+    path('buat_rencana_kirim', views.BuatRencanaKirim.as_view(), name='buat_rencana_kirim'),
 ]
