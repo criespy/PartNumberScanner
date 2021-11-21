@@ -58,15 +58,16 @@ class BuatRencanaKirim(CreateView):
 
 
     #def ini akan dihilangkan, hanya untuk test pembanding dengan class-based
-    def FBuatRencanaKirim(request):
-        form = FormRencanaKirim
-        konteks = {
-            'form': form,
-        }
-        return render(request, 'buat_rencana_kirim.html', konteks)
+    #def FBuatRencanaKirim(request):
+    #    form = FormRencanaKirim
+    #    konteks = {
+    #        'form': form,
+    #    }
+    #    return render(request, 'buat_rencana_kirim.html', konteks)
 
     #buat tampilkan rencana kirim detail
     def get_context_data(self, **kwargs):
+        form_class = FormRencanaKirimDetail
         detail = super(BuatRencanaKirim, self).get_context_data(**kwargs)
         detail['konteks'] = RencanaKirimDetail.objects.all()
 
