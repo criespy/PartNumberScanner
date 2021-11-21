@@ -1,6 +1,7 @@
 from django.db import models
+from django.http import request, HttpRequest
 from django.utils.translation import gettext_lazy as _
-from django.urls import reverse
+from django.urls import reverse, resolve
 
 class Barang(models.Model):
     part_number = models.CharField(max_length=18)
@@ -9,7 +10,7 @@ class Barang(models.Model):
     barcode = models.TextField()
 
     def __str__(self):
-        return self.part_number
+        return self.part_number + " == " + self.description
 
 class RencanaKirim(models.Model):
     nomor_sj = models.CharField(max_length=6)
@@ -25,7 +26,11 @@ class RencanaKirim(models.Model):
 
     #url setelah update data
     def get_absolute_url(self):
-        return reverse('delivery')
+        #currenturl = HttpRequest.get_host(self)
+        #if(currenturl == [os.path.join(BASE_DIR, 'buat_rencana_kirim')]):
+        #    return reverse('buat_rencana_kirim_detail', args=[str(self.id)])
+        #else:
+            return reverse('delivery', args=[str(self.id)])
 
 
 
@@ -37,3 +42,6 @@ class RencanaKirimDetail(models.Model):
 
     def __str__(self):
         return self.rencana_kirim.nomor_sj
+
+    def get_absolute_url(self):
+        return reverse('buat_rencana_kirim')

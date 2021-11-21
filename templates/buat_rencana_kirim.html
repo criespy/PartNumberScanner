@@ -10,14 +10,17 @@
     <title>Buat Rencana Kirim</title>
 </head>
 <body>
+<div class="container">
 {% block content %}
     <h1>Buat Rencana Kirim</h1>
     <form action="" method="post">{% csrf_token %}
         {{ form.as_p }}
-
+        <h3>Daftar Barang</h3>
+        {{ konteks.as_p }}
         <input type="submit" value="Save" />
     </form>
 {% endblock content %}
+</div>
 </body>
     <script id="django-admin-form-add-constants" src="/static/admin/js/change_form.js" async=""></script>
     <script id="django-admin-prepopulated-fields-constants" src="/static/admin/js/prepopulate_init.js" data-prepopulated-fields="[]">
