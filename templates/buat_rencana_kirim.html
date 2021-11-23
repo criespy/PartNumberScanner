@@ -14,11 +14,16 @@
 {% block content %}
     <h1>Buat Rencana Kirim</h1>
     <form action="" method="post">{% csrf_token %}
-        {{ form.as_p }}
+        <table class="table">
+        {{ form.as_table }}
+        </table>
         <h3>Daftar Barang</h3>
-        {{ konteks.as_p }}
+        <table class="table table-striped">
+        {{ konteks.as_table }}
+        </table>
         <input type="submit" value="Save" />
     </form>
+    
 {% endblock content %}
 </div>
 </body>

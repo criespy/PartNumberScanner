@@ -8,7 +8,6 @@ from .models import Barang, RencanaKirim, RencanaKirimDetail
 from .forms import BarangFormset, FormRencanaKirim, FormRencanaKirimDetail
 from django import forms
 from datetime import date
-from .forms import FormRencanaKirim, FormRencanaKirimDetail
 
 
 class HomePageView(ListView):

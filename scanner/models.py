@@ -13,7 +13,7 @@ class Barang(models.Model):
         return self.part_number + " == " + self.description
 
 class RencanaKirim(models.Model):
-    nomor_sj = models.CharField(max_length=6)
+    nomor_sj = models.CharField(max_length=6, unique=True)
     tanggal = models.DateTimeField()
     class Status(models.TextChoices):
         OPEN = 'Open',_('Open')
