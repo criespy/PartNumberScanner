@@ -40,18 +40,22 @@
           <tr>
             <th class="">No.</th>
             <th class="">Part Number</th>
+            <th class="">Part Number Cust.</th>
             <th class="">Description</th>
             <th class="">Box Qty</th>
-            <th class="">Scan</th>
+            <th class="">Scan FLN Part Number</th>
+            <th class="">Scan Cust. Part Number</th>
             <th>Scan QTY</th>
           </tr>
           {% for detail in object.rencanakirimdetails.all  %}
           <tr>
             <td class="">{{ detail.nomor_line }}</td>
             <td id="part_number{{ detail.nomor_line }}" class="">{{ detail.barang.part_number }}</td>
+            <td id="part_number_customer{{ detail.nomor_line }}" class="">{{ detail.barang.part_number_customer }}</td>
             <td class="">{{ detail.barang.description }}</td>
             <td id='qty_box{{ detail.nomor_line }}' class="">{{ detail.qty }}</td>
             <td class=""><input id='scan{{ detail.nomor_line }}' type="text" value="" autofocus maxlength="18" size="18" oninput="cekPartNumber()" class="form-control" ></td>
+            <td class=""><input id='scanb{{ detail.nomor_line }}' type="text" value="" autofocus maxlength="33" size="14" oninput="cekPartNumberB()" class="form-control" ></td>
             <td id="qty_scanned{{ detail.nomor_line }}">0</td>
           </tr>
           {% endfor %}
@@ -84,7 +88,9 @@
     var line = 1;
     var scanned = 0;
     var part_number_id =  "part_number" + line
+    var part_number_customer_id = "part_number_customer" + line
     var scan_id =  "scan" + line
+    var scanb_id = "scanb" + line
     var qty_scanned_id =  "qty_scanned" + line
     var qty_box_id =  "qty_box" + line
     var scan_id =  "scan" + line
@@ -102,7 +108,7 @@
     }
 
     function cekPartNumber(){
-      //alert(part_number_id);
+      //alert(scanb_id);
       var part_number =  document.getElementById(part_number_id).innerHTML;
       var part_number_scan =  document.getElementById(scan_id).value;
       var qty_scanned = document.getElementById(qty_scanned_id).innerHTML;
@@ -113,16 +119,60 @@
       //alert(part_number + " " + part_number_scan);
 
       if (part_number == part_number_scan && max_length == inputed_length ){
+        //tambahScanned();
+        //alert(qty_scanned);
+        gantiFokusB();
+        //if (scanned == qty_box){
+        //pakai timeout supaya scanner sempat ngetik
+        //  setTimeout(gantiFokus, 1000);
+          //alert(qty_box);
+        //} else {
+          //document.getElementById(scan_id).value = "OK";
+          //kasih timeout supaya keliatan textnya
+        //  setTimeout(clearInput, 1000);
+          //alert("belum penuh kuota");
+        //}
+        document.getElementById(scan_id).classList.remove("is-invalid");
+      } else {
+        //alert("Part Tidak Sesuai!");
+        setTimeout(clearInput, 5000);
+        //jadikan input box merah
+        //document.getElementById(scan_id).classList.add("");
+        document.getElementById(scan_id).classList.add("is-invalid");
+      }
+
+    }
+
+    function cekPartNumberB(){
+      //alert(part_number_id);
+      var part_number_customer =  document.getElementById(part_number_customer_id).innerHTML;
+      var part_number_scanb =  document.getElementById(scanb_id).value;
+      var qty_scanned = document.getElementById(qty_scanned_id).innerHTML;
+      var qty_box = document.getElementById(qty_box_id).innerHTML;
+      var max_length = document.getElementById(scan_id).maxLength;
+      var inputed_length = document.getElementById(scanb_id).value.length;
+
+      if (inputed_length == 32){
+        part_number_scanb = trimPartNumber(part_number_scanb);
+      }
+
+      //alert(part_number + " " + part_number_scan);
+      //alert('part cust:'+ part_number_customer + ' scanb:' + part_number_scanb + ' input_length:' + inputed_length);
+      if (part_number_customer == part_number_scanb && inputed_length == 32 ){
+        //alert('part number sama');
         tambahScanned();
         //alert(qty_scanned);
         if (scanned == qty_box){
+          document.getElementById(scanb_id).disabled = true;
         //pakai timeout supaya scanner sempat ngetik
           setTimeout(gantiFokus, 1000);
           //alert(qty_box);
         } else {
           //document.getElementById(scan_id).value = "OK";
           //kasih timeout supaya keliatan textnya
-          setTimeout(clearInput, 1000);
+
+          //setTimeout(clearInput, 1000);
+          gantiFokusA();
           //alert("belum penuh kuota");
         }
         document.getElementById(scan_id).classList.remove("is-invalid");
@@ -150,16 +200,30 @@
         //alert(window.location.href);
         //window.location.replace = "localhost:8000/update_status/1"
       }
+    }
 
+    function gantiFokusB(){
+      //alert('ganti fokus');
+      document.getElementById(scanb_id).focus();
+      document.getElementById(scan_id).disabled = true;
+    }
+
+    function gantiFokusA(){
+      document.getElementById(scan_id).value = "";
+      document.getElementById(scanb_id).value = "";
+      document.getElementById(scan_id).disabled = false;
+      document.getElementById(scan_id).focus();
     }
 
     function gantiElementId(){
       line = line + 1;
       part_number_id =  "part_number" + line;
+      part_number_customer_id = "part_number_customer" + line;
       scan_id =  "scan" + line;
+      scanb_id = "scanb" + line;
       qty_scanned_id =  "qty_scanned" + line;
       qty_box_id =  "qty_box" + line;
-      scan_id =  "scan" + line;
+      //scan_id =  "scan" + line;
       scanned = 0
       //return [part_number_id, scan_id, qty_scanned_id, qty_box_id, scan_id];
     }
@@ -180,6 +244,17 @@
           document.getElementById(scanBox).disabled = true;
         }
       }
+    }
+
+    function trimPartNumber(part_number_scanb){
+      //alert('trim dipanggil');
+      part_number_scanb = part_number_scanb.substr(4, 13);
+      part_depan = part_number_scanb.substr(0, 5);
+      part_belakang = part_number_scanb.substr(5,13);
+      part_number_scanb = part_depan.concat("-" + part_belakang);
+      //alert(part_number_scanb);
+      document.getElementById(scanb_id).value = part_number_scanb;
+      return part_number_scanb;
     }
 
   </script>
