@@ -151,7 +151,7 @@
       var qty_box = document.getElementById(qty_box_id).innerHTML;
       var max_length = document.getElementById(scan_id).maxLength;
       var inputed_length = document.getElementById(scanb_id).value.length;
-
+      //hasil scan qr code hyundai ditrim menjadi part number saja
       if (inputed_length == 32){
         part_number_scanb = trimPartNumber(part_number_scanb);
       }
@@ -178,14 +178,14 @@
         document.getElementById(scan_id).classList.remove("is-invalid");
       } else {
         //alert("Part Tidak Sesuai!");
-        setTimeout(clearInput, 5000);
+        setTimeout(clearInputB, 5000);
         //jadikan input box merah
         //document.getElementById(scan_id).classList.add("");
         document.getElementById(scan_id).classList.add("is-invalid");
       }
 
     }
-
+    //fungsi ini untuk pindah ke line berikutnya
     function gantiFokus(){
       document.getElementById(scan_id).disabled = true;
       element = gantiElementId();
@@ -201,13 +201,13 @@
         //window.location.replace = "localhost:8000/update_status/1"
       }
     }
-
+    //fungsi ini untuk pindah ke input box kanan
     function gantiFokusB(){
       //alert('ganti fokus');
       document.getElementById(scanb_id).focus();
       document.getElementById(scan_id).disabled = true;
     }
-
+    //fungsi ini untuk pindah ke input box kiri
     function gantiFokusA(){
       document.getElementById(scan_id).value = "";
       document.getElementById(scanb_id).value = "";
@@ -232,16 +232,22 @@
       document.getElementById(scan_id).value = "";
     }
 
+    function clearInputB(){
+      document.getElementById(scanb_id).value = "";
+    }
+
     function cekStatus(){
       stat = document.getElementById("status").value;
       //alert(stat);
       if(stat == "Scanned"){
         alert("sudah discan!");
-        for (let field = 1; field <= jumlahLine - 1; field++){
-          let scanBox = "scan" + field;
+        for (var field = 1; field <= jumlahLine - 1; field++){
+          var scanBox = "scan" + field;
+          var scanBoxb = "scanb" + field;
           //alert(jumlahLine);
           //alert(scanBox);
           document.getElementById(scanBox).disabled = true;
+          document.getElementById(scanBoxb).disabled = true;
         }
       }
     }
