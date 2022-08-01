@@ -159,9 +159,7 @@
       //alert(part_number + " " + part_number_scan);
       //alert('part cust:'+ part_number_customer + ' scanb:' + part_number_scanb + ' input_length:' + inputed_length);
       if (part_number_customer == part_number_scanb && inputed_length == 32 ){
-        //alert('part number sama');
         tambahScanned();
-        //alert(qty_scanned);
         if (scanned == qty_box){
           document.getElementById(scanb_id).disabled = true;
         //pakai timeout supaya scanner sempat ngetik
@@ -181,7 +179,7 @@
         setTimeout(clearInputB, 5000);
         //jadikan input box merah
         //document.getElementById(scan_id).classList.add("");
-        document.getElementById(scan_id).classList.add("is-invalid");
+        document.getElementById(scanb_id).classList.add("is-invalid");
       }
 
     }

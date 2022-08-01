@@ -6,11 +6,14 @@ from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, DetailView, UpdateView, CreateView
 from .models import Barang, RencanaKirim, RencanaKirimDetail
 from .forms import BarangFormset, FormRencanaKirim, FormRencanaKirimDetail
+from  django.contrib.auth.mixins import LoginRequiredMixin
 from django import forms
 from datetime import date
 
 
-class HomePageView(ListView):
+class HomePageView(LoginRequiredMixin, ListView):
+    login_url = 'auth/login/'
+    #redirect_field_name = 'redirect_to'
     model = Barang
     template_name = 'home.html'
 
@@ -54,7 +57,6 @@ class BuatRencanaKirim(CreateView):
     #fields = ['nomor_sj', 'tanggal']
     #diubah dengan settingan form di forms.py
     form_class = FormRencanaKirim
-
 
     #def ini akan dihilangkan, hanya untuk test pembanding dengan class-based
     #def FBuatRencanaKirim(request):
@@ -102,6 +104,11 @@ class BuatRencanaKirimDetail(CreateView):
             else:
                 
                 return(render(request, 'buat_rencana_kirim_detail.html'))
+
+class BuatRencanaKirimB():
+    def tambahRencanaKirim():
+        return(render(request, 'buat_rencana_kirim_detail.html'))
+
 
 def bikinPDF(request):
     # Create a file-like buffer to receive PDF data.
