@@ -152,13 +152,13 @@
       var max_length = document.getElementById(scan_id).maxLength;
       var inputed_length = document.getElementById(scanb_id).value.length;
       //hasil scan qr code hyundai ditrim menjadi part number saja
-      if (inputed_length == 32){
+      if (inputed_length == 29){
         part_number_scanb = trimPartNumber(part_number_scanb);
       }
 
       //alert(part_number + " " + part_number_scan);
       //alert('part cust:'+ part_number_customer + ' scanb:' + part_number_scanb + ' input_length:' + inputed_length);
-      if (part_number_customer == part_number_scanb && inputed_length == 32 ){
+      if (part_number_customer == part_number_scanb && inputed_length == 29 ){
         tambahScanned();
         if (scanned == qty_box){
           document.getElementById(scanb_id).disabled = true;
