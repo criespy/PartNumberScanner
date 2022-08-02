@@ -13,16 +13,20 @@
     <title>Print Barcode - PT. Frina Lestari Nusantara</title>
   </head>
   <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#">User Login: {{ user.username }}</a>
+    <nav class="navbar text-white navbar-expand-lg navbar-fixed-top navbar-dark" style="background-color: #24368c;" >
+      <div class="container">
+        <div class="navbar-header ms-auto">
+          <ul class="nav navbar-brand">
+            <li><a class="navbar-brand" href="#">User Login: {{ user.username }}</a></li>
+            <li class="active"><a class="text-white btn" style="background-color: #f8521b;" href="{% url 'logout' %}">Logout</a></li>
+            <li class="active"><a class="text-white" href="{% url 'logout' %}">Logout</a></li>
+          </ul>
+          
         </div>
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="{% url 'logout' %}">Logout</a></li>
-        </ul>
+        
       </div>
     </nav>
+
     <div class="container p-5 my-5 bg-dark text-white">
       <h1>Print Barcode</h1>
     </div>
