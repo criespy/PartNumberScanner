@@ -33,7 +33,7 @@ class DeliveryKosong(TemplateView):
 
 class PrintBarcode(DetailView):
     model = Barang
-    template_name = 'print_barcode.html'
+    template_name = 'print_label_produksi.html' #'print_barcode.html'
 
     def getURL(request):
         #bikin variabel buat simpen value dari url
@@ -41,7 +41,7 @@ class PrintBarcode(DetailView):
         context = {"part_number":barang}
         #return HttpResponse.("Berhasil %s" % barang)
         #kirim id ke print_barcode.html
-        return TemplateResponse(request, 'print_barcode.html', context)
+        return TemplateResponse(request, 'print_label_produksi.html', context)
 
 class RencanaKirimView(DetailView):
     model = RencanaKirim
