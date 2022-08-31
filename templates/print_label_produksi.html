@@ -35,19 +35,19 @@
     </head>
 {% block content %}
     <body>
-<div id="nyoba" class=" text-center">
-<div class="row mb-2 ">
+<div class="text-center">
+<div class="row mb-2">
         <div class="col-6">
-        <table>
+        <table class="table table-bordered border-dark table-sm">
             <tbody>
                 <tr>
-                    <td colspan="3">No. Form : F.PRO.45.REV.01</td>
-                    <td colspan="5">Tgl Efektif : 07 Agustus 2017</td>
+                    <td class="p-0" colspan="3"><small>No. Form : F.PRO.45.REV.01</small></td>
+                    <td class="p-0" colspan="5"><small>Tgl Efektif : 07 Agustus 2017</small></td>
                 </tr>
                 <tr>
-                    <td><img src='/asset/images/fln1.png'height="50" width="50"></td>
+                    <td><img src="{% static 'images/' %}fln1.png" height="50" width="50"></td>
                     <td class="text-center align-middle" colspan="4">LABEL PACKAGING</td>
-                    <td class="text-center align-middle" colspan="3" rowspan="3"><h2 class=" display-2">LH</h2></td>
+                    <td class="text-center align-middle p-0 display-2" colspan="3" rowspan="3">LH</td>
                 </tr>
                 <tr>
                     <td>Tgl Prod</td>
@@ -62,43 +62,43 @@
                     <td>HMMI</td>
                 </tr>
                 <tr>
-                    <td colspan="3">Part No</td>
-                    <td colspan="2">Part Name</td>
-                    <td class="text-center align-middle" colspan="3" rowspan="2"><h1 class="display-2">EB</h1></td>
+                    <td class="p-0" colspan="3">Part No</td>
+                    <td class="p-0" colspan="2">Part Name</td>
+                    <td class="p-0 display-2" colspan="3" rowspan="2">EB</td>
                 </tr>
                 <tr>
-                    <td class="text-center align-middle" colspan="3">HM01-GFQ0100-XL-B0</td>
+                    <td colspan="3">HM01-GFQ0100-XL-B0</td>
                     <td colspan="2">G. ASSY QUARTER FIXED</td>
                 </tr>
                 <tr>
                     <td>QTY</td>
                     <td>LEADER</td>
-                    <td>MANPOWER PORD</td>
-                    <td>MANPOWER QUALTY</td>
-                    <td colspan="3">BARCODE</td>
+                    <td>MANPOWER PROD</td>
+                    <td>MANPOWER QUALITY</td>
+                    <td colspan="3">QR Code</td>
                     
                 </tr>
-                <tr>
+                <tr class="align-middle p-0">
                     <td>50 PCS</td>
-                    <td>SAMSUL</td>
-                    <td>ARIP</td>
-                    <td>MAMAN</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     <td colspan="3"><img src="{% static 'images/' %}{{ part_number }}.jpg" height="50" width="50" ></td>
                 </tr>
             </tbody>
         </table>
 </div>
 <div class="col-6">
-    <table>
+    <table class="table table-bordered border-dark table-sm">
         <tbody>
             <tr>
-                <td colspan="3">No. Form : F.PRO.45.REV.01</td>
-                <td colspan="5">Tgl Efektif : 07 Agustus 2017</td>
+                <td class="p-0" colspan="3"><small>No. Form : F.PRO.45.REV.01</small></td>
+                <td class="p-0" colspan="5"><small>Tgl Efektif : 07 Agustus 2017</small></td>
             </tr>
             <tr>
-                <td><img src='/asset/images/fln1.png'height="50" width="50"></td>
+                <td><img src="{% static 'images/' %}fln1.png" height="50" width="50"></td>
                 <td class="text-center align-middle" colspan="4">LABEL PACKAGING</td>
-                <td class="text-center align-middle" colspan="3" rowspan="3"><h2 class=" display-2">LH</h2></td>
+                <td class="text-center align-middle p-0 display-2" colspan="3" rowspan="3">LH</td>
             </tr>
             <tr>
                 <td>Tgl Prod</td>
@@ -113,27 +113,27 @@
                 <td>HMMI</td>
             </tr>
             <tr>
-                <td colspan="3">Part No</td>
-                <td colspan="2">Part Name</td>
-                <td class="text-center align-middle" colspan="3" rowspan="2"><h1 class="display-2">EB</h1></td>
+                <td class="p-0" colspan="3">Part No</td>
+                <td class="p-0" colspan="2">Part Name</td>
+                <td class="p-0 display-2" colspan="3" rowspan="2">EB</td>
             </tr>
             <tr>
-                <td class="text-center align-middle" colspan="3">HM01-GFQ0100-XL-B0</td>
+                <td colspan="3">HM01-GFQ0100-XL-B0</td>
                 <td colspan="2">G. ASSY QUARTER FIXED</td>
             </tr>
             <tr>
                 <td>QTY</td>
                 <td>LEADER</td>
-                <td>MANPOWER PORD</td>
-                <td>MANPOWER QUALTY</td>
-                <td colspan="3">BARCODE</td>
+                <td>MANPOWER PROD</td>
+                <td>MANPOWER QUALITY</td>
+                <td colspan="3">QR Code</td>
                 
             </tr>
-            <tr>
+            <tr class="align-middle">
                 <td>50 PCS</td>
-                <td>SAMSUL</td>
-                <td>ARIP</td>
-                <td>MAMAN</td>
+                <td></td>
+                <td></td>
+                <td></td>
                 <td colspan="3"><img src="{% static 'images/' %}{{ part_number }}.jpg" height="50" width="50" ></td>
             </tr>
         </tbody>
@@ -147,16 +147,16 @@
 
 <div class="row mb-2  ">
     <div class="col-6">
-    <table>
+    <table class="table table-bordered border-dark table-sm">
         <tbody>
             <tr>
-                <td colspan="3">No. Form : F.PRO.45.REV.01</td>
-                <td colspan="5">Tgl Efektif : 07 Agustus 2017</td>
+                <td class="p-0" colspan="3"><small>No. Form : F.PRO.45.REV.01</small></td>
+                <td class="p-0" colspan="5"><small>Tgl Efektif : 07 Agustus 2017</small></td>
             </tr>
             <tr>
-                <td><img src='/asset/images/fln1.png'height="50" width="50"></td>
+                <td><img src="{% static 'images/' %}fln1.png" height="50" width="50"></td>
                 <td class="text-center align-middle" colspan="4">LABEL PACKAGING</td>
-                <td class="text-center align-middle" colspan="3" rowspan="3"><h2 class=" display-2">LH</h2></td>
+                <td class="text-center align-middle p-0 display-2" colspan="3" rowspan="3">LH</td>
             </tr>
             <tr>
                 <td>Tgl Prod</td>
@@ -171,27 +171,27 @@
                 <td>HMMI</td>
             </tr>
             <tr>
-                <td colspan="3">Part No</td>
-                <td colspan="2">Part Name</td>
-                <td class="text-center align-middle" colspan="3" rowspan="2"><h1 class="display-2">EB</h1></td>
+                <td class="p-0" colspan="3">Part No</td>
+                <td class="p-0" colspan="2">Part Name</td>
+                <td class="p-0 display-2" colspan="3" rowspan="2">EB</td>
             </tr>
             <tr>
-                <td class="text-center align-middle" colspan="3">HM01-GFQ0100-XL-B0</td>
+                <td colspan="3">HM01-GFQ0100-XL-B0</td>
                 <td colspan="2">G. ASSY QUARTER FIXED</td>
             </tr>
             <tr>
                 <td>QTY</td>
                 <td>LEADER</td>
-                <td>MANPOWER PORD</td>
-                <td>MANPOWER QUALTY</td>
-                <td colspan="3">BARCODE</td>
+                <td>MANPOWER PROD</td>
+                <td>MANPOWER QUALITY</td>
+                <td colspan="3">QR Code</td>
                 
             </tr>
-            <tr>
+            <tr class="align-middle">
                 <td>50 PCS</td>
-                <td>SAMSUL</td>
-                <td>ARIP</td>
-                <td>MAMAN</td>
+                <td></td>
+                <td></td>
+                <td></td>
                 <td colspan="3"><img src="{% static 'images/' %}{{ part_number }}.jpg" height="50" width="50" ></td>
             </tr>
         </tbody>
@@ -200,16 +200,16 @@
 
 </div>
 <div class="col-6">
-<table>
+<table class="table table-bordered border-dark table-sm">
     <tbody>
         <tr>
-            <td colspan="3">No. Form : F.PRO.45.REV.01</td>
-            <td colspan="5">Tgl Efektif : 07 Agustus 2017</td>
+            <td class="p-0" colspan="3"><small>No. Form : F.PRO.45.REV.01</small></td>
+            <td class="p-0" colspan="5"><small>Tgl Efektif : 07 Agustus 2017</small></td>
         </tr>
         <tr>
-            <td><img src='/asset/images/fln1.png'height="50" width="50"></td>
+            <td><img src="{% static 'images/' %}fln1.png" height="50" width="50"></td>
             <td class="text-center align-middle" colspan="4">LABEL PACKAGING</td>
-            <td class="text-center align-middle" colspan="3" rowspan="3"><h2 class=" display-2">LH</h2></td>
+            <td class="text-center align-middle p-0 display-2" colspan="3" rowspan="3">LH</td>
         </tr>
         <tr>
             <td>Tgl Prod</td>
@@ -224,27 +224,27 @@
             <td>HMMI</td>
         </tr>
         <tr>
-            <td colspan="3">Part No</td>
-            <td colspan="2">Part Name</td>
-            <td class="text-center align-middle" colspan="3" rowspan="2"><h1 class="display-2">EB</h1></td>
+            <td class="p-0" colspan="3">Part No</td>
+            <td class="p-0" colspan="2">Part Name</td>
+            <td class="p-0 display-2" colspan="3" rowspan="2">EB</td>
         </tr>
         <tr>
-            <td class="text-center align-middle" colspan="3">HM01-GFQ0100-XL-B0</td>
+            <td colspan="3">HM01-GFQ0100-XL-B0</td>
             <td colspan="2">G. ASSY QUARTER FIXED</td>
         </tr>
         <tr>
             <td>QTY</td>
             <td>LEADER</td>
-            <td>MANPOWER PORD</td>
-            <td>MANPOWER QUALTY</td>
-            <td colspan="3">BARCODE</td>
+            <td>MANPOWER PROD</td>
+            <td>MANPOWER QUALITY</td>
+            <td colspan="3">QR Code</td>
             
         </tr>
-        <tr>
+        <tr class="align-middle">
             <td>50 PCS</td>
-            <td>SAMSUL</td>
-            <td>ARIP</td>
-            <td>MAMAN</td>
+            <td></td>
+            <td></td>
+            <td></td>
             <td colspan="3"><img src="{% static 'images/' %}{{ part_number }}.jpg" height="50" width="50" ></td>
         </tr>
     </tbody>
