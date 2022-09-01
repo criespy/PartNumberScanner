@@ -38,8 +38,15 @@ class PrintBarcode(DetailView):
     def getURL(request):
         #bikin variabel buat simpen value dari url
         barang = request.GET.get('item')
-        context = {"part_number":barang}
-        #return HttpResponse.("Berhasil %s" % barang)
+        tanggal = request.GET.get('tanggal')
+        shift = request.GET.get('shift')
+
+        barang = barang.split("#")
+        part_number = barang[0]
+        part_description = barang[1]
+
+        context = {"part_number":part_number, "part_description":part_description, "tanggal":tanggal, "shift":shift}
+        #return HttpResponse("Berhasil %s" % tanggal)
         #kirim id ke print_barcode.html
         return TemplateResponse(request, 'print_label_produksi.html', context)
 
