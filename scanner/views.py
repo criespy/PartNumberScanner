@@ -46,7 +46,7 @@ class PrintBarcode(DetailView):
         part_number = barang[0]
         part_description = barang[1]
         tgl = tanggal.split("/")
-        lot_produksi = tgl[2]+"."+tgl[1]+"."+tgl[0]+"."+shift+"."+mesin
+        lot_produksi = tgl[0][2:4]+"."+tgl[1]+"."+tgl[2]+"."+shift+"."+mesin
 
         context = {"part_number":part_number, "part_description":part_description, "tanggal":tanggal, "shift":shift, "lot_produksi":lot_produksi}
         #return HttpResponse("Berhasil %s" % tanggal)
