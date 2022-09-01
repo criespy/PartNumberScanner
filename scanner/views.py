@@ -40,12 +40,15 @@ class PrintBarcode(DetailView):
         barang = request.GET.get('item')
         tanggal = request.GET.get('tanggal')
         shift = request.GET.get('shift')
+        mesin = request.GET.get('mesin')
 
         barang = barang.split("#")
         part_number = barang[0]
         part_description = barang[1]
+        tgl = tanggal.split("/")
+        lot_produksi = tgl[2]+"."+tgl[1]+"."+tgl[0]+"."+shift+"."+mesin
 
-        context = {"part_number":part_number, "part_description":part_description, "tanggal":tanggal, "shift":shift}
+        context = {"part_number":part_number, "part_description":part_description, "tanggal":tanggal, "shift":shift, "lot_produksi":lot_produksi}
         #return HttpResponse("Berhasil %s" % tanggal)
         #kirim id ke print_barcode.html
         return TemplateResponse(request, 'print_label_produksi.html', context)
