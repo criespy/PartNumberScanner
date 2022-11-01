@@ -6,7 +6,7 @@ from datetime import date
 from django.forms.models import inlineformset_factory
 
 BarangFormset = inlineformset_factory(
-    RencanaKirim, RencanaKirimDetail, fields=(['nomor_line','barang','qty']), extra=7, can_delete=False, widgets={
+    RencanaKirim, RencanaKirimDetail, fields=(['nomor_line','barang','qty']), extra=1, can_delete=True, widgets={
             'nomor_line' : forms.TextInput({'class':'form-control', 'size':'2','value':''}),
             'rencana_kirim' : forms.Select({'class':'form-control'}),
             'barang' : forms.Select({'class':'form-select'}),

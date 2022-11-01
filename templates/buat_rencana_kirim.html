@@ -63,16 +63,10 @@
 </html>
 <script type="text/javascript">
     $('.formset_row').formset({
+        addCssClass: 'btn btn-primary',
         addText: 'Tambah Line',
-        deleteText: 'hapus',
-        prefix: 'barang_set'
+        deleteCssClass: 'text-danger text-decoration-none',
+        deleteText: 'x',
+        prefix: 'rencanakirimdetails'
     });
-</script>
-<script>
-    var line = 0;
-    var nomorLine_id = "id_rencanakirimdetails-" + line + "-nomor_line"
-    function tambahNomorLine(){
-        document.getElementById
-        line = line + 1;
-    }
 </script>
