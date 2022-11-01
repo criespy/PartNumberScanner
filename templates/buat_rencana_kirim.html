@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,18 +20,54 @@
         </table>
         <h3>Daftar Barang</h3>
         <table class="table table-striped">
-        {{ konteks.as_table }}
+            {{ konteks.management_form }}
+
+            {% for form in konteks.forms %}
+                {% if forloop.first %}
+                    <thead>
+                        <tr> {% for field in form.visible_fields %}
+                            <th>{{ field.label|capfirst }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                {% endif %}
+                <tr class="{% cycle 'row1' 'row2' %} formset_row">
+                    {% for field in form.visible_fields %}
+                        <td>
+                            {% if forloop.first %}
+                                {% for hidden in form.hidden_fields %}
+                                    {{ hidden }}
+                                {% endfor %}
+                            {% endif %}
+                            {{ field.errors.as_ul }}
+                            {{ field }}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
         </table>
+        <!--table class="table table-striped">
+            {{ konteks.as_table }}
+        </table-->
         <input type="submit" value="Save" />
     </form>
     
 {% endblock content %}
 </div>
 </body>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="{% static 'js/jquery.formset.js' %}"></script>
     <script id="django-admin-form-add-constants" src="/static/admin/js/change_form.js" async=""></script>
     <script id="django-admin-prepopulated-fields-constants" src="/static/admin/js/prepopulate_init.js" data-prepopulated-fields="[]">
 </script>
 </html>
+<script type="text/javascript">
+    $('.formset_row').formset({
+        addText: 'Tambah Line',
+        deleteText: 'hapus',
+        prefix: 'barang_set'
+    });
+</script>
 <script>
     var line = 0;
     var nomorLine_id = "id_rencanakirimdetails-" + line + "-nomor_line"
