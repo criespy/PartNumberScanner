@@ -1,5 +1,4 @@
 from django.db import models
-from django.http import request, HttpRequest
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse, resolve
 
@@ -8,8 +7,9 @@ class Barang(models.Model):
     description = models.CharField(max_length=32)
     part_number_customer =  models.CharField(max_length=18)
     barcode = models.TextField()
-    color_code = models.CharField(max_length=2, null=True)
+    color_code = models.CharField(max_length=3, null=True)
     position_code = models.CharField(max_length=2, null=True)
+    qty_per_box = models.IntegerField(max_length=2, null=True)
 
     def __str__(self):
         return self.part_number + " == " + self.description
