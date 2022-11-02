@@ -24,6 +24,7 @@ class FormRencanaKirim(ModelForm):
         widgets = {
             'nomor_sj' : forms.TextInput({'class':'form-control', 'pattern':'[0-9]+'}),
             'tanggal' : forms.TextInput({'class':'form-control', 'value':date.today}),
+            'cycle' : forms.TextInput({'class':'form-control'}),
             'rencanakirimdetails-barang' : forms.Select({'class':'form-control'}),
         }
 

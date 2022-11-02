@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse, resolve
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 class Barang(models.Model):
     part_number = models.CharField(max_length=18)
@@ -17,6 +18,7 @@ class Barang(models.Model):
 class RencanaKirim(models.Model):
     nomor_sj = models.CharField(max_length=6, unique=True)
     tanggal = models.DateTimeField()
+    cycle = models.IntegerField(validators=[MaxValueValidator(20),MinValueValidator(1)])
     class Status(models.TextChoices):
         OPEN = 'Open',_('Open')
         SCANNED = 'Scanned',_('Scanned')
