@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <h1>List Rencana Kirim</h1>
+    <div>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <td>No</td>
+                    <td>Rencana Kirim</td>
+                    <td>Tanggal</td>
+                    <td>Edit?</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rk in object_list %}
+                    <tr>
+                        <td>{{ rk.id }}</td>
+                        <td>{{ rk.nomor_sj }}</td>
+                        <td>{{ rk.tanggal }}</td>
+                        <td><button type="button" class="btn btn-secondary">edit</button></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src="{% static 'js/jquery.formset.js' %}"></script>
+    <script id="django-admin-form-add-constants" src="/static/admin/js/change_form.js" async=""></script>
+<script type="text/javascript">
+    $('.formset_row').formset({
+        addCssClass: 'btn btn-primary',
+        addText: 'Tambah Line',
+        deleteCssClass: 'text-danger text-decoration-none',
+        deleteText: 'x',
+        prefix: 'rencanakirimdetails'
+    });
+</script>
+<script>
+      $( function() {
+        $( "#id_tanggal" ).datepicker({
+        dateFormat: 'yy-mm-dd',
+        });
+      } );
+</script>
+{% endblock content %}

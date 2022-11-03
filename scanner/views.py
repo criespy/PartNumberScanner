@@ -53,9 +53,9 @@ class PrintBarcode(DetailView):
         #kirim id ke print_barcode.html
         return TemplateResponse(request, 'print_label_produksi.html', context)
 
-class RencanaKirimView(DetailView):
+class RencanaKirimView(ListView):
     model = RencanaKirim
-    template_name = 'rencana_kirim.html'
+    template_name = 'view_rencana_kirim.html'
 
 class ScanBarcode(DetailView):
     model = RencanaKirim

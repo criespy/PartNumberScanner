@@ -11,5 +11,6 @@ urlpatterns = [
     path('buat_rencana_kirim', views.BuatRencanaKirim.as_view(), name='buat_rencana_kirim'),
     #path('buat_rencana_kirim_a', BuatRencanaKirim.FBuatRencanaKirim),
     path('buat_rencana_kirim_detail', views.BuatRencanaKirimDetail.as_view(), name='buat_rencana_kirim_detail'),
-    path('tambah_detail', BuatRencanaKirimDetail.tambah_detail)
+    path('tambah_detail', BuatRencanaKirimDetail.tambah_detail),
+    path('rencana_kirim', views.RencanaKirimView.as_view(), name='view_rencana_kirim'),
 ]
