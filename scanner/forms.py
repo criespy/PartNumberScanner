@@ -6,12 +6,12 @@ from datetime import date
 from django.forms.models import inlineformset_factory
 
 BarangFormset = inlineformset_factory(
-    RencanaKirim, RencanaKirimDetail, fields=(['nomor_line','barang','qty']), extra=1, can_delete=True, widgets={
-            'nomor_line' : forms.TextInput({'class':'form-control', 'size':'2','value':''}),
+    RencanaKirim, RencanaKirimDetail, fields=(['no_line','barang','qty']), extra=1, can_delete=True, widgets={
+            'no_line' : forms.TextInput({'class':'form-control', 'size':'1','value':''}),
             'rencana_kirim' : forms.Select({'class':'form-control'}),
-            'barang' : forms.Select({'class':'form-select'}),
+            'barang' : forms.Select({'class':'form-select', 'data-live-search':'true'}),
             'description' : forms.TextInput({'class':'form-control'}),
-            'qty' : forms.TextInput({'class':'form-control'}),
+            'qty' : forms.TextInput({'class':'form-control', 'size':'1'}),
         }
 )
 
@@ -24,17 +24,17 @@ class FormRencanaKirim(ModelForm):
         widgets = {
             'nomor_sj' : forms.TextInput({'class':'form-control', 'pattern':'[0-9]+'}),
             'tanggal' : forms.TextInput({'class':'form-control', 'value':date.today}),
-            'cycle' : forms.TextInput({'class':'form-control'}),
+            'cycle' : forms.TextInput({'class':'form-control', 'placeholder':'1-20'}),
             'rencanakirimdetails-barang' : forms.Select({'class':'form-control'}),
         }
 
 class FormRencanaKirimDetail(ModelForm):
     class Meta:
         model = RencanaKirimDetail
-        fields = ['nomor_line','barang','qty']
+        fields = ['no_line','barang','qty']
 
         widgets = {
-            'nomor_line' : forms.TextInput({'class':'form-control', 'size':'2','value':'1','disabled':'true'}),
+            'no_line' : forms.TextInput({'class':'form-control', 'size':'2','value':'1','disabled':'true'}),
             'rencana_kirim' : forms.Select({'class':'form-control'}),
             'barang' : forms.Select({'class':'form-control'}),
             'description' : forms.TextInput({'class':'form-control'}),
@@ -47,7 +47,7 @@ class FormRencanaKirimDetailUpdate(ModelForm):
         fields = '__all__'
 
         widgets = {
-            'nomor_line' : forms.TextInput({'class':'form-control', 'size':'2','value':'1','disabled':'true'}),
+            'no_line' : forms.TextInput({'class':'form-control', 'size':'2','value':'1','disabled':'true'}),
             'rencana_kirim' : forms.Select({'class':'form-control'}),
             'barang' : forms.Select({'class':'form-control'}),
             'description' : forms.TextInput({'class':'form-control'}),

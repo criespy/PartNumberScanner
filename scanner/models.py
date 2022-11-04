@@ -39,7 +39,7 @@ class RencanaKirim(models.Model):
 
 
 class RencanaKirimDetail(models.Model):
-    nomor_line = models.CharField(max_length=2)
+    no_line = models.CharField(max_length=2)
     rencana_kirim = models.ForeignKey(RencanaKirim, on_delete=models.CASCADE, related_name='rencanakirimdetails')
     barang= models.ForeignKey(Barang, on_delete=models.CASCADE, related_name='barangs')
     qty = models.CharField(max_length=2)
