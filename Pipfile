@@ -6,8 +6,7 @@ name = "pypi"
 [packages]
 django = "*"
 reportlab = "*"
-pyqrcode = "*"
-pypng = "*"
+qrcode = "*"
 
 [dev-packages]
 

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'scanner.apps.ScannerConfig', #new
     'myauth.apps.MyauthConfig',
     'widget_tweaks',
+    'qrgenerator.apps.QrgeneratorConfig',
 ]
 
 MIDDLEWARE = [
