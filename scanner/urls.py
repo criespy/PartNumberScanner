@@ -1,6 +1,6 @@
 from django.urls import path, re_path
 from . import views
-from .views import BuatRencanaKirim, BuatRencanaKirimDetail
+from .views import BuatRencanaKirim, BuatRencanaKirimDetail, BuatMasterBarang
 
 urlpatterns = [
     path('', views.HomePageView.as_view(), name='home'),
@@ -13,4 +13,6 @@ urlpatterns = [
     path('buat_rencana_kirim_detail', views.BuatRencanaKirimDetail.as_view(), name='buat_rencana_kirim_detail'),
     path('tambah_detail', BuatRencanaKirimDetail.tambah_detail),
     path('rencana_kirim', views.RencanaKirimView.as_view(), name='view_rencana_kirim'),
+    path('buat_master_barang', views.BuatMasterBarang.as_view(), name='buat_master_barang'),
+    path('list_barang', views.ListMasterBarang.as_view(), name='list_master_barang'),
 ]

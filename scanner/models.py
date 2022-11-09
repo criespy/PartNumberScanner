@@ -15,6 +15,9 @@ class Barang(models.Model):
     def __str__(self):
         return self.part_number + " == " + self.description
 
+    def get_absolute_url(self):
+        return reverse('list_barang')
+
 class RencanaKirim(models.Model):
     nomor_sj = models.CharField(max_length=6, unique=True)
     tanggal = models.DateTimeField()

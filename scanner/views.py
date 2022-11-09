@@ -5,7 +5,7 @@ from reportlab.pdfgen import canvas
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, DetailView, UpdateView, CreateView
 from .models import Barang, RencanaKirim, RencanaKirimDetail
-from .forms import BarangFormset, FormRencanaKirim, FormRencanaKirimDetail
+from .forms import BarangFormset, FormRencanaKirim, FormRencanaKirimDetail, FormMasterBarang
 from  django.contrib.auth.mixins import LoginRequiredMixin
 from django import forms
 from datetime import date
@@ -118,6 +118,15 @@ class BuatRencanaKirimDetail(CreateView):
 class BuatRencanaKirimB():
     def tambahRencanaKirim():
         return(render(request, 'buat_rencana_kirim_detail.html'))
+
+class BuatMasterBarang(CreateView):
+    model = Barang
+    template_name = 'buat_master_barang.html'
+    form_class = FormMasterBarang
+
+class ListMasterBarang(ListView):
+    model = Barang
+    template_name = 'master_barang.html'
 
 
 def bikinPDF(request):

@@ -1,7 +1,6 @@
 from django import forms
 from django.forms import ModelForm, fields, widgets, BaseInlineFormSet
 from scanner.models import *
-from django import forms
 from datetime import date
 from django.forms.models import inlineformset_factory
 
@@ -53,3 +52,20 @@ class FormRencanaKirimDetailUpdate(ModelForm):
             'description' : forms.TextInput({'class':'form-control'}),
             'qty' : forms.TextInput({'class':'form-control'}),
         }
+
+class FormMasterBarang(ModelForm):
+    class Meta:
+        model = Barang
+        fields = '__all__'
+        exclude = ['barcode']
+
+        widgets = {
+            'part_number': forms.TextInput({'class':'form-control'}),
+            'description': forms.TextInput({'class':'form-control'}),
+            'part_number_customer': forms.TextInput({'class':'form-control'}),
+            'color_code': forms.TextInput({'class':'form-control'}),
+            'position_code': forms.TextInput({'class':'form-control'}),
+            'qty_per_box': forms.TextInput({'class':'form-control'}),
+
+        }
+
