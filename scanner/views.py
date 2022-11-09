@@ -128,6 +128,11 @@ class ListMasterBarang(ListView):
     model = Barang
     template_name = 'master_barang.html'
 
+class EditMasterBarang(UpdateView):
+    model = Barang
+    template_name = 'update_master_barang.html'
+    form_class = FormMasterBarang
+
 
 def bikinPDF(request):
     # Create a file-like buffer to receive PDF data.

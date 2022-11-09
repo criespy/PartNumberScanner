@@ -14,5 +14,7 @@ urlpatterns = [
     path('tambah_detail', BuatRencanaKirimDetail.tambah_detail),
     path('rencana_kirim', views.RencanaKirimView.as_view(), name='view_rencana_kirim'),
     path('buat_master_barang', views.BuatMasterBarang.as_view(), name='buat_master_barang'),
-    path('list_barang', views.ListMasterBarang.as_view(), name='list_master_barang'),
+    path('list_barang', views.ListMasterBarang.as_view(), name='list_barang'),
+    path('edit_master_barang/<int:pk>', views.EditMasterBarang.as_view(), name='edit_master_barang'),
+    path('print_label_produksi', views.HomePageView.as_view(), name='print_label_produksi'),
 ]

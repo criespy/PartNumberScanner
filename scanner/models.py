@@ -8,8 +8,8 @@ class Barang(models.Model):
     description = models.CharField(max_length=32)
     part_number_customer =  models.CharField(max_length=18)
     barcode = models.TextField()
-    color_code = models.CharField(max_length=3, null=True)
-    position_code = models.CharField(max_length=6, null=True)
+    color_code = models.CharField(max_length=3, blank=True, null=True)
+    position_code = models.CharField(max_length=6, blank=True, null=True)
     qty_per_box = models.IntegerField(max_length=2, null=True)
 
     def __str__(self):
