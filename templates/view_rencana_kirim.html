@@ -11,6 +11,7 @@
                     <td>Rencana Kirim</td>
                     <td>Tanggal</td>
                     <td>Edit?</td>
+                    <td>Delivery?</td>
                 </tr>
             </thead>
             <tbody>
@@ -20,6 +21,7 @@
                         <td>{{ rk.nomor_sj }}</td>
                         <td>{{ rk.tanggal }}</td>
                         <td><button type="button" class="btn btn-secondary">edit</button></td>
+                        <td><a type="button" href="{% url 'delivery' %}{{ rk.id }}" class="btn btn-success">Delivery</a> </td>
                     </tr>
                 {% endfor %}
             </tbody>
