@@ -15,7 +15,7 @@
               <td>
                 <select name="item" id="barang" class="form-select">
                   {% for barang in object_list %}
-                  <option value="{{ barang.part_number }}#{{ barang.description }}">{{ barang.part_number }} == {{ barang.description }}</option>
+                  <option value="{{ barang.part_number }}#{{ barang.description }}#{{ barang.color_code }}#{{ barang.position_code }}#{{ barang.qty_per_box }}">{{ barang.part_number }} == {{ barang.description }} </option>
                   {% endfor %}
                 </select>
               </td>
