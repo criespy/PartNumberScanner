@@ -21,14 +21,16 @@
     <form>
       <table class="table table-striped">
         <tr>
-          <th class="">No.</th>
-          <th class="">Part Number</th>
-          <th class="">Part Number Cust.</th>
-          <th class="">Description</th>
-          <th class="">Box Qty</th>
-          <th class="">Scan FLN Part Number</th>
-          <th class="">Scan Cust. Part Number</th>
-          <th>Scan QTY</th>
+          <th>No.</th>
+          <th>Part Number</th>
+          <th>Part Number Cust.</th>
+          <th>Description</th>
+          <th>Pkg Qty</th>
+          <th>Qty Per Pkg</th>
+          <th>Scan FLN Part Number</th>
+          <th>Scan Cust. Part Number</th>
+          <th>Pkg Scan Qty</th>
+          <th>Prod Qty</th>
         </tr>
         {% for detail in object.rencanakirimdetails.all  %}
         <tr>
@@ -36,10 +38,12 @@
           <td id="part_number{{ detail.no_line }}" class="">{{ detail.barang.part_number }}</td>
           <td id="part_number_customer{{ detail.no_line }}" class="">{{ detail.barang.part_number_customer }}</td>
           <td class="">{{ detail.barang.description }}</td>
-          <td id='qty_box{{ detail.no_line }}' class="">{{ detail.qty }}</td>
+          <td id="qty_box{{ detail.no_line }}" class="">{{ detail.qty }}</td>
+          <td id="qty_per_box{{ detail.no_line }}" class="">{{ detail.barang.qty_per_box }}</td>
           <td class=""><input id='scan{{ detail.no_line }}' type="text" value="" autofocus maxlength="18" size="18" oninput="cekPartNumber()" class="form-control" ></td>
           <td class=""><input id='scanb{{ detail.no_line }}' type="text" value="" autofocus maxlength="33" size="14" oninput="cekPartNumberB()" class="form-control" ></td>
           <td id="qty_scanned{{ detail.no_line }}">0</td>
+          <td id="qty_prod{{ detail.no_line }}">0</td>
         </tr>
         {% endfor %}
       </table>
@@ -76,6 +80,9 @@
     var qty_box_id =  "qty_box" + line
     var scan_id =  "scan" + line
     var jumlahLine = document.getElementById("jumlahLine").innerHTML;
+    var qty_prod_scanned_id = "qty_prod" + line
+    var qty_per_box_id = "qty_per_box" + line
+    var qty_per_box = document.getElementById(qty_per_box_id).innerHTML;
 
     //ditambah 1 supaya berhenti setelah jumlah line terpenuhi
     jumlahLine = Number(jumlahLine) + 1;
@@ -84,7 +91,11 @@
 
     function tambahScanned(){
       scanned = scanned + 1;
+      //HM01-GFQ0100-XL-S0
+      alert(qty_per_box);
+      prod_scanned = scanned * qty_per_box;
       document.getElementById(qty_scanned_id).innerHTML = scanned;
+      document.getElementById(qty_prod_scanned_id).innerHTML = prod_scanned;
       //return scanned
     }
 
