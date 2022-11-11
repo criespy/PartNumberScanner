@@ -31,8 +31,12 @@
             <li class="nav-item">
               <a class="nav-link" href="#">Warehouse</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'view_rencana_kirim' %}">Delivery</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" href="#" data-bs-toggle="dropdown" aria-expanded="false">Delivery</a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <li><a class="dropdown-item" href="{% url 'buat_rencana_kirim' %}">Buat Rencana Kirim</a></li>
+                <li><a class="dropdown-item" href="{% url 'view_rencana_kirim' %}">Lihat Rencana Kirim</a></li>
+              </ul>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
