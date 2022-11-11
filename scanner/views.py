@@ -5,7 +5,7 @@ from reportlab.pdfgen import canvas
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, DetailView, UpdateView, CreateView
 from .models import Barang, RencanaKirim, RencanaKirimDetail
-from .forms import BarangFormset, FormRencanaKirim, FormRencanaKirimDetail, FormMasterBarang
+from .forms import BarangFormset, FormRencanaKirim, FormRencanaKirimDetail, FormMasterBarang, UpdateBarangFormset
 from  django.contrib.auth.mixins import LoginRequiredMixin
 from django import forms
 from datetime import date
@@ -71,14 +71,6 @@ class BuatRencanaKirim(CreateView):
     #diubah dengan settingan form di forms.py
     form_class = FormRencanaKirim
 
-    #def ini akan dihilangkan, hanya untuk test pembanding dengan class-based
-    #def FBuatRencanaKirim(request):
-    #    form = FormRencanaKirim
-    #    konteks = {
-    #        'form': form,
-    #    }
-    #    return render(request, 'buat_rencana_kirim.html', konteks)
-
     #buat tampilkan rencana kirim detail
     def get_context_data(self, **kwargs):
         form_class = FormRencanaKirimDetail
@@ -100,6 +92,33 @@ class BuatRencanaKirim(CreateView):
             konteks.instance = self.object
             konteks.save()
         return super().form_valid(form)
+
+class UpdateRencanaKirim(UpdateView):
+    model = RencanaKirim
+    template_name = 'update_rencana_kirim.html'
+    form_class = FormRencanaKirim
+
+    def get_context_data(self, **kwargs):
+        form_class = FormRencanaKirimDetail
+        detail = super(UpdateRencanaKirim, self).get_context_data(**kwargs)
+        detail['konteks'] = RencanaKirimDetail.objects.all()
+
+        if self.request.POST:
+            detail["konteks"] = UpdateBarangFormset(self.request.POST)
+        else:
+            detail["konteks"] = UpdateBarangFormset()
+
+        return detail
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        konteks = context["konteks"]
+        self.object = form.save()
+        if konteks.is_valid():
+            konteks.instance = self.object
+            konteks.save()
+        return super().form_valid(form)
+
 
 class BuatRencanaKirimDetail(CreateView):
     model = RencanaKirimDetail

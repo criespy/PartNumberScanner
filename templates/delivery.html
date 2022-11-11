@@ -25,12 +25,12 @@
           <th>Part Number</th>
           <th>Part Number Cust.</th>
           <th>Description</th>
-          <th>Pkg Qty</th>
+          <th>Prod Qty</th>
           <th>Qty Per Pkg</th>
           <th>Scan FLN Part Number</th>
           <th>Scan Cust. Part Number</th>
-          <th>Pkg Scan Qty</th>
-          <th>Prod Qty</th>
+          <th>Pkg Scanned</th>
+          <th>Prod Scanned</th>
         </tr>
         {% for detail in object.rencanakirimdetails.all  %}
         <tr>
@@ -91,8 +91,6 @@
 
     function tambahScanned(){
       scanned = scanned + 1;
-      //HM01-GFQ0100-XL-S0
-      alert(qty_per_box);
       prod_scanned = scanned * qty_per_box;
       document.getElementById(qty_scanned_id).innerHTML = scanned;
       document.getElementById(qty_prod_scanned_id).innerHTML = prod_scanned;
@@ -135,6 +133,7 @@
 
     }
 
+    //scan part number customer
     function cekPartNumberB(){
       //alert(part_number_id);
       var part_number_customer =  document.getElementById(part_number_customer_id).innerHTML;
@@ -145,14 +144,14 @@
       var inputed_length = document.getElementById(scanb_id).value.length;
       //hasil scan qr code hyundai ditrim menjadi part number saja
       if (inputed_length == 29){
-        part_number_scanb = trimPartNumber(part_number_scanb);
+          part_number_scanb = trimPartNumber(part_number_scanb);
       }
 
       //alert(part_number + " " + part_number_scan);
       //alert('part cust:'+ part_number_customer + ' scanb:' + part_number_scanb + ' input_length:' + inputed_length);
       if (part_number_customer == part_number_scanb && inputed_length == 29 ){
         tambahScanned();
-        if (scanned == qty_box){
+        if (scanned == qty_per_box){
           document.getElementById(scanb_id).disabled = true;
         //pakai timeout supaya scanner sempat ngetik
           setTimeout(gantiFokus, 1000);
@@ -162,7 +161,7 @@
           //kasih timeout supaya keliatan textnya
 
           //setTimeout(clearInput, 1000);
-          gantiFokusA();
+          setTimeout(gantiFokusA, 1000);
           //alert("belum penuh kuota");
         }
         document.getElementById(scan_id).classList.remove("is-invalid");
@@ -215,6 +214,7 @@
       qty_box_id =  "qty_box" + line;
       //scan_id =  "scan" + line;
       scanned = 0
+      qty_prod_scanned_id = "qty_prod" + line;
       //return [part_number_id, scan_id, qty_scanned_id, qty_box_id, scan_id];
     }
 

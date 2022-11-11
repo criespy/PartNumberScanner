@@ -14,11 +14,23 @@ BarangFormset = inlineformset_factory(
         }
 )
 
+UpdateBarangFormset = inlineformset_factory(
+    RencanaKirim, RencanaKirimDetail, fields=(['no_line','barang','qty']), extra=1, can_delete=True, widgets={
+            'no_line' : forms.TextInput({'class':'form-control', 'size':'1','value':''}),
+            'rencana_kirim' : forms.Select({'class':'form-control'}),
+            'barang' : forms.Select({'class':'form-select', 'data-live-search':'true'}),
+            'description' : forms.TextInput({'class':'form-control'}),
+            'qty' : forms.TextInput({'class':'form-control', 'size':'1'}),
+        }
+)
+
 class FormRencanaKirim(ModelForm):
+
     class Meta:
         model = RencanaKirim
         fields = '__all__'
         exclude = ['status']
+        labels = {'nomor_sj':'No. Rencana Kirim'}
 
         widgets = {
             'nomor_sj' : forms.TextInput({'class':'form-control', 'pattern':'[0-9]+'}),

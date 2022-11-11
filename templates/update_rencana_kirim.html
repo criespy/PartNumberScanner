@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <h1>Update Rencana Kirim</h1>
+    <form action="" method="post">{% csrf_token %}
+        <table class="table">
+        {{ form.as_table }}
+        </table>
+        <h3>Daftar Barang</h3>
+        <table class="table">
+            <tr>
+              <th>No. line</th>
+              <th>Barang</th>
+              <th>Qty</th>
+              <th>Delete</th>
+            </tr>
+            {% for detail in object.rencanakirimdetails.all  %}
+            <tr>
+              <td class="">{{ detail.no_line }}</td>
+              <td id="part_number{{ detail.no_line }}" class="">{{ detail.barang.part_number }} == {{ detail.barang.description }}</td>
+              <td id="qty_box{{ detail.no_line }}" class="">{{ detail.qty }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <table class="table table-striped">
+            {{ konteks.management_form }}
+
+            {% for form in konteks.forms %}
+                {% if forloop.first %}
+                    <thead>
+                        <tr> {% for field in form.visible_fields %}
+                            <th>{{ field.label|capfirst }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                {% endif %}
+                <tr class="{% cycle 'row1' 'row2' %} formset_row">
+                    {% for field in form.visible_fields %}
+                        <td>
+                            {% if forloop.first %}
+                                {% for hidden in form.hidden_fields %}
+                                    {{ hidden }}
+                                {% endfor %}
+                            {% endif %}
+                            {{ field.errors.as_ul }}
+                            {{ field }}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+
+        <!--table class="table table-striped">
+            {{ konteks.as_table }}
+        </table-->
+        <input type="submit" value="Save" class="btn btn-success" />
+    </form>
+</div>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src="{% static 'js/jquery.formset.js' %}"></script>
+    <script id="django-admin-form-add-constants" src="/static/admin/js/change_form.js" async=""></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css" integrity="sha512-ARJR74swou2y0Q2V9k0GbzQ/5vJ2RBSoCWokg4zkfM29Fb3vZEQyv0iWBMW/yvKgyHSR/7D64pFMmU8nYmbRkg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js" integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script type="text/javascript">
+    $('.formset_row').formset({
+        addCssClass: 'btn btn-primary',
+        addText: 'Tambah Line',
+        deleteCssClass: 'text-danger text-decoration-none',
+        deleteText: 'x',
+        prefix: 'rencanakirimdetails'
+    });
+</script>
+<script>
+      $( function() {
+        $( "#id_tanggal" ).datepicker({
+        dateFormat: 'yy-mm-dd',
+        });
+      } );
+</script>
+<script>
+    $(function() {
+      $('.selectpicker').selectpicker();
+    });
+</script>
+{% endblock content %}
