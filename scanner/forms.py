@@ -14,6 +14,7 @@ BarangFormset = inlineformset_factory(
         }
 )
 
+#Form yang dipakai Update Rencana Kirim
 UpdateBarangFormset = inlineformset_factory(
     RencanaKirim, RencanaKirimDetail, fields=(['no_line','barang','qty']), extra=1, can_delete=True, widgets={
             'no_line' : forms.TextInput({'class':'form-control', 'size':'1','value':''}),

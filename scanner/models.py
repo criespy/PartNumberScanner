@@ -53,3 +53,9 @@ class RencanaKirimDetail(models.Model):
 
     def get_absolute_url(self):
         return reverse('buat_rencana_kirim')
+
+class Pengiriman(models.Model):
+    no_pengiriman = models.IntegerField()
+    waktu_kirim = models.DateTimeField()
+    rencana_kirim = models.ForeignKey(RencanaKirim, on_delete=models.CASCADE)
+    

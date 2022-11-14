@@ -5,7 +5,7 @@ from reportlab.pdfgen import canvas
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, DetailView, UpdateView, CreateView
 from .models import Barang, RencanaKirim, RencanaKirimDetail
-from .forms import BarangFormset, FormRencanaKirim, FormRencanaKirimDetail, FormMasterBarang, UpdateBarangFormset
+from .forms import BarangFormset, FormRencanaKirim, FormRencanaKirimDetail, FormMasterBarang, UpdateBarangFormset, FormRencanaKirimDetailUpdate
 from  django.contrib.auth.mixins import LoginRequiredMixin
 from django import forms
 from datetime import date
@@ -13,7 +13,6 @@ from datetime import date
 
 class HomePageView(LoginRequiredMixin, ListView):
     login_url = 'auth/login/'
-    #redirect_field_name = 'redirect_to'
     model = Barang
     template_name = 'home.html'
 
@@ -28,12 +27,9 @@ class Delivery(UpdateView):
         detail['barang'] = RencanaKirimDetail.objects.all()
         return detail
 
-class DeliveryKosong(TemplateView):
-    template_name = 'delivery.html'
-
 class PrintBarcode(DetailView):
     model = Barang
-    template_name = 'print_label_produksi.html' #'print_barcode.html'
+    template_name = 'print_label_produksi.html'
 
     def getURL(request):
         #bikin variabel buat simpen value dari url
@@ -58,15 +54,13 @@ class PrintBarcode(DetailView):
 
 class RencanaKirimView(ListView):
     model = RencanaKirim
-    template_name = 'view_rencana_kirim.html'
-
-class ScanBarcode(DetailView):
-    model = RencanaKirim
-    template_name = 'scan_barcode.html'
+    template_name = 'rencanakirim_listview.html'
+    #paginate_by = 10
+    queryset = RencanaKirim.objects.filter(status='Open')
 
 class BuatRencanaKirim(CreateView):
     model = RencanaKirim
-    template_name = 'buat_rencana_kirim.html'
+    template_name = 'rencanakirim_createview.html'
     #fields = ['nomor_sj', 'tanggal']
     #diubah dengan settingan form di forms.py
     form_class = FormRencanaKirim
@@ -98,8 +92,12 @@ class UpdateRencanaKirim(UpdateView):
     template_name = 'update_rencana_kirim.html'
     form_class = FormRencanaKirim
 
-    def get_context_data(self, **kwargs):
-        form_class = FormRencanaKirimDetail
+    def get_queryset(self):
+        id = self.kwargs['pk']
+        return RencanaKirim.objects.filter(pk=id)
+
+    """def get_context_data(self, **kwargs):
+        form_class = FormRencanaKirimDetailUpdate
         detail = super(UpdateRencanaKirim, self).get_context_data(**kwargs)
         detail['konteks'] = RencanaKirimDetail.objects.all()
 
@@ -107,6 +105,18 @@ class UpdateRencanaKirim(UpdateView):
             detail["konteks"] = UpdateBarangFormset(self.request.POST)
         else:
             detail["konteks"] = UpdateBarangFormset()
+
+        return detail
+    """
+    def get_context_data(self, **kwargs):
+        detail = super(UpdateRencanaKirim, self).get_context_data(**kwargs)
+        if self.request.POST:
+            detail['form'] = FormRencanaKirim(self.request.POST, instance=self.object)
+            detail['konteks'] = UpdateBarangFormset(
+                self.request.POST, instance=self.object)
+        else:
+            detail['form'] = FormRencanaKirim(instance=self.object)
+            detail['konteks'] = UpdateBarangFormset(instance=self.object)
 
         return detail
 

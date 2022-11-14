@@ -8,21 +8,6 @@
         {{ form.as_table }}
         </table>
         <h3>Daftar Barang</h3>
-        <table class="table">
-            <tr>
-              <th>No. line</th>
-              <th>Barang</th>
-              <th>Qty</th>
-              <th>Delete</th>
-            </tr>
-            {% for detail in object.rencanakirimdetails.all  %}
-            <tr>
-              <td class="">{{ detail.no_line }}</td>
-              <td id="part_number{{ detail.no_line }}" class="">{{ detail.barang.part_number }} == {{ detail.barang.description }}</td>
-              <td id="qty_box{{ detail.no_line }}" class="">{{ detail.qty }}</td>
-            </tr>
-            {% endfor %}
-        </table>
         <table class="table table-striped">
             {{ konteks.management_form }}
 
