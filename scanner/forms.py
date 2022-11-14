@@ -36,7 +36,24 @@ class FormRencanaKirim(ModelForm):
         widgets = {
             'nomor_sj' : forms.TextInput({'class':'form-control', 'pattern':'[0-9]+'}),
             'tanggal' : forms.TextInput({'class':'form-control', 'value':date.today}),
-            'cycle' : forms.TextInput({'class':'form-control', 'placeholder':'1-20'}),
+            'jam' : forms.TextInput({'class':'form-control', 'placeholder':'Format: 07:30', 'maxlength':'5'}),
+            'cycle' : forms.NumberInput({'class':'form-control', 'placeholder':'1-20', 'maxlength':'2'}),
+            'rencanakirimdetails-barang' : forms.Select({'class':'form-control'}),
+        }
+
+class FormRencanaKirimUpdate(ModelForm):
+
+    class Meta:
+        model = RencanaKirim
+        fields = '__all__'
+        exclude = ['status']
+        labels = {'nomor_sj':'No. Rencana Kirim'}
+
+        widgets = {
+            'nomor_sj' : forms.TextInput({'class':'form-control', 'pattern':'[0-9]+', 'disabled':'disabled'}),
+            'tanggal' : forms.TextInput({'class':'form-control', 'value':date.today}),
+            'jam' : forms.TextInput({'class':'form-control', 'placeholder':'Format: 07:30', 'maxlength':'5'}),
+            'cycle' : forms.NumberInput({'class':'form-control', 'placeholder':'1-20', 'maxlength':'2'}),
             'rencanakirimdetails-barang' : forms.Select({'class':'form-control'}),
         }
 
@@ -70,15 +87,16 @@ class FormMasterBarang(ModelForm):
     class Meta:
         model = Barang
         fields = '__all__'
-        exclude = ['barcode']
+        labels = {'barcode':'QR Code File'}
+        #exclude = ['barcode']
 
         widgets = {
             'part_number': forms.TextInput({'class':'form-control'}),
             'description': forms.TextInput({'class':'form-control'}),
             'part_number_customer': forms.TextInput({'class':'form-control'}),
+            'barcode': forms.HiddenInput({'class':'form-control', 'hidden':'true'}),
             'color_code': forms.TextInput({'class':'form-control'}),
             'position_code': forms.TextInput({'class':'form-control'}),
             'qty_per_box': forms.TextInput({'class':'form-control'}),
-
         }
 

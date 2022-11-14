@@ -19,8 +19,9 @@ class Barang(models.Model):
         return reverse('list_barang')
 
 class RencanaKirim(models.Model):
-    nomor_sj = models.CharField(max_length=6, unique=True)
-    tanggal = models.DateTimeField()
+    nomor_sj = models.CharField(max_length=7, unique=True)
+    tanggal = models.DateField()
+    jam = models.TimeField(null=True, blank=True)
     cycle = models.IntegerField(validators=[MaxValueValidator(20),MinValueValidator(1)])
     class Status(models.TextChoices):
         OPEN = 'Open',_('Open')

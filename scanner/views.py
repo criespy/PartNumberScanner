@@ -5,7 +5,7 @@ from reportlab.pdfgen import canvas
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, DetailView, UpdateView, CreateView
 from .models import Barang, RencanaKirim, RencanaKirimDetail
-from .forms import BarangFormset, FormRencanaKirim, FormRencanaKirimDetail, FormMasterBarang, UpdateBarangFormset, FormRencanaKirimDetailUpdate
+from .forms import BarangFormset, FormRencanaKirim, FormRencanaKirimUpdate, FormRencanaKirimDetail, FormMasterBarang, UpdateBarangFormset, FormRencanaKirimDetailUpdate
 from  django.contrib.auth.mixins import LoginRequiredMixin
 from django import forms
 from datetime import date
@@ -89,33 +89,21 @@ class BuatRencanaKirim(CreateView):
 
 class UpdateRencanaKirim(UpdateView):
     model = RencanaKirim
-    template_name = 'update_rencana_kirim.html'
-    form_class = FormRencanaKirim
+    template_name = 'rencanakirim_updateview.html'
+    form_class = FormRencanaKirimUpdate
 
     def get_queryset(self):
         id = self.kwargs['pk']
         return RencanaKirim.objects.filter(pk=id)
 
-    """def get_context_data(self, **kwargs):
-        form_class = FormRencanaKirimDetailUpdate
-        detail = super(UpdateRencanaKirim, self).get_context_data(**kwargs)
-        detail['konteks'] = RencanaKirimDetail.objects.all()
-
-        if self.request.POST:
-            detail["konteks"] = UpdateBarangFormset(self.request.POST)
-        else:
-            detail["konteks"] = UpdateBarangFormset()
-
-        return detail
-    """
     def get_context_data(self, **kwargs):
         detail = super(UpdateRencanaKirim, self).get_context_data(**kwargs)
         if self.request.POST:
-            detail['form'] = FormRencanaKirim(self.request.POST, instance=self.object)
+            detail['form'] = FormRencanaKirimUpdate(self.request.POST, instance=self.object)
             detail['konteks'] = UpdateBarangFormset(
                 self.request.POST, instance=self.object)
         else:
-            detail['form'] = FormRencanaKirim(instance=self.object)
+            detail['form'] = FormRencanaKirimUpdate(instance=self.object)
             detail['konteks'] = UpdateBarangFormset(instance=self.object)
 
         return detail
@@ -158,11 +146,11 @@ class BuatMasterBarang(CreateView):
 
 class ListMasterBarang(ListView):
     model = Barang
-    template_name = 'master_barang.html'
+    template_name = 'barang_listview.html'
 
 class EditMasterBarang(UpdateView):
     model = Barang
-    template_name = 'update_master_barang.html'
+    template_name = 'barang_updateview.html'
     form_class = FormMasterBarang
 
 
