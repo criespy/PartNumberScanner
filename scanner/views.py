@@ -5,8 +5,9 @@ from reportlab.pdfgen import canvas
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, DetailView, UpdateView, CreateView
 from .models import Barang, RencanaKirim, RencanaKirimDetail
-from .forms import BarangFormset, FormRencanaKirim, FormRencanaKirimUpdate, FormRencanaKirimDetail, FormMasterBarang, UpdateBarangFormset, FormRencanaKirimDetailUpdate
+from .forms import BarangFormset, FormRencanaKirim, FormRencanaKirimUpdate, FormRencanaKirimDetail, FormMasterBarangUpdate, UpdateBarangFormset, FormRencanaKirimDetailUpdate, FormMasterBarangCreate
 from  django.contrib.auth.mixins import LoginRequiredMixin
+import qrcode
 from django import forms
 from datetime import date
 
@@ -16,7 +17,7 @@ class HomePageView(LoginRequiredMixin, ListView):
     model = Barang
     template_name = 'home.html'
 
-class Delivery(UpdateView):
+class Delivery(LoginRequiredMixin, UpdateView):
     model = RencanaKirim
     template_name = 'delivery.html'
     fields = ['nomor_sj', 'status']
@@ -27,7 +28,7 @@ class Delivery(UpdateView):
         detail['barang'] = RencanaKirimDetail.objects.all()
         return detail
 
-class PrintBarcode(DetailView):
+class PrintBarcode(LoginRequiredMixin, DetailView):
     model = Barang
     template_name = 'print_label_produksi.html'
 
@@ -52,13 +53,13 @@ class PrintBarcode(DetailView):
         #kirim id ke print_barcode.html
         return TemplateResponse(request, 'print_label_produksi.html', context)
 
-class RencanaKirimView(ListView):
+class RencanaKirimView(LoginRequiredMixin, ListView):
     model = RencanaKirim
     template_name = 'rencanakirim_listview.html'
     #paginate_by = 10
     queryset = RencanaKirim.objects.filter(status='Open')
 
-class BuatRencanaKirim(CreateView):
+class BuatRencanaKirim(LoginRequiredMixin, CreateView):
     model = RencanaKirim
     template_name = 'rencanakirim_createview.html'
     #fields = ['nomor_sj', 'tanggal']
@@ -87,7 +88,7 @@ class BuatRencanaKirim(CreateView):
             konteks.save()
         return super().form_valid(form)
 
-class UpdateRencanaKirim(UpdateView):
+class UpdateRencanaKirim(LoginRequiredMixin, UpdateView):
     model = RencanaKirim
     template_name = 'rencanakirim_updateview.html'
     form_class = FormRencanaKirimUpdate
@@ -139,19 +140,25 @@ class BuatRencanaKirimB():
     def tambahRencanaKirim():
         return(render(request, 'buat_rencana_kirim_detail.html'))
 
-class BuatMasterBarang(CreateView):
+class BuatMasterBarang(LoginRequiredMixin, CreateView):
     model = Barang
-    template_name = 'buat_master_barang.html'
-    form_class = FormMasterBarang
+    template_name = 'barang_createview.html'
+    form_class = FormMasterBarangCreate
 
-class ListMasterBarang(ListView):
+    def form_valid(self, form):
+        qrcode = form.cleaned_data['barcode']
+        form.valid_submission_callback(qrcode)
+        return super(BuatMasterBarang, self).form_valid(form)
+
+
+class ListMasterBarang(LoginRequiredMixin, ListView):
     model = Barang
     template_name = 'barang_listview.html'
 
-class EditMasterBarang(UpdateView):
+class UpdateMasterBarang(LoginRequiredMixin, UpdateView):
     model = Barang
     template_name = 'barang_updateview.html'
-    form_class = FormMasterBarang
+    form_class = FormMasterBarangUpdate
 
 
 def bikinPDF(request):
