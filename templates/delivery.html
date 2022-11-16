@@ -25,12 +25,12 @@
           <th>Part Number</th>
           <th>Part Number Cust.</th>
           <th>Description</th>
-          <th>Prod Qty</th>
-          <th>Qty Per Pkg</th>
+          <th>Plan Delivery (PCS)</th>
+          <th>Qty Per Box (PCS)</th>
           <th>Scan FLN Part Number</th>
-          <th>Scan Cust. Part Number</th>
-          <th>Pkg Scanned</th>
-          <th>Prod Scanned</th>
+          <th>Scan Customer Part Number</th>
+          <th>Box Scanned</th>
+          <th>PCS Scanned</th>
         </tr>
         {% for detail in object.rencanakirimdetails.all  %}
         <tr>
@@ -139,7 +139,7 @@
       var part_number_customer =  document.getElementById(part_number_customer_id).innerHTML;
       var part_number_scanb =  document.getElementById(scanb_id).value;
       var qty_scanned = document.getElementById(qty_scanned_id).innerHTML;
-      var qty_box = document.getElementById(qty_box_id).innerHTML;
+      var qty_box = document.getElementById(qty_box_id).innerHTML; //qty_box berubah menjadi qty PCS (Plan Delivery)
       var max_length = document.getElementById(scan_id).maxLength;
       var inputed_length = document.getElementById(scanb_id).value.length;
       //hasil scan qr code hyundai ditrim menjadi part number saja
@@ -151,7 +151,7 @@
       //alert('part cust:'+ part_number_customer + ' scanb:' + part_number_scanb + ' input_length:' + inputed_length);
       if (part_number_customer == part_number_scanb && inputed_length == 29 ){
         tambahScanned();
-        if (scanned == qty_per_box){
+        if (scanned * qty_per_box == qty_box){
           document.getElementById(scanb_id).disabled = true;
         //pakai timeout supaya scanner sempat ngetik
           setTimeout(gantiFokus, 1000);
