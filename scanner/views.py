@@ -146,7 +146,7 @@ class BuatMasterBarang(LoginRequiredMixin, CreateView):
     form_class = FormMasterBarangCreate
 
     def form_valid(self, form):
-        qrcode = form.cleaned_data['barcode']
+        qrcode = form.cleaned_data['part_number']
         form.valid_submission_callback(qrcode)
         return super(BuatMasterBarang, self).form_valid(form)
 

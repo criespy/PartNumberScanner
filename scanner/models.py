@@ -4,10 +4,10 @@ from django.urls import reverse, resolve
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 class Barang(models.Model):
-    part_number = models.CharField(max_length=18)
+    part_number = models.CharField(max_length=18, unique=True)
     description = models.CharField(max_length=32)
-    part_number_customer =  models.CharField(max_length=18)
-    barcode = models.TextField()
+    part_number_customer =  models.CharField(max_length=18, unique=True)
+    barcode = models.TextField(unique=True)
     color_code = models.CharField(max_length=3, blank=True, null=True)
     position_code = models.CharField(max_length=6, blank=True, null=True)
     qty_per_box = models.IntegerField(null=True)
@@ -38,7 +38,8 @@ class RencanaKirim(models.Model):
         #if(currenturl == [os.path.join(BASE_DIR, 'buat_rencana_kirim')]):
         #    return reverse('buat_rencana_kirim_detail', args=[str(self.id)])
         #else:
-            return reverse('delivery', args=[str(self.id)])
+            #return reverse('delivery', args=[str(self.id)])
+        return reverse('view_rencana_kirim')
 
 
 
