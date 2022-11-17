@@ -60,4 +60,5 @@ class Pengiriman(models.Model):
     no_pengiriman = models.IntegerField()
     waktu_kirim = models.DateTimeField()
     rencana_kirim = models.ForeignKey(RencanaKirim, on_delete=models.CASCADE)
+
     

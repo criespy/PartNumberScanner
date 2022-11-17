@@ -160,7 +160,6 @@ class UpdateMasterBarang(LoginRequiredMixin, UpdateView):
     template_name = 'barang_updateview.html'
     form_class = FormMasterBarangUpdate
 
-
 def bikinPDF(request):
     # Create a file-like buffer to receive PDF data.
     buffer = io.BytesIO()
