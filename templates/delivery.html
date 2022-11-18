@@ -143,13 +143,17 @@
       var max_length = document.getElementById(scan_id).maxLength;
       var inputed_length = document.getElementById(scanb_id).value.length;
       //hasil scan qr code hyundai ditrim menjadi part number saja
-      if (inputed_length == 29){
+      if (inputed_length > 30){
           part_number_scanb = trimPartNumber(part_number_scanb);
       }
 
       //alert(part_number + " " + part_number_scan);
       //alert('part cust:'+ part_number_customer + ' scanb:' + part_number_scanb + ' input_length:' + inputed_length);
-      if (part_number_customer == part_number_scanb && inputed_length == 29 ){
+      //part_number_customer dikurangi 1 digit di belakang
+      part_number_customer = part_number_customer.substr(0,13);
+      //alert('part cust:'+ part_number_customer + ' scanb:' + part_number_scanb + ' input_length:' + inputed_length);
+      
+      if (part_number_customer == part_number_scanb ){
         tambahScanned();
         if (scanned * qty_per_box == qty_box){
           document.getElementById(scanb_id).disabled = true;
@@ -244,9 +248,9 @@
 
     function trimPartNumber(part_number_scanb){
       //alert('trim dipanggil');
-      part_number_scanb = part_number_scanb.substr(4, 13);
+      part_number_scanb = part_number_scanb.substr(4, 12); //dikurangi dari 13 ke 12, kode warna 2 digit saja
       part_depan = part_number_scanb.substr(0, 5);
-      part_belakang = part_number_scanb.substr(5,13);
+      part_belakang = part_number_scanb.substr(5,12); //ikut jadi 12
       part_number_scanb = part_depan.concat("-" + part_belakang);
       //alert(part_number_scanb);
       document.getElementById(scanb_id).value = part_number_scanb;
