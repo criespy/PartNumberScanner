@@ -40,8 +40,8 @@
           <td class="">{{ detail.barang.description }}</td>
           <td id="qty_box{{ detail.no_line }}" class="">{{ detail.qty }}</td>
           <td id="qty_per_box{{ detail.no_line }}" class="">{{ detail.barang.qty_per_box }}</td>
-          <td class=""><input id='scan{{ detail.no_line }}' type="text" value="" autofocus maxlength="18" size="18" oninput="cekPartNumber()" class="form-control" ></td>
-          <td class=""><input id='scanb{{ detail.no_line }}' type="text" value="" autofocus maxlength="32" size="14" oninput="cekPartNumberB()" class="form-control" ></td>
+          <td class=""><input id='scan{{ detail.no_line }}' type="text" value="" autofocus maxlength="18" size="18" oninput="cekPartNumber()" class="form-control" disabled ></td>
+          <td class=""><input id='scanb{{ detail.no_line }}' type="text" value="" autofocus maxlength="32" size="14" oninput="cekPartNumberB()" class="form-control" disabled></td>
           <td id="qty_scanned{{ detail.no_line }}">0</td>
           <td id="qty_prod{{ detail.no_line }}">0</td>
         </tr>
@@ -86,11 +86,8 @@
 
     //ditambah 1 supaya berhenti setelah jumlah line terpenuhi
     jumlahLine = Number(jumlahLine) + 1;
-
-    //var element_id = gantiElementId();
-    //alert(scanb_id);
-    //readB = document.getElementById(scanb_id).oninput = function() {cekPartNumberB()};
-    //setTimeout(readB, 1000);
+    //aktivasi field pertama untuk scan
+    document.getElementById(scan_id).disabled = false;
 
     function tambahScanned(){
       scanned = scanned + 1;
@@ -116,6 +113,7 @@
       if (part_number == part_number_scan && max_length == inputed_length ){
         //tambahScanned();
         //alert(qty_scanned);
+        document.getElementById(scanb_id).disabled = false;
         gantiFokusB();
         //if (scanned == qty_box){
         //pakai timeout supaya scanner sempat ngetik
@@ -180,7 +178,6 @@
         //jadikan input box merah
         document.getElementById(scanb_id).classList.add("is-invalid");
       }
-
     }
     //fungsi ini untuk pindah ke line berikutnya
     function gantiFokus(){
@@ -189,6 +186,7 @@
       //alert("Scan = " + scan_id + " Qty box id = " + qty_box_id + " Qty scan = " + qty_scanned_id);
       //alert("Line= "+line+" Jumlah Line= "+jumlahLine);
       if (line < jumlahLine){
+        document.getElementById(scan_id).disabled = false;
         document.getElementById(scan_id).focus();
       } else {
         alert("Scan Complete!");
@@ -210,6 +208,7 @@
       document.getElementById(scanb_id).value = "";
       document.getElementById(scan_id).disabled = false;
       document.getElementById(scan_id).focus();
+      document.getElementById(scanb_id).disabled = true;
     }
 
     function gantiElementId(){
