@@ -12,7 +12,8 @@
                     <a href="{% url 'list_barang' %}"  class="btn btn-danger">Cancel</a>
                 </td>
                 <td id="genQR">
-                    <a href="#" id="buttonQR" class="btn btn-primary" onclick="tampilkanQR()">Show QR</a>
+                    <a href="#" id="buttonQR" class="btn btn-primary" onclick="tampilkanQR()">Tampilkan QR</a>
+                    <a href="#" id="buttonQR" class="btn btn-primary" onclick="buatQR()">Buat Ulang QR</a>
                 </td>
             </tr>
         </table>
@@ -29,13 +30,23 @@
         y = document.getElementById("buttonQR");
         y.remove();
     }
-    //tampilkanQR();
+    function buatQR(){
+        var source_qr = document.getElementById("id_part_number").value;
+        var qr_code_file = document.getElementById("id_barcode").value;
+        var path_qr = "/static/images/part_qrcodes/" + qr_code_file;
+        var x = document.createElement("img");
+
+        x.src = path_qr;
+        x.width = "50";
+
+        document.getElementById("id_barcode").value = source_qr + ".png"
+    }
 </script>
 <script src="https://cdn.jsdelivr.net/gh/AmagiTech/JSLoader/amagiloader.js"></script>
-<script>
+<!--script>
  AmagiLoader.show();
  setTimeout(() => {
     AmagiLoader.hide();
  }, 1000);
-</script>
+</script-->
 {% endblock content %}

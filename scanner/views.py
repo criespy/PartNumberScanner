@@ -160,6 +160,23 @@ class UpdateMasterBarang(LoginRequiredMixin, UpdateView):
     template_name = 'barang_updateview.html'
     form_class = FormMasterBarangUpdate
 
+    def form_valid(self, form):
+        qrcode = form.cleaned_data['part_number']
+        self.valid_submission_callback(qrcode)
+        return super(UpdateMasterBarang, self).form_valid(form)
+
+    def valid_submission_callback(self, data):
+        # send an email or other backend call back
+        input_data = data
+        qr = qrcode.QRCode(
+            version=1,
+            box_size=5,
+            border=2)
+        qr.add_data(input_data)
+        qr.make(fit=True)
+        img = qr.make_image(fill='black', back_color='white')
+        img.save('./scanner/static/images/part_qrcodes/' + data + '.png')
+
 def bikinPDF(request):
     # Create a file-like buffer to receive PDF data.
     buffer = io.BytesIO()

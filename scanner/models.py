@@ -7,7 +7,7 @@ class Barang(models.Model):
     part_number = models.CharField(max_length=18, unique=True)
     description = models.CharField(max_length=32)
     part_number_customer =  models.CharField(max_length=18, unique=True)
-    barcode = models.TextField(unique=True)
+    barcode = models.TextField(blank=True)
     color_code = models.CharField(max_length=3, blank=True, null=True)
     position_code = models.CharField(max_length=6, blank=True, null=True)
     qty_per_box = models.IntegerField(null=True)

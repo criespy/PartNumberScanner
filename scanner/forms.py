@@ -95,7 +95,7 @@ class FormMasterBarangUpdate(ModelForm):
             'part_number': forms.TextInput({'class':'form-control'}),
             'description': forms.TextInput({'class':'form-control'}),
             'part_number_customer': forms.TextInput({'class':'form-control'}),
-            'barcode': forms.HiddenInput({'class':'form-control', 'hidden':'true'}),
+            'barcode': forms.TextInput({'class':'form-control'}),
             'color_code': forms.TextInput({'class':'form-control'}),
             'position_code': forms.TextInput({'class':'form-control'}),
             'qty_per_box': forms.TextInput({'class':'form-control'}),

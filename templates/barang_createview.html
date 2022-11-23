@@ -12,14 +12,14 @@
                     <a href="{% url 'list_barang' %}"  class="btn btn-danger">Cancel</a>
                 </td>
                 <td id="genQR">
-                    <a href="#" id="buttonQR" class="btn btn-primary" onclick="tampilkanQR()">Generate QR</a>
+                    <a href="#" id="buttonQR" class="btn btn-primary" onclick="buatQR()">Generate QR</a>
                 </td>
             </tr>
         </table>
     </form>
 </div>
 <script type="text/javascript">
-    function tampilkanQR(){
+    function buatQR(){
         var source_qr = document.getElementById("id_part_number").value;
         var qr_code_file = document.getElementById("id_barcode").value;
         var path_qr = "/static/images/part_qrcodes/" + qr_code_file;
