@@ -8,6 +8,7 @@ from .models import Barang, RencanaKirim, RencanaKirimDetail
 from .forms import BarangFormset, FormRencanaKirim, FormRencanaKirimUpdate, FormRencanaKirimDetail, FormMasterBarangUpdate, UpdateBarangFormset, FormRencanaKirimDetailUpdate, FormMasterBarangCreate
 from  django.contrib.auth.mixins import LoginRequiredMixin
 import qrcode
+from django.templatetags.static import static
 from django import forms
 from datetime import date
 
@@ -175,7 +176,7 @@ class UpdateMasterBarang(LoginRequiredMixin, UpdateView):
         qr.add_data(input_data)
         qr.make(fit=True)
         img = qr.make_image(fill='black', back_color='white')
-        img.save('./scanner/static/images/part_qrcodes/' + data + '.png')
+        img.save('.'+static('/images/part_qrcodes/' + data + '.png'))
 
 def bikinPDF(request):
     # Create a file-like buffer to receive PDF data.
