@@ -117,15 +117,3 @@ class FormMasterBarangCreate(ModelForm):
             'position_code': forms.TextInput({'class':'form-control'}),
             'qty_per_box': forms.TextInput({'class':'form-control'}),
         }
-
-    def valid_submission_callback(self, data):
-            # send an email or other backend call back
-        input_data = data
-        qr = qrcode.QRCode(
-            version=1,
-            box_size=5,
-            border=2)
-        qr.add_data(input_data)
-        qr.make(fit=True)
-        img = qr.make_image(fill='black', back_color='white')
-        img.save('./scanner/static/images/part_qrcodes/'+data+'.png')

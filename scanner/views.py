@@ -9,6 +9,7 @@ from .forms import BarangFormset, FormRencanaKirim, FormRencanaKirimUpdate, Form
 from  django.contrib.auth.mixins import LoginRequiredMixin
 import qrcode
 from django.templatetags.static import static
+from pathlib import os
 from django import forms
 from datetime import date
 
@@ -148,9 +149,20 @@ class BuatMasterBarang(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         qrcode = form.cleaned_data['part_number']
-        form.valid_submission_callback(qrcode)
+        self.valid_submission_callback(qrcode)
         return super(BuatMasterBarang, self).form_valid(form)
 
+    def valid_submission_callback(self, data):
+        # send an email or other backend call back
+        input_data = data
+        qr = qrcode.QRCode(
+            version=1,
+            box_size=5,
+            border=2)
+        qr.add_data(input_data)
+        qr.make(fit=True)
+        img = qr.make_image(fill='black', back_color='white')
+        img.save('.'+static('/images/part_qrcodes/' + data + '.png'))
 
 class ListMasterBarang(LoginRequiredMixin, ListView):
     model = Barang
@@ -176,7 +188,10 @@ class UpdateMasterBarang(LoginRequiredMixin, UpdateView):
         qr.add_data(input_data)
         qr.make(fit=True)
         img = qr.make_image(fill='black', back_color='white')
-        img.save('.'+static('/images/part_qrcodes/' + data + '.png'))
+        imgfile = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'static/images/part_qrcodes/' + data + '.png')
+        img.save((imgfile))
+        #img.save('.'+static('/images/part_qrcodes/' + data + '.png'))
+
 
 def bikinPDF(request):
     # Create a file-like buffer to receive PDF data.
