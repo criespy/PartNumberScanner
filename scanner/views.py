@@ -161,8 +161,11 @@ class BuatMasterBarang(LoginRequiredMixin, CreateView):
             border=2)
         qr.add_data(input_data)
         qr.make(fit=True)
+        #img = qr.make_image(fill='black', back_color='white')
+        #img.save('.'+static('/images/part_qrcodes/' + data + '.png'))
         img = qr.make_image(fill='black', back_color='white')
-        img.save('.'+static('/images/part_qrcodes/' + data + '.png'))
+        imgfile = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'static/images/part_qrcodes/' + data + '.png')
+        img.save((imgfile))
 
 class ListMasterBarang(LoginRequiredMixin, ListView):
     model = Barang
