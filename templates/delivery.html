@@ -69,7 +69,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     -->
   <script>
-    //var scanned = tambahScanned();
+    //variable untuk menambahkan nomor id
     var line = 1;
     var scanned = 0;
     var part_number_id =  "part_number" + line
@@ -145,15 +145,36 @@
       var qty_box = document.getElementById(qty_box_id).innerHTML; //qty_box berubah menjadi qty PCS (Plan Delivery)
       var max_length = document.getElementById(scan_id).maxLength;
       var inputed_length = document.getElementById(scanb_id).value.length;
-      //hasil scan qr code hyundai ditrim menjadi part number saja
-      if (inputed_length > 30){
+      var pnc_length = part_number_customer.length;
+
+      if (pnc_length == 11){
+        if (inputed_length == 29){
           part_number_scanb = trimPartNumber(part_number_scanb);
+          part_number_scanb = part_number_scanb.substr(0,11);
+        }
+      } else if (pnc_length == 13 ) {
+        if (inputed_length == 31){
+          part_number_scanb = trimPartNumber(part_number_scanb);
+          part_number_scanb = part_number_scanb.substr(0,13);
+        }
+      } else if (pnc_length == 14) {
+        if (inputed_length == 32){
+          part_number_scanb = trimPartNumber(part_number_scanb);
+        }
+      } else {
+        alert("Panjang Part Number Customer Tidak Standar!")
       }
+      //hasil scan qr code hyundai ditrim menjadi part number saja
+      //if (inputed_length > 30){
+      //    part_number_scanb = trimPartNumber(part_number_scanb);
+      //}
 
       //alert(part_number + " " + part_number_scan);
       //alert('part cust:'+ part_number_customer + ' scanb:' + part_number_scanb + ' input_length:' + inputed_length);
       //part_number_customer dikurangi 1 digit di belakang
-      part_number_customer = part_number_customer.substr(0,13);
+      //part_number_customer = part_number_customer.substr(0,13);
+
+      
       if (part_number_customer == part_number_scanb ){
         //alert('part cust:'+ part_number_customer + ' scanb:' + part_number_scanb + ' input_length:' + inputed_length);
         tambahScanned();
@@ -251,9 +272,9 @@
 
     function trimPartNumber(part_number_scanb){
       //alert('trim dipanggil');
-      part_number_scanb = part_number_scanb.substr(4, 12); //dikurangi dari 13 ke 12, kode warna 2 digit saja
+      part_number_scanb = part_number_scanb.substr(4, 13); //dikurangi dari 13 ke 12, kode warna 2 digit saja
       part_depan = part_number_scanb.substr(0, 5);
-      part_belakang = part_number_scanb.substr(5,12); //ikut jadi 12
+      part_belakang = part_number_scanb.substr(5,13); //ikut jadi 12
       part_number_scanb = part_depan.concat("-" + part_belakang);
       //alert(part_number_scanb);
       //document.getElementById(scanb_id).value = "";

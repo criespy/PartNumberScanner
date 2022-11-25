@@ -79,4 +79,10 @@
       });
     });
 </script>
+<!--Fix select2 dengan jquery 3.6-->
+<script>
+     $(document).on('select2:open', () => {
+        document.querySelector('.select2-search__field').focus();
+      });
+</script>
 {% endblock content %}
