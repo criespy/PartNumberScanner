@@ -51,7 +51,7 @@ class FormRencanaKirimUpdate(ModelForm):
         labels = {'nomor_sj':'No. Rencana Kirim'}
 
         widgets = {
-            'nomor_sj' : forms.TextInput({'class':'form-control', 'pattern':'[0-9]+', 'disabled':'disabled'}),
+            'nomor_sj' : forms.TextInput({'class':'form-control', 'pattern':'[0-9]+', 'hidden':'true'}),
             'tanggal' : forms.TextInput({'class':'form-control', 'value':date.today}),
             'jam' : forms.TextInput({'class':'form-control', 'placeholder':'Format: 07:30', 'maxlength':'5'}),
             'cycle' : forms.NumberInput({'class':'form-control', 'placeholder':'1-20', 'maxlength':'2'}),
