@@ -6,12 +6,10 @@ from django.forms.models import inlineformset_factory
 import qrcode
 
 BarangFormset = inlineformset_factory(
-    RencanaKirim, RencanaKirimDetail, fields=(['no_line','barang','qty']), extra=1, can_delete=True, widgets={
+    RencanaKirim, RencanaKirimDetail, fields=(['no_line','barang','qty']), labels=({'no_line':'Nomor'}), extra=4, can_delete=True, widgets={
             'no_line' : forms.TextInput({'class':'form-control', 'size':'1','value':''}),
-            'rencana_kirim' : forms.Select({'class':'form-control'}),
-            'barang' : forms.Select({'class':'form-select', 'data-live-search':'true'}),
-            'description' : forms.TextInput({'class':'form-control'}),
-            'qty' : forms.TextInput({'class':'form-control', 'size':'1'}),
+            'barang' : forms.Select({'class':'select2 col-12', 'style':'width:850px'}),
+            'qty' : forms.TextInput({'class':'', 'size':'1'}),
         }
 )
 
@@ -62,6 +60,7 @@ class FormRencanaKirimDetail(ModelForm):
     class Meta:
         model = RencanaKirimDetail
         fields = ['no_line','barang','qty']
+        labels = {'no_line':'Nomor'}
 
         widgets = {
             'no_line' : forms.TextInput({'class':'form-control', 'size':'2','value':'1','disabled':'true'}),
