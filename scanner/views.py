@@ -59,7 +59,7 @@ class RencanaKirimView(LoginRequiredMixin, ListView):
     model = RencanaKirim
     template_name = 'rencanakirim_listview.html'
     #paginate_by = 10
-    queryset = RencanaKirim.objects.filter(status='Open')
+    queryset = RencanaKirim.objects.filter(tanggal=date.today())
 
 class BuatRencanaKirim(LoginRequiredMixin, CreateView):
     model = RencanaKirim

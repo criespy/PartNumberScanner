@@ -8,9 +8,10 @@
             <thead>
                 <tr>
                     <td>No</td>
-                    <td>Rencana Kirim</td>
-                    <td>Cycle</td>
+                    <!--td>Rencana Kirim</td-->
                     <td>Tanggal</td>
+                    <td>Cycle</td>
+                    <td>Status</td>
                     <td>Edit?</td>
                     <td>Delivery?</td>
                 </tr>
@@ -19,9 +20,10 @@
                 {% for rk in object_list %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
-                        <td>{{ rk.nomor_sj }}</td>
-                        <td>{{ rk.cycle }}</td>
+                        <!--td>{{ rk.nomor_sj }}</td-->
                         <td>{{ rk.tanggal }}</td>
+                        <td>{{ rk.cycle }}</td>
+                        <td>{{ rk.status }}</td>
                         <td><a type="button" href="{% url 'update_rencana_kirim' %}{{ rk.id }}" class="btn btn-secondary">edit</a></td>
                         <td><a type="button" href="{% url 'delivery' %}{{ rk.id }}" class="btn btn-success">Delivery</a> </td>
                     </tr>

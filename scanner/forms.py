@@ -29,7 +29,7 @@ class FormRencanaKirim(ModelForm):
     class Meta:
         model = RencanaKirim
         fields = '__all__'
-        exclude = ['status']
+        exclude = ['nomor_sj','status']
         labels = {'nomor_sj':'No. Rencana Kirim'}
 
         widgets = {
