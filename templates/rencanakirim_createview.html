@@ -49,13 +49,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css" integrity="sha512-ARJR74swou2y0Q2V9k0GbzQ/5vJ2RBSoCWokg4zkfM29Fb3vZEQyv0iWBMW/yvKgyHSR/7D64pFMmU8nYmbRkg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js" integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
+<script type="text/javascript">
+    function searchInSelect() {
+        $('.select2').select2({
+            theme: 'bootstrap-5',
+            allowClear: false,
+            placeholder: 'Pilih Barang',
+        });
+    }
+</script>
 <script type="text/javascript">
     $('.formset_row').formset({
         addCssClass: 'btn btn-primary',
-        addText: 'Tambah Line',
+        addText: 'Tambah Barang',
         deleteCssClass: 'text-danger text-decoration-none',
         deleteText: 'x',
-        prefix: 'rencanakirimdetails'
+        prefix: 'rencanakirimdetails',
+        //added: alert('dipencet!'),//searchInSelect(),
     });
 </script>
 <script>
@@ -70,15 +83,19 @@
       $('.selectpicker').selectpicker();
     });
 </script>
-<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 <script>
+    //tambahin select2 di form select
+    $(document).ready(searchInSelect());
+    //tambahin fungsi di button tambah barang
+    document.getElementById('tambah').setAttribute('onclick','searchInSelect()');
+</script>
+<!--script>
     $(document).ready(function() {
       $('.select2').select2({
         theme: 'bootstrap-5',
       });
     });
-</script>
+</script-->
 <!--Fix select2 dengan jquery 3.6-->
 <script>
      $(document).on('select2:open', () => {

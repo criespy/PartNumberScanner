@@ -7,9 +7,9 @@ import qrcode
 
 BarangFormset = inlineformset_factory(
     RencanaKirim, RencanaKirimDetail, fields=(['no_line','barang','qty']), labels=({'no_line':'Nomor'}), extra=4, can_delete=True, widgets={
-            'no_line' : forms.TextInput({'class':'form-control', 'size':'1','value':''}),
-            'barang' : forms.Select({'class':'select2 col-12', 'style':'width:850px'}),
-            'qty' : forms.TextInput({'class':'', 'size':'1'}),
+            'no_line' : forms.TextInput({'class':'form-control', 'size':'1','value':'', }),
+            'barang' : forms.Select({'class':'form-select select2 col-12', 'style':'width:850px', 'placeholder':'Pilih Barang'}),
+            'qty' : forms.TextInput({'class':'form-control', 'size':'1', }),
         }
 )
 
