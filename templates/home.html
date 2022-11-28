@@ -3,52 +3,48 @@
 <!doctype html>
 
 {% block content %}
-<div class="container" xmlns="http://www.w3.org/1999/html">
+<div class="container" >
+  <div class="row">
+    <div class="col-8">
       <h1>Print Label Produksi</h1>
-      <form action="print_barcode" target="_blank" autocomplete="off">
-        <table class="table">
-          <tbody>
-            <tr>
-              <th>
-                <label for="barang">Part Number</label>
-              </th>
-              <td>
-                <select name="item" id="barang" class="form-select">
-                  {% for barang in object_list %}
-                  <option value="{{ barang.part_number }}#{{ barang.description }}#{{ barang.color_code }}#{{ barang.position_code }}#{{ barang.qty_per_box }}">{{ barang.part_number }} == {{ barang.description }} </option>
-                  {% endfor %}
-                </select>
-              </td>
-            </tr>
-
-            <tr>
-              <th>
-                <label for="tanggal_produksi">Tanggal Produksi</label>
-              </th>
-              <td>
-                <input type="text" class="form-control" name="tanggal" id="datepicker" placeholder="TANGGAL">
-              </td>
-            </tr>
-
-            <tr>
-              <th>
-                <label for="shift">Shift</label>
-              </th>
-              <td>
-                <select name="shift" id="shift" class="form-select">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                </select>
-              </td>
-            </tr>
-
-            <tr>
-              <th>
-                <label for="mesin">Mesin</label>
-              </th>
-              <td>
-                <select name="mesin" id="mesin" class="form-select">
+    </div>
+  </div>
+  <form action="print_barcode" target="_blank" autocomplete="off">
+  <div class="row mb-3 align-items-center">
+    <div class="col-2">
+      <label for="barang">Part Number</label>
+    </div>
+    <div class="col-6">
+      <select name="item" id="barang" class="form-select">
+        {% for barang in object_list %}
+        <option value="{{ barang.part_number }}#{{ barang.description }}#{{ barang.color_code }}#{{ barang.position_code }}#{{ barang.qty_per_box }}">{{ barang.part_number }} == {{ barang.description }} </option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+  <div class="row mb-3 align-items-center">
+    <div class="col-2">
+      <label for="tanggal_produksi">Tanggal Produksi</label>
+    </div>
+    <div class="col-6">
+      <input type="text" class="form-control" name="tanggal" id="datepicker" placeholder="YYYY/MM/DD" required />
+    </div>
+  </div>
+  <div class="row mb-3 align-items-center">
+    <div class="col-2">
+      <label for="shift">Shift</label>
+    </div>
+    <div class="col-6">
+        <input name="shift" id="shift" type="number" placeholder="1/2/3" class="form-control" required />
+    </div>
+  </div>
+  <div class="row mb-3 align-items-center">
+    <div class="col-2">
+      <label for="mesin">No. Mesin</label>
+    </div>
+    <div class="col-6">
+        <input name="mesin" id="mesin" type="number" class="form-control" required />
+      <!--select name="mesin" id="mesin" class="form-select">
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -81,20 +77,18 @@
                   <option value="30">30</option>
                   <option value="31">31</option>
                   <option value="32">32</option>
-                </select>
-              </td>
-            </tr>
-
-            <tr>
-              <th></th>
-              <td>
-                <input type="submit" value="Print" class="btn btn-success">
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </form>
+        </select-->
     </div>
+  </div>
+  <div class="row">
+    <div class="col-2">
+
+    </div>
+    <div class="col-6">
+      <input type="submit" value="Print" class="btn btn-success">
+    </div>
+  </div>
+</div>
 
 
     <!-- Optional JavaScript; choose one of the two! -->
@@ -125,6 +119,12 @@
           });
         });
 	</script>
+    <!--Fix select2 dengan jquery 3.6-->
+    <script>
+         $(document).on('select2:open', () => {
+            document.querySelector('.select2-search__field').focus();
+          });
+    </script>
 
 
     <!-- Option 2: Separate Popper and Bootstrap JS -->
