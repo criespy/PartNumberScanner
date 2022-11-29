@@ -8,18 +8,16 @@ import qrcode
 BarangFormset = inlineformset_factory(
     RencanaKirim, RencanaKirimDetail, fields=(['no_line','barang','qty']), labels=({'no_line':'Nomor'}), extra=4, can_delete=True, widgets={
             'no_line' : forms.TextInput({'class':'form-control', 'size':'1','value':'', }),
-            'barang' : forms.Select({'class':'form-select select2 col-12', 'style':'width:850px', 'placeholder':'Pilih Barang'}),
+            'barang' : forms.Select({'class':'form-select select2 col-12', 'style':'width:850px'}),
             'qty' : forms.TextInput({'class':'form-control', 'size':'1', }),
         }
 )
 
 #Form yang dipakai Update Rencana Kirim
 UpdateBarangFormset = inlineformset_factory(
-    RencanaKirim, RencanaKirimDetail, fields=(['no_line','barang','qty']), extra=1, can_delete=True, widgets={
+    RencanaKirim, RencanaKirimDetail, fields=(['no_line','barang','qty']), labels=({'no_line':'Nomor'}), extra=1, can_delete=True, widgets={
             'no_line' : forms.TextInput({'class':'form-control', 'size':'1','value':''}),
-            'rencana_kirim' : forms.Select({'class':'form-control'}),
-            'barang' : forms.Select({'class':'form-select', 'data-live-search':'true'}),
-            'description' : forms.TextInput({'class':'form-control'}),
+            'barang' : forms.Select({'class':'form-select select2 col-12', 'style':'width:850px'}),
             'qty' : forms.TextInput({'class':'form-control', 'size':'1'}),
         }
 )
@@ -45,7 +43,7 @@ class FormRencanaKirimUpdate(ModelForm):
     class Meta:
         model = RencanaKirim
         fields = '__all__'
-        exclude = ['status']
+        exclude = ['nomor_sj','status']
         labels = {'nomor_sj':'No. Rencana Kirim'}
 
         widgets = {
