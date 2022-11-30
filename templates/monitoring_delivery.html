@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="col-10">
+        <h1>Monitoring Delivery</h1>
+        {% for bt in barangterpilih %}
+            {{ bt.part_number }}
+        {% endfor %}
+        {{ c1 }}
+    </div>
+    <div class="col-2">
+        Tanggal: {{ tanggal }}
+    </div>
+</div>
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th rowspan="2" class="align-middle">No</th>
+        <th rowspan="2" class="align-middle">Part No. Customer</th>
+        <th rowspan="2" class="align-middle">Part No. FLN</th>
+        <th rowspan="2" class="align-middle">Part Name</th>
+        <th colspan="11" class="text-center">Planning Delivery</th>
+        <th colspan="11" class="text-center">Actual Delivery</th>
+    </tr>
+    <tr>
+        {% for cycle in cycles %}
+            <th>C{{ cycle }}</th>
+        {% endfor %}
+        <th>Total</th>
+        {% for cycle in cycles %}
+            <th>C{{ cycle }}</th>
+        {% endfor %}
+        <th>Total</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for barang in barangs %}
+        <tr>
+            <td>{{ forloop.counter}}</td>
+            <td>{{ barang.part_number_customer }}</td>
+            <td>{{ barang.part_number }}</td>
+            <td>{{ barang.description }}</td>
+        {% endfor %}
+        {% for rkd in c1 %}
+            <td>{{ rkd.RencanaKirimDetail.qty }}</td>
+            <td></td>
+        {% endfor %}
+        </tr>
+
+    </tbody>
+</table>
+{% endblock content %}

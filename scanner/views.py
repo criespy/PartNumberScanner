@@ -11,7 +11,7 @@ import qrcode
 from django.templatetags.static import static
 from pathlib import os
 from django import forms
-from datetime import date
+from datetime import date, timedelta
 
 
 class HomePageView(LoginRequiredMixin, ListView):
@@ -59,7 +59,7 @@ class RencanaKirimView(LoginRequiredMixin, ListView):
     model = RencanaKirim
     template_name = 'rencanakirim_listview.html'
     #paginate_by = 10
-    queryset = RencanaKirim.objects.filter(tanggal=date.today())
+    queryset = RencanaKirim.objects.filter(status='Open')
 
 class BuatRencanaKirim(LoginRequiredMixin, CreateView):
     model = RencanaKirim
@@ -120,7 +120,6 @@ class UpdateRencanaKirim(LoginRequiredMixin, UpdateView):
             konteks.save()
         return super().form_valid(form)
 
-
 class BuatRencanaKirimDetail(CreateView):
     model = RencanaKirimDetail
     template_name = 'buat_rencana_kirim_detail.html'
@@ -137,10 +136,6 @@ class BuatRencanaKirimDetail(CreateView):
             else:
                 
                 return(render(request, 'buat_rencana_kirim_detail.html'))
-
-class BuatRencanaKirimB():
-    def tambahRencanaKirim():
-        return(render(request, 'buat_rencana_kirim_detail.html'))
 
 class BuatMasterBarang(LoginRequiredMixin, CreateView):
     model = Barang
@@ -194,6 +189,32 @@ class UpdateMasterBarang(LoginRequiredMixin, UpdateView):
         imgfile = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'static/images/part_qrcodes/' + data + '.png')
         img.save((imgfile))
         #img.save('.'+static('/images/part_qrcodes/' + data + '.png'))
+
+class MonitoringDelivery(LoginRequiredMixin, TemplateView):
+    template_name = "monitoring_delivery.html"
+
+    def jumlahCycle(self):
+        cycle = []
+        for i in range(10):
+            cycle.append(i+1)
+        return cycle
+
+    def barangDipilih(self):
+        barang = Barang.objects.filter(part_number='HM01-GFQ0100-XL-S0')
+        return barang
+
+    def hitungC1(self):
+        q = RencanaKirim.objects.filter(tanggal='2022-11-28')
+        return q
+
+    def get_context_data(self, **kwargs):
+        context = super(MonitoringDelivery, self).get_context_data(**kwargs)
+        context['cycles'] = self.jumlahCycle()
+        context['barangs'] = Barang.objects.all()
+        context['tanggal'] = date.today() - timedelta(days=1)
+        context['barangterpilih'] = self.barangDipilih()
+        context['c1'] = self.hitungC1()
+        return context
 
 
 def bikinPDF(request):
