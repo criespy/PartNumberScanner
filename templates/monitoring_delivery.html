@@ -7,7 +7,7 @@
         {% for bt in barangterpilih %}
             {{ bt.part_number }}
         {% endfor %}
-        {{ c1 }}
+        {{ rkd }}
     </div>
     <div class="col-2">
         Tanggal: {{ tanggal }}
@@ -42,8 +42,8 @@
             <td>{{ barang.part_number }}</td>
             <td>{{ barang.description }}</td>
         {% endfor %}
-        {% for rkd in c1 %}
-            <td>{{ rkd.RencanaKirimDetail.qty }}</td>
+        {% for r in rkd %}
+            <td>{{ r.barang.part_number_customer }}</td>
             <td></td>
         {% endfor %}
         </tr>

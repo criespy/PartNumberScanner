@@ -17,7 +17,7 @@
   </table>
 
   <div>
-    <div id="jumlahLine" hidden>{{ object.rencanakirimdetails.all|length  }}</div>
+    <div id="jumlahLine" hidden>{{ object.rencanakirim.all|length  }}</div>
     <form>
       <table class="table table-striped">
         <tr>
@@ -32,7 +32,7 @@
           <th>Box Scanned</th>
           <th>PCS Scanned</th>
         </tr>
-        {% for detail in object.rencanakirimdetails.all  %}
+        {% for detail in object.rencanakirim.all  %}
         <tr>
           <td class="">{{ detail.no_line }}</td>
           <td id="part_number{{ detail.no_line }}" class="">{{ detail.barang.part_number }}</td>
@@ -49,7 +49,7 @@
       </table>
     </form>
     <div>
-      <form id="update" action="" method="post" hidden>{% csrf_token %}
+      <form id="update" action="" method="post" >{% csrf_token %}
         {{ form.as_table }}
         <input type="submit">
       </form>

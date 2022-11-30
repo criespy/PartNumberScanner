@@ -203,8 +203,8 @@ class MonitoringDelivery(LoginRequiredMixin, TemplateView):
         barang = Barang.objects.filter(part_number='HM01-GFQ0100-XL-S0')
         return barang
 
-    def hitungC1(self):
-        q = RencanaKirim.objects.filter(tanggal='2022-11-28')
+    def groupingCycle(self):
+        q = RencanaKirimDetail.objects.filter(rencana_kirim__cycle='1')# tanggal='2022-11-28')
         return q
 
     def get_context_data(self, **kwargs):
@@ -213,7 +213,7 @@ class MonitoringDelivery(LoginRequiredMixin, TemplateView):
         context['barangs'] = Barang.objects.all()
         context['tanggal'] = date.today() - timedelta(days=1)
         context['barangterpilih'] = self.barangDipilih()
-        context['c1'] = self.hitungC1()
+        context['rkd'] = self.groupingCycle()
         return context
 
 
