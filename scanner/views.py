@@ -22,7 +22,7 @@ class HomePageView(LoginRequiredMixin, ListView):
 class Delivery(LoginRequiredMixin, UpdateView):
     model = RencanaKirim
     template_name = 'delivery.html'
-    fields = ['nomor_sj', 'status']
+    fields = ['status']
 
     #untuk menampilkan item barang di admin backend
     def get_context_data(self, **kwargs):

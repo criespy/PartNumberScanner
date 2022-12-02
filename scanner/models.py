@@ -4,7 +4,7 @@ from django.urls import reverse, resolve
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 class Barang(models.Model):
-    part_number = models.CharField(max_length=18, unique=True)
+    part_number = models.CharField(max_length=18)
     description = models.CharField(max_length=32)
     part_number_customer =  models.CharField(max_length=18, unique=True)
     barcode = models.TextField(blank=True)
@@ -51,7 +51,7 @@ class RencanaKirimDetail(models.Model):
     #qty_per_pkg = models.IntegerField()
 
     def __str__(self):
-        return self.rencana_kirim.nomor_sj
+        return str(self.no_line) + "-" + str(self.rencana_kirim)
 
     def get_absolute_url(self):
         return reverse('buat_rencana_kirim')
