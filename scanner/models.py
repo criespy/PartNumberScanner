@@ -19,7 +19,7 @@ class Barang(models.Model):
         return reverse('list_barang')
 
 class RencanaKirim(models.Model):
-    nomor_sj = models.CharField(max_length=7)
+    #nomor_sj = models.CharField(max_length=7)
     tanggal = models.DateField()
     jam = models.TimeField(null=True, blank=True)
     cycle = models.IntegerField(validators=[MaxValueValidator(20),MinValueValidator(1)])
