@@ -223,6 +223,10 @@
                 if (!showAddButton()) buttonRow.hide();
                 // If a post-add callback was supplied, call it with the added form:
                 if (options.added) options.added(row);
+                //tambah fungsi untuk focus untuk operasional dengan keyboard
+                document.getElementById("id_" +  options.prefix + "-" + formCount.toString() + "-no_line").focus();
+                //alert("id_" + options.prefix + formCount.toString() + "-no_line");
+
                 return false;
             });
         }
