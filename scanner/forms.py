@@ -85,7 +85,7 @@ class FormMasterBarangUpdate(ModelForm):
     class Meta:
         model = Barang
         fields = '__all__'
-        labels = {'barcode':'QR Code File'}
+        labels = {'barcode':'QR Code File', 'color_code':'Parent Code', 'position_code':'Child Code'}
         #exclude = ['barcode']
 
         widgets = {
@@ -102,7 +102,7 @@ class FormMasterBarangCreate(ModelForm):
     class Meta:
         model = Barang
         fields = '__all__'
-        labels = {'barcode':'QR Code File'}
+        labels = {'barcode':'QR Code File', 'color_code':'Parent Code', 'position_code':'Child Code'}
         #exclude = ['barcode']
 
         widgets = {
