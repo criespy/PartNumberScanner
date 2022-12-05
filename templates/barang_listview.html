@@ -31,8 +31,8 @@
                         <td>{{ barang.description }}</td>
                         <td>{{ barang.part_number_customer }}</td>
                         <td><img src="{% static 'images/part_qrcodes/' %}{{ barang.barcode }}" width="50" height="50"></td>
-                        <td>{{ barang.color_code }}</td>
                         <td>{{ barang.position_code }}</td>
+                        <td>{{ barang.color_code }}</td>
                         <td>{{ barang.qty_per_box }}</td>
                         <td><a href="{% url 'edit_master_barang' barang.pk %}" type="button" class="btn btn-secondary">edit</a></td>
                     </tr>

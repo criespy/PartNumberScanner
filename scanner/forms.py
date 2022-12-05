@@ -84,8 +84,8 @@ class FormRencanaKirimDetailUpdate(ModelForm):
 class FormMasterBarangUpdate(ModelForm):
     class Meta:
         model = Barang
-        fields = '__all__'
-        labels = {'barcode':'QR Code File', 'color_code':'Parent Code', 'position_code':'Child Code'}
+        fields = ['part_number', 'description', 'part_number_customer', 'barcode', 'position_code', 'color_code', 'qty_per_box']
+        labels = {'barcode':'QR Code File', 'color_code':'Child Code', 'position_code':'Parent Code'}
         #exclude = ['barcode']
 
         widgets = {
@@ -101,8 +101,8 @@ class FormMasterBarangUpdate(ModelForm):
 class FormMasterBarangCreate(ModelForm):
     class Meta:
         model = Barang
-        fields = '__all__'
-        labels = {'barcode':'QR Code File', 'color_code':'Parent Code', 'position_code':'Child Code'}
+        fields = ['part_number', 'description', 'part_number_customer', 'barcode', 'position_code', 'color_code', 'qty_per_box']
+        labels = {'barcode':'QR Code File', 'color_code':'Child Code', 'position_code':'Parent Code'}
         #exclude = ['barcode']
 
         widgets = {
