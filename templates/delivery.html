@@ -95,6 +95,7 @@
       document.getElementById(qty_scanned_id).innerHTML = scanned;
       document.getElementById(qty_prod_scanned_id).innerHTML = prod_scanned;
       //return scanned
+      //alert("qty per box:"+qty_per_box);
     }
 
     function cekPartNumber(){
@@ -146,7 +147,8 @@
       var max_length = document.getElementById(scan_id).maxLength;
       var inputed_length = document.getElementById(scanb_id).value.length;
       var pnc_length = part_number_customer.length;
-
+      qty_per_box = document.getElementById(qty_per_box_id).innerHTML;
+      
       if (pnc_length == 11){
         if (inputed_length == 29){
           part_number_scanb = trimPartNumber(part_number_scanb);
@@ -240,6 +242,8 @@
       scanb_id = "scanb" + line;
       qty_scanned_id =  "qty_scanned" + line;
       qty_box_id =  "qty_box" + line;
+      qty_per_box_id = "qty_per_box" + line
+      //qty_per_box = document.getElementById(qty_per_box_id).innerHTML;
       //scan_id =  "scan" + line;
       scanned = 0
       qty_prod_scanned_id = "qty_prod" + line;
