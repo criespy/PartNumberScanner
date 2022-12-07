@@ -13,7 +13,7 @@ class Barang(models.Model):
     qty_per_box = models.IntegerField(null=True)
 
     def __str__(self):
-        return self.part_number + " == " + self.description
+        return self.part_number + " | " + self.part_number_customer + " | " + self.description
 
     def get_absolute_url(self):
         return reverse('list_barang')
