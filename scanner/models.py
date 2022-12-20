@@ -48,6 +48,8 @@ class RencanaKirimDetail(models.Model):
     rencana_kirim = models.ForeignKey(RencanaKirim, on_delete=models.CASCADE, related_name='rencanakirim')
     barang = models.ForeignKey(Barang, on_delete=models.CASCADE, related_name='barang')
     qty = models.CharField(max_length=4)
+    box_scanned = models.IntegerField(default=0)
+    pcs_scanned = models.IntegerField(default=0)
     #qty_per_pkg = models.IntegerField()
 
     def __str__(self):

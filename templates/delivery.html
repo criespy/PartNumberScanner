@@ -18,7 +18,7 @@
 
   <div>
     <div id="jumlahLine" hidden>{{ object.rencanakirim.all|length  }}</div>
-    <form>
+    <form action="" method="post" onkeydown="return event.key != 'Enter';">{% csrf_token %}
       <table class="table table-striped">
         <tr>
           <th>No.</th>
@@ -40,260 +40,329 @@
           <td class="">{{ detail.barang.description }}</td>
           <td id="qty_box{{ detail.no_line }}" class="">{{ detail.qty }}</td>
           <td id="qty_per_box{{ detail.no_line }}" class="">{{ detail.barang.qty_per_box }}</td>
-          <td class=""><input id='scan{{ detail.no_line }}' type="text" value="" autofocus maxlength="18" size="18" oninput="cekPartNumber()" class="form-control" disabled ></td>
-          <td class=""><input id='scanb{{ detail.no_line }}' type="text" value="" autofocus maxlength="32" size="14" oninput="cekPartNumberB()" class="form-control" disabled></td>
-          <td id="qty_scanned{{ detail.no_line }}">0</td>
-          <td id="qty_prod{{ detail.no_line }}">0</td>
+          <td class=""><input id='scan{{ detail.no_line }}' type="text" value="" maxlength="18" size="18" onfocus="gantiElementIdManual()" oninput="cekPartNumber()" class="form-control" ></td>
+          <td class=""><input id='scanb{{ detail.no_line }}' type="text" value="" maxlength="32" size="14" oninput="cekPartNumberB()" class="form-control" disabled></td>
+          <td><input id="qty_scanned{{ detail.no_line }}" name="rencanakirim-{{ detail.no_line }}-box_scanned" size="3" class="form-control" readonly value="{{ detail.box_scanned }}"></td>
+          <td><input id="qty_prod{{ detail.no_line }}" size="2" class="form-control" readonly value="{{ detail.pcs_scanned }}"></td>
         </tr>
         {% endfor %}
       </table>
+    <!--div>
+      <input type="submit" class="btn btn-primary" value="Save yang asli">
+    </div-->
     </form>
-    <div>
-      <form id="update" action="" method="post" hidden>{% csrf_token %}
-        {{ form.as_table }}
-        <input type="submit">
-      </form>
-    </div>
+    <button class="btn btn-primary" onclick="cekLine()" hidden>Cek Status</button>
   </div>
+  <!--TESTING FORM-->
+  <form id="update" action="" method="post">{% csrf_token %}
+    <table class="table" hidden>
+    {{ form.as_table }}
+    </table>
+    <h3 hidden>Hidden Form</h3>
+    <table hidden class="table table-striped">
+      {{ konteks.management_form }}
+
+      {% for form in konteks.forms %}
+          {% if forloop.first %}
+              <thead>
+                  <tr> {% for field in form.visible_fields %}
+                      <th>{{ field.label|capfirst }}</th>
+                      {% endfor %}
+                  </tr>
+              </thead>
+          {% endif %}
+          <tr class="{% cycle 'row1' 'row2' %} formset_row">
+              {% for field in form.visible_fields %}
+                  <td>
+                      {% if forloop.first %}
+                          {% for hidden in form.hidden_fields %}
+                              {{ hidden }}
+                          {% endfor %}
+                      {% endif %}
+                      {{ field.errors.as_ul }}
+                      {{ field }}
+                  </td>
+              {% endfor %}
+          </tr>
+      {% endfor %}
+    </table>
+    <input type="submit" value="Save" class="btn btn-success" />
+    </form>
 </div>
+<link href="{% static 'css/sweetalert-bootstrap-4.min.css' %}">
+<script src="{% static 'js/sweetalert2.all.min.js'%}"></script>
+<script>
+  //variable untuk menambahkan nomor id
+  var line = 1;
+  var scanned = 0;
+  var part_number_id =  "part_number" + line;
+  var part_number_customer_id = "part_number_customer" + line;
+  var scan_id =  "scan" + line;
+  var scanb_id = "scanb" + line;
+  var qty_scanned_id =  "qty_scanned" + line;
+  var qty_box_id =  "qty_box" + line;
+  var jumlahLine = document.getElementById("jumlahLine").innerHTML;
+  var qty_prod_scanned_id = "qty_prod" + line;
+  var qty_per_box_id = "qty_per_box" + line;
+  var qty_per_box = document.getElementById(qty_per_box_id).innerHTML;
+  var active_line = 1;
 
+  //ditambah 1 supaya berhenti setelah jumlah line terpenuhi
+  //jumlahLine = Number(jumlahLine) + 1;
+  //aktivasi field pertama untuk scan
+  //document.getElementById(scan_id).disabled = false;
 
-    <!-- Optional JavaScript; choose one of the two! -->
+  //Mengisi box scanned dan pcs scanned
+  function tambahScanned(){
+    console.log('scanned saat fungsi dipanggil:', scanned);
+    scanned = scanned + 1;
+    prod_scanned = scanned * qty_per_box;
+    document.getElementById(qty_scanned_id).value = scanned;
+    syncValue_bs();
+    document.getElementById(qty_prod_scanned_id).value = prod_scanned;
+    syncValue_ps();
+    console.log(scanned);
+    cekLine();
+    //return scanned
+    //alert("qty per box:"+qty_per_box);
+  }
 
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <!--script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script-->
+  //Cek QR scan part number FLN, pindah ke field scan part number customer -- OK
+  function cekPartNumber(){
+    //alert(scanb_id);
+    var part_number =  document.getElementById(part_number_id).innerHTML;
+    var part_number_scan =  document.getElementById(scan_id).value;
+    var qty_scanned = document.getElementById(qty_scanned_id).innerHTML;
+    var qty_box = document.getElementById(qty_box_id).innerHTML;
+    var max_length = document.getElementById(scan_id).maxLength;
+    var inputed_length = document.getElementById(scan_id).value.length;
 
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-    -->
-  <script>
-    //variable untuk menambahkan nomor id
-    var line = 1;
-    var scanned = 0;
-    var part_number_id =  "part_number" + line
-    var part_number_customer_id = "part_number_customer" + line
-    var scan_id =  "scan" + line
-    var scanb_id = "scanb" + line
-    var qty_scanned_id =  "qty_scanned" + line
-    var qty_box_id =  "qty_box" + line
-    var scan_id =  "scan" + line
-    var jumlahLine = document.getElementById("jumlahLine").innerHTML;
-    var qty_prod_scanned_id = "qty_prod" + line
-    var qty_per_box_id = "qty_per_box" + line
-    var qty_per_box = document.getElementById(qty_per_box_id).innerHTML;
+    //alert(part_number + " " + part_number_scan);
+    //kembalikan maxlength dari fungsi trimPartNumber
+    document.getElementById(scanb_id).maxLength = "32";
 
-    //ditambah 1 supaya berhenti setelah jumlah line terpenuhi
-    jumlahLine = Number(jumlahLine) + 1;
-    //aktivasi field pertama untuk scan
-    document.getElementById(scan_id).disabled = false;
-
-    function tambahScanned(){
-      scanned = scanned + 1;
-      prod_scanned = scanned * qty_per_box;
-      document.getElementById(qty_scanned_id).innerHTML = scanned;
-      document.getElementById(qty_prod_scanned_id).innerHTML = prod_scanned;
-      //return scanned
-      //alert("qty per box:"+qty_per_box);
+    if (part_number == part_number_scan && max_length == inputed_length ){
+      document.getElementById(scanb_id).disabled = false;
+      gantiFokusB();
+      document.getElementById(scan_id).classList.remove("is-invalid");
+    } else {
+      //alert("Part Tidak Sesuai!");
+      setTimeout(clearInput, 1000);
+      //jadikan input box merah
+      //document.getElementById(scan_id).classList.add("");
+      document.getElementById(scan_id).classList.add("is-invalid");
     }
 
-    function cekPartNumber(){
-      //alert(scanb_id);
-      var part_number =  document.getElementById(part_number_id).innerHTML;
-      var part_number_scan =  document.getElementById(scan_id).value;
-      var qty_scanned = document.getElementById(qty_scanned_id).innerHTML;
-      var qty_box = document.getElementById(qty_box_id).innerHTML;
-      var max_length = document.getElementById(scan_id).maxLength;
-      var inputed_length = document.getElementById(scan_id).value.length;
+  }
 
-      //alert(part_number + " " + part_number_scan);
-      //kembalikan maxlength dari fungsi trimPartNumber
-      document.getElementById(scanb_id).maxLength = "32";
-
-      if (part_number == part_number_scan && max_length == inputed_length ){
-        //tambahScanned();
-        //alert(qty_scanned);
-        document.getElementById(scanb_id).disabled = false;
-        gantiFokusB();
-        //if (scanned == qty_box){
-        //pakai timeout supaya scanner sempat ngetik
-        //  setTimeout(gantiFokus, 1000);
-          //alert(qty_box);
-        //} else {
-          //document.getElementById(scan_id).value = "OK";
-          //kasih timeout supaya keliatan textnya
-        //  setTimeout(clearInput, 1000);
-          //alert("belum penuh kuota");
-        //}
-        document.getElementById(scan_id).classList.remove("is-invalid");
-      } else {
-        //alert("Part Tidak Sesuai!");
-        setTimeout(clearInput, 1000);
-        //jadikan input box merah
-        //document.getElementById(scan_id).classList.add("");
-        document.getElementById(scan_id).classList.add("is-invalid");
+  //Cek QR scan part number customer, kembail ke scan part number FLN atau ke baris berikutnya
+  function cekPartNumberB(){
+    //alert(part_number_id);
+    var part_number_customer =  document.getElementById(part_number_customer_id).innerHTML;
+    var part_number_scanb =  document.getElementById(scanb_id).value;
+    var qty_scanned = document.getElementById(qty_scanned_id).innerHTML;
+    var qty_box = document.getElementById(qty_box_id).innerHTML; //qty_box berubah menjadi qty PCS (Plan Delivery)
+    var max_length = document.getElementById(scan_id).maxLength;
+    var inputed_length = document.getElementById(scanb_id).value.length;
+    var pnc_length = part_number_customer.length;
+    qty_per_box = document.getElementById(qty_per_box_id).innerHTML;
+    
+    if (pnc_length == 11){
+      if (inputed_length == 29){
+        part_number_scanb = trimPartNumber(part_number_scanb);
+        part_number_scanb = part_number_scanb.substr(0,11);
       }
-
+    } else if (pnc_length == 13 ) {
+      if (inputed_length == 31){
+        part_number_scanb = trimPartNumber(part_number_scanb);
+        part_number_scanb = part_number_scanb.substr(0,13);
+      }
+    } else if (pnc_length == 14) {
+      if (inputed_length == 32){
+        part_number_scanb = trimPartNumber(part_number_scanb);
+      }
+    } else {
+      alert("Panjang Part Number Customer Tidak Standar!")
     }
-
-    //scan part number customer
-    function cekPartNumberB(){
-      //alert(part_number_id);
-      var part_number_customer =  document.getElementById(part_number_customer_id).innerHTML;
-      var part_number_scanb =  document.getElementById(scanb_id).value;
-      var qty_scanned = document.getElementById(qty_scanned_id).innerHTML;
-      var qty_box = document.getElementById(qty_box_id).innerHTML; //qty_box berubah menjadi qty PCS (Plan Delivery)
-      var max_length = document.getElementById(scan_id).maxLength;
-      var inputed_length = document.getElementById(scanb_id).value.length;
-      var pnc_length = part_number_customer.length;
-      qty_per_box = document.getElementById(qty_per_box_id).innerHTML;
-      
-      if (pnc_length == 11){
-        if (inputed_length == 29){
-          part_number_scanb = trimPartNumber(part_number_scanb);
-          part_number_scanb = part_number_scanb.substr(0,11);
-        }
-      } else if (pnc_length == 13 ) {
-        if (inputed_length == 31){
-          part_number_scanb = trimPartNumber(part_number_scanb);
-          part_number_scanb = part_number_scanb.substr(0,13);
-        }
-      } else if (pnc_length == 14) {
-        if (inputed_length == 32){
-          part_number_scanb = trimPartNumber(part_number_scanb);
-        }
-      } else {
-        alert("Panjang Part Number Customer Tidak Standar!")
-      }
-      //hasil scan qr code hyundai ditrim menjadi part number saja
-      //if (inputed_length > 30){
-      //    part_number_scanb = trimPartNumber(part_number_scanb);
-      //}
-
-      //alert(part_number + " " + part_number_scan);
+    
+    if (part_number_customer == part_number_scanb ){
       //alert('part cust:'+ part_number_customer + ' scanb:' + part_number_scanb + ' input_length:' + inputed_length);
-      //part_number_customer dikurangi 1 digit di belakang
-      //part_number_customer = part_number_customer.substr(0,13);
-
-      
-      if (part_number_customer == part_number_scanb ){
-        //alert('part cust:'+ part_number_customer + ' scanb:' + part_number_scanb + ' input_length:' + inputed_length);
-        tambahScanned();
-        
-        if (scanned * qty_per_box == qty_box){
-          document.getElementById(scanb_id).disabled = true;
-          //pakai timeout supaya scanner sempat ngetik
-          setTimeout(gantiFokus, 1000);
-          //alert(qty_box);
-        } else {
-          //document.getElementById(scan_id).value = "OK";
-          //kasih timeout supaya keliatan textnya
-
-          //setTimeout(clearInput, 1000);
-          setTimeout(gantiFokusA, 1000);
-          //alert("belum penuh kuota");
-        }
-        document.getElementById(scanb_id).classList.remove("is-invalid");
+      tambahScanned();
+      console.log('scanned:',scanned*qty_per_box, 'qty_box:', qty_box);
+      if (scanned * qty_per_box == qty_box){
+        console.log('scanned:',scanned*qty_per_box, 'qty_box:', qty_box);
+        document.getElementById(scanb_id).disabled = true;
+        //pakai timeout supaya scanner sempat ngetik
+        setTimeout(gantiFokus, 1000);
+        //alert(qty_box);
       } else {
-        //alert("Part Tidak Sesuai!");
-        setTimeout(clearInputB, 1000);
-        //jadikan input box merah
-        document.getElementById(scanb_id).classList.add("is-invalid");
+        //kasih timeout supaya keliatan textnya
+        setTimeout(gantiFokusA, 1000);
+        console.log('belum penuh kuota');
       }
+      document.getElementById(scanb_id).classList.remove("is-invalid");
+    } else {
+      //alert("Part Tidak Sesuai!");
+      setTimeout(clearInputB, 1000);
+      //jadikan input box merah
+      document.getElementById(scanb_id).classList.add("is-invalid");
     }
-    //fungsi ini untuk pindah ke line berikutnya
-    function gantiFokus(){
-      document.getElementById(scan_id).disabled = true;
-      element = gantiElementId();
-      //alert("Scan = " + scan_id + " Qty box id = " + qty_box_id + " Qty scan = " + qty_scanned_id);
-      //alert("Line= "+line+" Jumlah Line= "+jumlahLine);
-      if (line < jumlahLine){
-        document.getElementById(scan_id).disabled = false;
-        document.getElementById(scan_id).focus();
-      } else {
-        alert("Scan Complete!");
-        document.getElementById("id_status").selectedIndex = 1;
-        document.forms["update"].submit();
-        //alert(window.location.href);
-        //window.location.replace = "localhost:8000/update_status/1"
-      }
-    }
-    //fungsi ini untuk pindah ke input box kanan
-    function gantiFokusB(){
-      //alert('ganti fokus');
-      document.getElementById(scanb_id).focus();
-      document.getElementById(scan_id).disabled = true;
-    }
-    //fungsi ini untuk pindah ke input box kiri
-    function gantiFokusA(){
-      document.getElementById(scan_id).value = "";
-      document.getElementById(scanb_id).value = "";
+  }
+  //fungsi ini untuk pindah ke line berikutnya
+  function gantiFokus(){
+    scanned = 0;
+    console.log('line sebelum ditambah:', line)
+    line = line + 1;
+    console.log('line setelah ditambah:', line)
+    document.getElementById(scan_id).disabled = true;
+    element = gantiElementId();
+    //alert("Scan = " + scan_id + " Qty box id = " + qty_box_id + " Qty scan = " + qty_scanned_id);
+    //alert("Line= "+line+" Jumlah Line= "+jumlahLine);
+    console.log('line saat ini:', line);
+    /*if (line < jumlahLine){
       document.getElementById(scan_id).disabled = false;
       document.getElementById(scan_id).focus();
-      document.getElementById(scanb_id).disabled = true;
-    }
+    } else {
+      alert("Scan Complete!");
+      document.getElementById("id_status").selectedIndex = 1;
+      //document.forms["update"].submit();
+      //alert(window.location.href);
+      //window.location.replace = "localhost:8000/update_status/1"
+    }*/
+  }
+  //fungsi ini untuk pindah ke input box kanan
+  function gantiFokusB(){
+    //alert('ganti fokus');
+    document.getElementById(scanb_id).focus();
+    document.getElementById(scan_id).disabled = true;
+  }
+  //fungsi ini untuk pindah ke input box kiri
+  function gantiFokusA(){
+    document.getElementById(scan_id).value = "";
+    document.getElementById(scanb_id).value = "";
+    document.getElementById(scan_id).disabled = false;
+    document.getElementById(scan_id).focus();
+    document.getElementById(scanb_id).disabled = true;
+  }
+  //ganti id jika diklik di field scan part number
+  function gantiElementIdManual(){
+    line = Number(document.activeElement.id.substr(-1,1));
+    console.log('line saat ini:', line);
+    scanned = parseInt(document.getElementById("qty_scanned"+line).value);
+    console.log('scanned: ', scanned);
+    gantiElementId();
+  }
+  function gantiElementId(){
+    //cek qty scan sudah terpenuhi atau belum
 
-    function gantiElementId(){
-      line = line + 1;
-      part_number_id =  "part_number" + line;
-      part_number_customer_id = "part_number_customer" + line;
-      scan_id =  "scan" + line;
-      scanb_id = "scanb" + line;
-      qty_scanned_id =  "qty_scanned" + line;
-      qty_box_id =  "qty_box" + line;
-      qty_per_box_id = "qty_per_box" + line
-      //qty_per_box = document.getElementById(qty_per_box_id).innerHTML;
-      //scan_id =  "scan" + line;
-      scanned = 0
-      qty_prod_scanned_id = "qty_prod" + line;
-      //return [part_number_id, scan_id, qty_scanned_id, qty_box_id, scan_id];
-    }
+    console.log('function run: gantiElementId');
+    //line = Number(document.activeElement.id.substr(-1,1));
+    part_number_id =  "part_number" + line;
+    part_number_customer_id = "part_number_customer" + line;
+    scan_id =  "scan" + line;
+    scanb_id = "scanb" + line;
+    qty_scanned_id =  "qty_scanned" + line;
+    qty_box_id =  "qty_box" + line;
+    qty_per_box_id = "qty_per_box" + line
+    qty_prod_scanned_id = "qty_prod" + line;
+    //alert(line);
+  }
 
-    function clearInput(){
-      document.getElementById(scan_id).value = "";
-    }
+  function clearInput(){
+    document.getElementById(scan_id).value = "";
+  }
 
-    function clearInputB(){
-      document.getElementById(scanb_id).value = "";
-    }
+  function clearInputB(){
+    document.getElementById(scanb_id).value = "";
+  }
 
-    function cekStatus(){
-      stat = document.getElementById("status").value;
-      //alert(stat);
-      if(stat == "Scanned"){
-        alert("sudah discan!");
-        for (var field = 1; field <= jumlahLine - 1; field++){
-          var scanBox = "scan" + field;
-          var scanBoxb = "scanb" + field;
-          //alert(jumlahLine);
-          //alert(scanBox);
-          document.getElementById(scanBox).disabled = true;
-          document.getElementById(scanBoxb).disabled = true;
-        }
+  function cekStatus(){
+    stat = document.getElementById("status").value;
+    //alert(stat);
+    if(stat == "Scanned"){
+      alert("sudah discan!");
+      for (var field = 1; field <= jumlahLine ; field++){
+        var scanBox = "scan" + field;
+        var scanBoxb = "scanb" + field;
+        //alert(jumlahLine);
+        //alert(scanBox);
+        document.getElementById(scanBox).disabled = true;
+        document.getElementById(scanBoxb).disabled = true;
       }
     }
+  }
 
-    function trimPartNumber(part_number_scanb){
-      //alert('trim dipanggil');
-      part_number_scanb = part_number_scanb.substr(4, 13); //dikurangi dari 13 ke 12, kode warna 2 digit saja
-      part_depan = part_number_scanb.substr(0, 5);
-      part_belakang = part_number_scanb.substr(5,13); //ikut jadi 12
-      part_number_scanb = part_depan.concat("-" + part_belakang);
-      //alert(part_number_scanb);
-      //document.getElementById(scanb_id).value = "";
-      //untuk fix box merah waktu scan panjang 32 lebih, maxlength dipotong
-      document.getElementById(scanb_id).maxLength = "13";
-      document.getElementById(scanb_id).value = part_number_scanb;
-      return part_number_scanb;
-    }
-
-  </script>
-  <script type="text/javascript">
-    window.onload = function() {
-      cekStatus();
-      document.getElementById("scan1").focus();
+  function trimPartNumber(part_number_scanb){
+    //alert('trim dipanggil');
+    part_number_scanb = part_number_scanb.substr(4, 13); //dikurangi dari 13 ke 12, kode warna 2 digit saja
+    part_depan = part_number_scanb.substr(0, 5);
+    part_belakang = part_number_scanb.substr(5,13); //ikut jadi 12
+    part_number_scanb = part_depan.concat("-" + part_belakang);
+    //alert(part_number_scanb);
+    //document.getElementById(scanb_id).value = "";
+    //untuk fix box merah waktu scan panjang 32 lebih, maxlength dipotong
+    document.getElementById(scanb_id).maxLength = "13";
+    document.getElementById(scanb_id).value = part_number_scanb;
+    return part_number_scanb;
+  }
+  //cek qty scanned vs plan delivery di setiap line
+  function cekLine(){
+    var field_pcs_scanned = '';
+    var field_plan_delivery = '';
+    var pcs_scanned = '';
+    var plan_delivery = '';
+    var closed = 0;
+    for(let i = 1; i <= jumlahLine;  i++ ){
+      field_pcs_scanned = 'qty_prod' + i;
+      field_plan_delivery = 'qty_box' + i;
+      pcs_scanned = document.getElementById(field_pcs_scanned).value;
+      plan_delivery = document.getElementById(field_plan_delivery).innerHTML;
+      console.log(pcs_scanned, plan_delivery);
+      if(pcs_scanned == plan_delivery){
+        document.getElementById("scan"+i).disabled = true;
+        closed += 1;
       }
-  </script>
+      console.log('closed:', closed);
+      console.log('jumlahline:', jumlahLine);
+      if(closed == jumlahLine){
+        document.getElementById("id_status").selectedIndex = 1;
+        alert("Scan Complete!");
+        document.forms["update"].submit();
+        /*Swal.fire({
+          title: 'Scan Complete!',
+          icon: 'success',
+          buttonsStyling: false,
+          showCancelButton: false,
+          customClass: {
+            confirmButton: 'btn btn-primary btn-lg',
+            loader: 'custom-loader'
+          },
+        })*/
+      }
+    }
+    
+  }
+  //sinkronkan value yang diinput box_scanned ke form update 
+  function syncValue_bs(){
+    var dest_line = line - 1;
+    var source = document.getElementById(qty_scanned_id).value;
+    document.getElementById("id_rencanakirim-"+dest_line+"-box_scanned").value = source;
+  }
+  //sinkronkan value yang diinput pcs_scanned ke form update
+  function syncValue_ps(){
+    var dest_line = line - 1;
+    var source = document.getElementById(qty_prod_scanned_id).value;
+    document.getElementById("id_rencanakirim-"+dest_line+"-pcs_scanned").value = source;
+  }
+
+</script>
+<script type="text/javascript">
+  window.onload = function() {
+    cekStatus();
+    cekLine();
+    //document.getElementById("scan1").focus();
+    }
+</script>
+
 
 {% endblock content %}

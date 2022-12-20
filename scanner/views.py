@@ -5,7 +5,7 @@ from reportlab.pdfgen import canvas
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, DetailView, UpdateView, CreateView
 from .models import Barang, RencanaKirim, RencanaKirimDetail
-from .forms import BarangFormset, FormRencanaKirim, FormRencanaKirimUpdate, FormRencanaKirimDetail, FormMasterBarangUpdate, UpdateBarangFormset, FormRencanaKirimDetailUpdate, FormMasterBarangCreate
+from .forms import BarangFormset, FormRencanaKirim, FormRencanaKirimUpdate, FormRencanaKirimDetail, FormMasterBarangUpdate, UpdateBarangFormset, FormRencanaKirimDetailUpdate, FormMasterBarangCreate, DeliveryFormset
 from  django.contrib.auth.mixins import LoginRequiredMixin
 import qrcode
 from django.templatetags.static import static
@@ -24,11 +24,30 @@ class Delivery(LoginRequiredMixin, UpdateView):
     template_name = 'delivery.html'
     fields = ['status']
 
+    def get_queryset(self):
+        id = self.kwargs['pk']
+        return RencanaKirim.objects.filter(pk=id)
+
     #untuk menampilkan item barang di admin backend
     def get_context_data(self, **kwargs):
         detail = super(Delivery, self).get_context_data(**kwargs)
-        detail['barang'] = RencanaKirimDetail.objects.all()
+        #detail['form'] = FormRencanaKirimUpdate(self.request.POST, instance=self.object)
+        #detail['barang'] = RencanaKirimDetail.objects.all()
+        if self.request.POST:
+            detail['form'] = FormRencanaKirimUpdate(self.request.POST, instance=self.object)
+            detail['konteks'] = DeliveryFormset(self.request.POST, instance=self.object)
+        else:
+            detail['konteks'] = DeliveryFormset(instance=self.object)
         return detail
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        konteks = context["konteks"]
+        self.object = form.save()
+        if konteks.is_valid():
+            konteks.instance = self.object
+            konteks.save()
+        return super().form_valid(form)
 
 class PrintBarcode(LoginRequiredMixin, DetailView):
     model = Barang

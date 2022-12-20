@@ -22,6 +22,18 @@ UpdateBarangFormset = inlineformset_factory(
         }
 )
 
+#Form untuk Delivery Scan
+DeliveryFormset = inlineformset_factory(
+    RencanaKirim, RencanaKirimDetail, fields=(['no_line','barang','qty','box_scanned', 'pcs_scanned']), extra=0, can_delete=False, widgets={
+        'no_line' : forms.TextInput({'class':'form-control', 'size':'1','value':''}),
+        'barang' : forms.TextInput({'class':'form-control', 'readonly':'readonly'}),
+        'qty' : forms.TextInput({'class':'form-control', 'size':'1'}),
+        'additional1' : forms.TextInput({'class':'form-control', 'size':'1'}),
+        'box_scanned': forms.TextInput({'class':'form-control', 'size':'1'}),
+        'pcs_scanned': forms.TextInput({'class':'form-control', 'size':'1'}),
+    }
+)
+
 class FormRencanaKirim(ModelForm):
 
     class Meta:
