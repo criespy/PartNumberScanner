@@ -21,7 +21,7 @@
                     <tr>
                         <td>{{ forloop.counter }}</td>
                         <!--td>{{ rk.nomor_sj }}</td-->
-                        <td>{{ rk.tanggal }}</td>
+                        <td>{{ rk.tanggal|date:"d M Y" }}</td>
                         <td>{{ rk.cycle }}</td>
                         <td>{{ rk.status }}</td>
                         <td><a type="button" href="{% url 'update_rencana_kirim' %}{{ rk.id }}" class="btn btn-secondary">edit</a></td>

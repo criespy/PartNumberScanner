@@ -80,6 +80,12 @@ class RencanaKirimView(LoginRequiredMixin, ListView):
     #paginate_by = 10
     queryset = RencanaKirim.objects.filter(status='Open')
 
+    #def get_context_data(self, **kwargs):
+    #    context = super(RencanaKirimView, self).get_context_data(**kwargs)
+    #    context['tanggal'] = self.queryset. .tanggal
+    #    if context['tanggal'] < date.today():
+    #        contect['warning'] = "Ya"
+
 class BuatRencanaKirim(LoginRequiredMixin, CreateView):
     model = RencanaKirim
     template_name = 'rencanakirim_createview.html'

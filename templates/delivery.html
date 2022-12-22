@@ -8,7 +8,7 @@
       <td class="text-end"><a href="{% url 'view_rencana_kirim' %}" class="btn btn-success">Pilih Rencana Kirim</a></td>
     </tr>
     <tr>
-      <td>Cycle: {{ object.cycle }}</td>
+      <td>Cycle: {{ object.cycle }} (Jam: {{ object.jam }})</td>
       <td class="text-end"> Status : <button id="status" type="button" value="{{ object.status }}" class="btn btn-primary" disabled>{{ object.status }}</button></td>
     </tr>
     <tr>
