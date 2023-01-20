@@ -157,6 +157,7 @@
 
   //Cek QR scan part number customer, kembail ke scan part number FLN atau ke baris berikutnya
   function cekPartNumberB(){
+    console.log('function run: cekPartNumberB');
     //alert(part_number_id);
     var part_number_customer =  document.getElementById(part_number_customer_id).innerHTML;
     var part_number_scanb =  document.getElementById(scanb_id).value;
@@ -166,14 +167,20 @@
     var inputed_length = document.getElementById(scanb_id).value.length;
     var pnc_length = part_number_customer.length;
     qty_per_box = document.getElementById(qty_per_box_id).innerHTML;
+
+    console.log('Scanned QR value: ', part_number_scanb);
+    console.log('QR length: ', inputed_length);
+    console.log('PNC length: ', pnc_length);
     
     if (pnc_length == 11){
       if (inputed_length == 29){
+        console.log('QR length: ', inputed_length);
         part_number_scanb = trimPartNumber(part_number_scanb);
         part_number_scanb = part_number_scanb.substr(0,11);
       }
     } else if (pnc_length == 13 ) {
       if (inputed_length == 31){
+        console.log('QR length: ', pnc_length);
         part_number_scanb = trimPartNumber(part_number_scanb);
         part_number_scanb = part_number_scanb.substr(0,13);
       }
@@ -301,7 +308,7 @@
     //alert(part_number_scanb);
     //document.getElementById(scanb_id).value = "";
     //untuk fix box merah waktu scan panjang 32 lebih, maxlength dipotong
-    document.getElementById(scanb_id).maxLength = "13";
+    //document.getElementById(scanb_id).maxLength = "13";
     document.getElementById(scanb_id).value = part_number_scanb;
     return part_number_scanb;
   }

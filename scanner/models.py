@@ -10,7 +10,7 @@ class Barang(models.Model):
     barcode = models.TextField(blank=True)
     color_code = models.CharField(max_length=3, blank=True, null=True)
     position_code = models.CharField(max_length=6, blank=True, null=True)
-    qty_per_box = models.IntegerField(null=True)
+    qty_per_box = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.part_number + " | " + self.part_number_customer + " | " + self.description
@@ -44,10 +44,10 @@ class RencanaKirim(models.Model):
 
 
 class RencanaKirimDetail(models.Model):
-    no_line = models.CharField(max_length=2)
+    no_line = models.CharField(max_length=2, null=False, blank=False)
     rencana_kirim = models.ForeignKey(RencanaKirim, on_delete=models.CASCADE, related_name='rencanakirim')
     barang = models.ForeignKey(Barang, on_delete=models.CASCADE, related_name='barang')
-    qty = models.CharField(max_length=4)
+    qty = models.CharField(max_length=4, null=False, blank=False)
     box_scanned = models.IntegerField(default=0)
     pcs_scanned = models.IntegerField(default=0)
     #qty_per_pkg = models.IntegerField()
