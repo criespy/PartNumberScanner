@@ -253,7 +253,7 @@
   }
   //ganti id jika diklik di field scan part number
   function gantiElementIdManual(){
-    line = Number(document.activeElement.id.substr(-1,1));
+    line = Number(document.activeElement.id.substr(4,5)); //diubah agar bisa menangani line 2 digit
     console.log('line saat ini:', line);
     scanned = parseInt(document.getElementById("qty_scanned"+line).value);
     console.log('scanned: ', scanned);
