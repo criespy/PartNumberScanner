@@ -221,6 +221,7 @@ class BuatMasterBarang(LoginRequiredMixin, CreateView):
 class ListMasterBarang(LoginRequiredMixin, ListView):
     model = Barang
     template_name = 'barang_listview.html'
+    queryset = Barang.objects.filter(status="Aktif")
 
 class UpdateMasterBarang(LoginRequiredMixin, UpdateView):
     model = Barang

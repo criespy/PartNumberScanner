@@ -11,6 +11,10 @@ class Barang(models.Model):
     color_code = models.CharField(max_length=3, blank=True, null=True)
     position_code = models.CharField(max_length=6, blank=True, null=True)
     qty_per_box = models.IntegerField(null=True, blank=True)
+    class Status(models.TextChoices):
+        AKTIF = 'Aktif',_('Aktif')
+        DISABLED = 'Disabled',_('Disabled')
+    status = models.CharField(max_length=8, choices=Status.choices, default=Status.AKTIF)
 
     def __str__(self):
         return self.part_number + " | " + self.part_number_customer + " | " + self.description
