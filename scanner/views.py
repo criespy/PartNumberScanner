@@ -19,6 +19,11 @@ class HomePageView(LoginRequiredMixin, ListView):
     model = Barang
     template_name = 'home.html'
 
+class Print8View(LoginRequiredMixin, ListView):
+    login_url = 'auth/login/'
+    model = Barang
+    template_name = 'home8.html'
+
 class Delivery(LoginRequiredMixin, UpdateView):
     model = RencanaKirim
     template_name = 'delivery.html'
@@ -73,6 +78,32 @@ class PrintBarcode(LoginRequiredMixin, DetailView):
         #return HttpResponse("Berhasil %s" % tanggal)
         #kirim id ke print_barcode.html
         return TemplateResponse(request, 'print_label_produksi.html', context)
+    
+#class untuk print label 8 per lembar
+class PrintBarcode8(LoginRequiredMixin, DetailView):
+    model = Barang
+    template_name = 'print_label_produksi_8.html'
+
+    def getURL(request):
+        #bikin variabel buat simpen value dari url
+        barang = request.GET.get('item')
+        tanggal = request.GET.get('tanggal')
+        shift = request.GET.get('shift')
+        mesin = request.GET.get('mesin')
+
+        barang = barang.split("#")
+        part_number = barang[0]
+        part_description = barang[1]
+        part_color = barang[2]
+        part_position = barang[3]
+        part_qty = barang[4]
+        tgl = tanggal.split("/")
+        lot_produksi = tgl[0][2:4]+"."+tgl[1]+"."+tgl[2]+"."+shift+"."+mesin
+
+        context = {"part_number":part_number, "part_description":part_description, "part_color":part_color, "part_position":part_position, "tanggal":tanggal, "shift":shift, "lot_produksi":lot_produksi, "part_qty": part_qty}
+        #return HttpResponse("Berhasil %s" % tanggal)
+        #kirim id ke print_barcode.html
+        return TemplateResponse(request, 'print_label_produksi_8.html', context)
 
 class RencanaKirimView(LoginRequiredMixin, ListView):
     model = RencanaKirim

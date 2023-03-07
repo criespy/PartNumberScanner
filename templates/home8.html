@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load static %}
+<!doctype html>
+
+{% block content %}
+<div class="container" >
+  <div class="row">
+    <div class="col-8">
+      <h1>Print Label Produksi (8 Label)</h1>
+    </div>
+  </div>
+  <form action="print_barcode8" target="_blank" autocomplete="off">
+  <div class="row mb-3 align-items-center">
+    <div class="col-2">
+      <label for="barang">Part Number</label>
+    </div>
+    <div class="col-6">
+      <select name="item" id="barang" class="form-select">
+        {% for barang in object_list %}
+        <option value="{{ barang.part_number }}#{{ barang.description }}#{{ barang.color_code }}#{{ barang.position_code }}#{{ barang.qty_per_box }}">{{ barang.part_number }} == {{ barang.description }} </option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+  <div class="row mb-3 align-items-center">
+    <div class="col-2">
+      <label for="tanggal_produksi">Tanggal Produksi</label>
+    </div>
+    <div class="col-6">
+      <input type="text" class="form-control" name="tanggal" id="datepicker" placeholder="YYYY/MM/DD" required />
+    </div>
+  </div>
+  <div class="row mb-3 align-items-center">
+    <div class="col-2">
+      <label for="shift">Shift</label>
+    </div>
+    <div class="col-6">
+        <input name="shift" id="shift" type="number" placeholder="1/2/3" min="1" max="3" class="form-control" required />
+    </div>
+  </div>
+  <div class="row mb-3 align-items-center">
+    <div class="col-2">
+      <label for="mesin">No. Mesin / Line</label>
+    </div>
+    <div class="col-6">
+        <input name="mesin" id="mesin" type="number" class="form-control" min="1" max="32" required />
+      <!--select name="mesin" id="mesin" class="form-select">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                  <option value="13">13</option>
+                  <option value="14">14</option>
+                  <option value="15">15</option>
+                  <option value="16">16</option>
+                  <option value="17">17</option>
+                  <option value="18">18</option>
+                  <option value="19">19</option>
+                  <option value="20">20</option>
+                  <option value="21">21</option>
+                  <option value="22">22</option>
+                  <option value="23">23</option>
+                  <option value="24">24</option>
+                  <option value="25">25</option>
+                  <option value="26">26</option>
+                  <option value="27">27</option>
+                  <option value="28">28</option>
+                  <option value="29">29</option>
+                  <option value="30">30</option>
+                  <option value="31">31</option>
+                  <option value="32">32</option>
+        </select-->
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-2">
+
+    </div>
+    <div class="col-6">
+      <input type="submit" value="Print" class="btn btn-success">
+    </div>
+  </div>
+</div>
+
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <!--script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script-->
+   <!--
+      <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
+   -->
+    <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.js' %}"></script>
+    <!--script src="https://code.jquery.com/jquery-3.6.0.js"></script-->
+    <!--script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script-->
+    <!--link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" /-->
+
+<!-- Select2 cdn -->
+    <script src="{% static 'js/select2.min.js' %}"></script>
+    <!--script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script-->
+    <script>
+      $( function() {
+        $( "#datepicker" ).datepicker({
+        dateFormat: 'yy/mm/dd',
+        });
+      } );
+    </script>
+    <script>
+		$(document).ready(function() {
+          $('#barang').select2({
+            theme: "bootstrap-5",
+          });
+        });
+	</script>
+    <!--Fix select2 dengan jquery 3.6-->
+    <script>
+         $(document).on('select2:open', () => {
+            document.querySelector('.select2-search__field').focus();
+          });
+    </script>
+
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    -->
+  {% endblock content %}

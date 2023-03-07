@@ -22,3 +22,14 @@ h1 {
   background: white;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
+@media print {
+    body{
+        width: 21cm;
+        height: 29.7cm;
+        margin: 30mm 45mm 30mm 45mm; 
+        /* change the margins as you want them to be. */
+   } 
+}
+.row-print {
+    height: 100px;
+}
