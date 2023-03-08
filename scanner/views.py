@@ -222,6 +222,13 @@ class ListMasterBarang(LoginRequiredMixin, ListView):
     model = Barang
     template_name = 'barang_listview.html'
     queryset = Barang.objects.filter(status="Aktif")
+    extra_context = {'judul':'Aktif'}
+
+class ListMasterBarangDisabled(LoginRequiredMixin, ListView):
+    model = Barang
+    template_name = 'barang_listview.html'
+    queryset = Barang.objects.filter(status="Disabled")
+    extra_context = {'judul':'Non Aktif'}
 
 class UpdateMasterBarang(LoginRequiredMixin, UpdateView):
     model = Barang
