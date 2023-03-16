@@ -16,7 +16,7 @@
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <style>
         body {
-          background-color: yellow;
+          background-color: white;
         }
         @media print {
         body{
@@ -57,209 +57,103 @@
 {% block content %}
 <body onload="">
     <div class="text-center page">
-        <div class="row row-print">
-            <div class="col-5">
+        <div class="row" style="height:7cm">
+            <div class="col-6" style="width:9.5cm">
                 <table class="table table-bordered border-dark table-sm">
                     <tbody>
-                        <tr>
-                            <td class="p-0" colspan="2"><small>No. Form : F.PRO.45.REV.01</small></td>
-                            <td class="p-0" colspan="3"><small>Tgl Efektif : 07 Agustus 2017</small></td>
+                        <tr style="width:0.9cm">
+                            <td class="p-0" colspan="2" style="font-size:0.6em; padding:0px">No. Form : F.PRO.45.REV.01</td>
+                            <td class="p-0" colspan="3" style="font-size:0.6em; padding:0px">Tgl Efektif : 07 Agustus 2017</td>
                         </tr>
                         <tr>
-                            <td><img src="{% static 'images/' %}fln1.png" height="50" width="50"></td>
+                            <td style="padding:0px"><img src="{% static 'images/' %}fln1.png" height="30" width="30"></td>
                             <td class="text-center align-middle" colspan="3">LABEL PACKAGING</td>
-                            <td class="text-center align-middle p-0 display-2 fw-bolder" colspan="1" rowspan="3">{{ part_position }}</td>
+                            <td class="text-center align-middle  fw-bolder" colspan="1" rowspan="3">{{ part_position }}</td>
                         </tr>
                         <tr>
-                            <td>Tgl Prod</td>
-                            <td>Shift</td>
-                            <td>Lot No Prod</td>
-                            <td>Customer</td>
+                            <td style="font-size:0.7em">Tgl Prod</td>
+                            <td style="font-size:0.7em">Shift</td>
+                            <td style="font-size:0.7em">Lot No Prod</td>
+                            <td style="font-size:0.7em">Customer</td>
                         </tr>
                         <tr>
-                            <td>{{ tanggal }}</td>
-                            <td>{{ shift }}</td>
-                            <td>{{ lot_produksi }}</td>
-                            <td>HMMI</td>
+                            <td style="font-size:0.8em">{{ tanggal }}</td>
+                            <td style="font-size:0.8em">{{ shift }}</td>
+                            <td style="font-size:0.8em">{{ lot_produksi }}</td>
+                            <td style="font-size:0.8em">HMMI</td>
                         </tr>
                         <tr>
-                            <td class="p-0" colspan="2">Part No</td>
-                            <td class="p-0" colspan="2">Part Name</td>
-                            <td class="p-0 display-3 fw-bolder" rowspan="2">{{ part_color }}</td>
+                            <td class="p-0" colspan="2" style="font-size:0.7em">Part No</td>
+                            <td class="p-0" colspan="2" style="font-size:0.7em">Part Name</td>
+                            <td class="p-0  fw-bolder" rowspan="2">{{ part_color }}</td>
                         </tr>
                         <tr>
-                            <td colspan="2"><b>{{ part_number }}</b></td>
-                            <td colspan="2"><b>{{ part_description }}</b></td>
+                            <td colspan="2" style="font-size:0.7em">{{ part_number }}</td>
+                            <td colspan="2" style="font-size:0.7em">{{ part_description }}</td>
                         </tr>
                         <tr>
-                            <td>QTY</td>
-                            <td>LEADER</td>
-                            <td>MANPOWER PROD</td>
-                            <td>MANPOWER QUALITY</td>
-                            <td>QR Code</td>
+                            <td style="font-size:0.6em">QTY</td>
+                            <td style="font-size:0.6em">LEADER</td>
+                            <td style="font-size:0.6em">MANPOWER PROD</td>
+                            <td style="font-size:0.6em">MANPOWER QUALITY</td>
+                            <td style="font-size:0.6em">QR Code</td>
 
                         </tr>
                         <tr class="align-middle p-0">
                             <td>{{ part_qty }} PCS</td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ leader }}</td>
+                            <td>{{ manpower }}</td>
                             <td></td>
                             <td><img src="{% static 'images/part_qrcodes/' %}{{ part_number }}.png" height="50" width="50" ></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="col-1"></div>
-            <div class="col-5">
+            <div class="col-6" style="width:9.5cm">
                 <table class="table table-bordered border-dark table-sm">
                     <tbody>
-                        <tr>
-                            <td class="p-0" colspan="2"><small>No. Form : F.PRO.45.REV.01</small></td>
-                            <td class="p-0" colspan="3"><small>Tgl Efektif : 07 Agustus 2017</small></td>
+                        <tr style="width:0.9cm">
+                            <td class="p-0" colspan="2" style="font-size:0.6em; padding:0px">No. Form : F.PRO.45.REV.01</td>
+                            <td class="p-0" colspan="3" style="font-size:0.6em; padding:0px">Tgl Efektif : 07 Agustus 2017</td>
                         </tr>
                         <tr>
-                            <td><img src="{% static 'images/' %}fln1.png" height="50" width="50"></td>
+                            <td style="padding:0px"><img src="{% static 'images/' %}fln1.png" height="30" width="30"></td>
                             <td class="text-center align-middle" colspan="3">LABEL PACKAGING</td>
-                            <td class="text-center align-middle p-0 display-2 fw-bolder" colspan="1" rowspan="3">{{ part_position }}</td>
+                            <td class="text-center align-middle  fw-bolder" colspan="1" rowspan="3">{{ part_position }}</td>
                         </tr>
                         <tr>
-                            <td>Tgl Prod</td>
-                            <td>Shift</td>
-                            <td>Lot No Prod</td>
-                            <td>Customer</td>
+                            <td style="font-size:0.7em">Tgl Prod</td>
+                            <td style="font-size:0.7em">Shift</td>
+                            <td style="font-size:0.7em">Lot No Prod</td>
+                            <td style="font-size:0.7em">Customer</td>
                         </tr>
                         <tr>
-                            <td>{{ tanggal }}</td>
-                            <td>{{ shift }}</td>
-                            <td>{{ lot_produksi }}</td>
-                            <td>HMMI</td>
+                            <td style="font-size:0.8em">{{ tanggal }}</td>
+                            <td style="font-size:0.8em">{{ shift }}</td>
+                            <td style="font-size:0.8em">{{ lot_produksi }}</td>
+                            <td style="font-size:0.8em">HMMI</td>
                         </tr>
                         <tr>
-                            <td class="p-0" colspan="2">Part No</td>
-                            <td class="p-0" colspan="2">Part Name</td>
-                            <td class="p-0 display-3 fw-bolder" rowspan="2">{{ part_color }}</td>
+                            <td class="p-0" colspan="2" style="font-size:0.7em">Part No</td>
+                            <td class="p-0" colspan="2" style="font-size:0.7em">Part Name</td>
+                            <td class="p-0  fw-bolder" rowspan="2">{{ part_color }}</td>
                         </tr>
                         <tr>
-                            <td colspan="2"><b>{{ part_number }}</b></td>
-                            <td colspan="2"><b>{{ part_description }}</b></td>
+                            <td colspan="2" style="font-size:0.7em">{{ part_number }}</td>
+                            <td colspan="2" style="font-size:0.7em">{{ part_description }}</td>
                         </tr>
                         <tr>
-                            <td>QTY</td>
-                            <td>LEADER</td>
-                            <td>MANPOWER PROD</td>
-                            <td>MANPOWER QUALITY</td>
-                            <td>QR Code</td>
+                            <td style="font-size:0.6em">QTY</td>
+                            <td style="font-size:0.6em">LEADER</td>
+                            <td style="font-size:0.6em">MANPOWER PROD</td>
+                            <td style="font-size:0.6em">MANPOWER QUALITY</td>
+                            <td style="font-size:0.6em">QR Code</td>
 
                         </tr>
                         <tr class="align-middle p-0">
                             <td>{{ part_qty }} PCS</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td><img src="{% static 'images/part_qrcodes/' %}{{ part_number }}.png" height="50" width="50" ></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-5">
-                <table class="table table-bordered border-dark table-sm">
-                    <tbody>
-                        <tr>
-                            <td class="p-0" colspan="2"><small>No. Form : F.PRO.45.REV.01</small></td>
-                            <td class="p-0" colspan="3"><small>Tgl Efektif : 07 Agustus 2017</small></td>
-                        </tr>
-                        <tr>
-                            <td><img src="{% static 'images/' %}fln1.png" height="50" width="50"></td>
-                            <td class="text-center align-middle" colspan="3">LABEL PACKAGING</td>
-                            <td class="text-center align-middle p-0 display-2 fw-bolder" colspan="1" rowspan="3">{{ part_position }}</td>
-                        </tr>
-                        <tr>
-                            <td>Tgl Prod</td>
-                            <td>Shift</td>
-                            <td>Lot No Prod</td>
-                            <td>Customer</td>
-                        </tr>
-                        <tr>
-                            <td>{{ tanggal }}</td>
-                            <td>{{ shift }}</td>
-                            <td>{{ lot_produksi }}</td>
-                            <td>HMMI</td>
-                        </tr>
-                        <tr>
-                            <td class="p-0" colspan="2">Part No</td>
-                            <td class="p-0" colspan="2">Part Name</td>
-                            <td class="p-0 display-3 fw-bolder" rowspan="2">{{ part_color }}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2"><b>{{ part_number }}</b></td>
-                            <td colspan="2"><b>{{ part_description }}</b></td>
-                        </tr>
-                        <tr>
-                            <td>QTY</td>
-                            <td>LEADER</td>
-                            <td>MANPOWER PROD</td>
-                            <td>MANPOWER QUALITY</td>
-                            <td>QR Code</td>
-
-                        </tr>
-                        <tr class="align-middle p-0">
-                            <td>{{ part_qty }} PCS</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td><img src="{% static 'images/part_qrcodes/' %}{{ part_number }}.png" height="50" width="50" ></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-1"></div>
-            <div class="col-5">
-                <table class="table table-bordered border-dark table-sm">
-                    <tbody>
-                        <tr>
-                            <td class="p-0" colspan="2"><small>No. Form : F.PRO.45.REV.01</small></td>
-                            <td class="p-0" colspan="3"><small>Tgl Efektif : 07 Agustus 2017</small></td>
-                        </tr>
-                        <tr>
-                            <td><img src="{% static 'images/' %}fln1.png" height="50" width="50"></td>
-                            <td class="text-center align-middle" colspan="3">LABEL PACKAGING</td>
-                            <td class="text-center align-middle p-0 display-2 fw-bolder" colspan="1" rowspan="3">{{ part_position }}</td>
-                        </tr>
-                        <tr>
-                            <td>Tgl Prod</td>
-                            <td>Shift</td>
-                            <td>Lot No Prod</td>
-                            <td>Customer</td>
-                        </tr>
-                        <tr>
-                            <td>{{ tanggal }}</td>
-                            <td>{{ shift }}</td>
-                            <td>{{ lot_produksi }}</td>
-                            <td>HMMI</td>
-                        </tr>
-                        <tr>
-                            <td class="p-0" colspan="2">Part No</td>
-                            <td class="p-0" colspan="2">Part Name</td>
-                            <td class="p-0 display-3 fw-bolder" rowspan="2">{{ part_color }}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2"><b>{{ part_number }}</b></td>
-                            <td colspan="2"><b>{{ part_description }}</b></td>
-                        </tr>
-                        <tr>
-                            <td>QTY</td>
-                            <td>LEADER</td>
-                            <td>MANPOWER PROD</td>
-                            <td>MANPOWER QUALITY</td>
-                            <td>QR Code</td>
-
-                        </tr>
-                        <tr class="align-middle p-0">
-                            <td>{{ part_qty }} PCS</td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ leader }}</td>
+                            <td>{{ manpower }}</td>
                             <td></td>
                             <td><img src="{% static 'images/part_qrcodes/' %}{{ part_number }}.png" height="50" width="50" ></td>
                         </tr>
@@ -267,209 +161,103 @@
                 </table>
             </div>
         </div>
-        <div class="row">
-            <div class="col-5">
+        <div class="row" style="height:7cm">
+            <div class="col-6" style="width:9.5cm">
                 <table class="table table-bordered border-dark table-sm">
                     <tbody>
-                        <tr>
-                            <td class="p-0" colspan="2"><small>No. Form : F.PRO.45.REV.01</small></td>
-                            <td class="p-0" colspan="3"><small>Tgl Efektif : 07 Agustus 2017</small></td>
+                        <tr style="width:0.9cm">
+                            <td class="p-0" colspan="2" style="font-size:0.6em; padding:0px">No. Form : F.PRO.45.REV.01</td>
+                            <td class="p-0" colspan="3" style="font-size:0.6em; padding:0px">Tgl Efektif : 07 Agustus 2017</td>
                         </tr>
                         <tr>
-                            <td><img src="{% static 'images/' %}fln1.png" height="50" width="50"></td>
+                            <td style="padding:0px"><img src="{% static 'images/' %}fln1.png" height="30" width="30"></td>
                             <td class="text-center align-middle" colspan="3">LABEL PACKAGING</td>
-                            <td class="text-center align-middle p-0 display-2 fw-bolder" colspan="1" rowspan="3">{{ part_position }}</td>
+                            <td class="text-center align-middle  fw-bolder" colspan="1" rowspan="3">{{ part_position }}</td>
                         </tr>
                         <tr>
-                            <td>Tgl Prod</td>
-                            <td>Shift</td>
-                            <td>Lot No Prod</td>
-                            <td>Customer</td>
+                            <td style="font-size:0.7em">Tgl Prod</td>
+                            <td style="font-size:0.7em">Shift</td>
+                            <td style="font-size:0.7em">Lot No Prod</td>
+                            <td style="font-size:0.7em">Customer</td>
                         </tr>
                         <tr>
-                            <td>{{ tanggal }}</td>
-                            <td>{{ shift }}</td>
-                            <td>{{ lot_produksi }}</td>
-                            <td>HMMI</td>
+                            <td style="font-size:0.8em">{{ tanggal }}</td>
+                            <td style="font-size:0.8em">{{ shift }}</td>
+                            <td style="font-size:0.8em">{{ lot_produksi }}</td>
+                            <td style="font-size:0.8em">HMMI</td>
                         </tr>
                         <tr>
-                            <td class="p-0" colspan="2">Part No</td>
-                            <td class="p-0" colspan="2">Part Name</td>
-                            <td class="p-0 display-3 fw-bolder" rowspan="2">{{ part_color }}</td>
+                            <td class="p-0" colspan="2" style="font-size:0.7em">Part No</td>
+                            <td class="p-0" colspan="2" style="font-size:0.7em">Part Name</td>
+                            <td class="p-0  fw-bolder" rowspan="2">{{ part_color }}</td>
                         </tr>
                         <tr>
-                            <td colspan="2"><b>{{ part_number }}</b></td>
-                            <td colspan="2"><b>{{ part_description }}</b></td>
+                            <td colspan="2" style="font-size:0.7em">{{ part_number }}</td>
+                            <td colspan="2" style="font-size:0.7em">{{ part_description }}</td>
                         </tr>
                         <tr>
-                            <td>QTY</td>
-                            <td>LEADER</td>
-                            <td>MANPOWER PROD</td>
-                            <td>MANPOWER QUALITY</td>
-                            <td>QR Code</td>
+                            <td style="font-size:0.6em">QTY</td>
+                            <td style="font-size:0.6em">LEADER</td>
+                            <td style="font-size:0.6em">MANPOWER PROD</td>
+                            <td style="font-size:0.6em">MANPOWER QUALITY</td>
+                            <td style="font-size:0.6em">QR Code</td>
 
                         </tr>
                         <tr class="align-middle p-0">
                             <td>{{ part_qty }} PCS</td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ leader }}</td>
+                            <td>{{ manpower }}</td>
                             <td></td>
                             <td><img src="{% static 'images/part_qrcodes/' %}{{ part_number }}.png" height="50" width="50" ></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="col-1"></div>
-            <div class="col-5">
+            <div class="col-6" style="width:9.5cm">
                 <table class="table table-bordered border-dark table-sm">
                     <tbody>
-                        <tr>
-                            <td class="p-0" colspan="2"><small>No. Form : F.PRO.45.REV.01</small></td>
-                            <td class="p-0" colspan="3"><small>Tgl Efektif : 07 Agustus 2017</small></td>
+                        <tr style="width:0.9cm">
+                            <td class="p-0" colspan="2" style="font-size:0.6em; padding:0px">No. Form : F.PRO.45.REV.01</td>
+                            <td class="p-0" colspan="3" style="font-size:0.6em; padding:0px">Tgl Efektif : 07 Agustus 2017</td>
                         </tr>
                         <tr>
-                            <td><img src="{% static 'images/' %}fln1.png" height="50" width="50"></td>
+                            <td style="padding:0px"><img src="{% static 'images/' %}fln1.png" height="30" width="30"></td>
                             <td class="text-center align-middle" colspan="3">LABEL PACKAGING</td>
-                            <td class="text-center align-middle p-0 display-2 fw-bolder" colspan="1" rowspan="3">{{ part_position }}</td>
+                            <td class="text-center align-middle  fw-bolder" colspan="1" rowspan="3">{{ part_position }}</td>
                         </tr>
                         <tr>
-                            <td>Tgl Prod</td>
-                            <td>Shift</td>
-                            <td>Lot No Prod</td>
-                            <td>Customer</td>
+                            <td style="font-size:0.7em">Tgl Prod</td>
+                            <td style="font-size:0.7em">Shift</td>
+                            <td style="font-size:0.7em">Lot No Prod</td>
+                            <td style="font-size:0.7em">Customer</td>
                         </tr>
                         <tr>
-                            <td>{{ tanggal }}</td>
-                            <td>{{ shift }}</td>
-                            <td>{{ lot_produksi }}</td>
-                            <td>HMMI</td>
+                            <td style="font-size:0.8em">{{ tanggal }}</td>
+                            <td style="font-size:0.8em">{{ shift }}</td>
+                            <td style="font-size:0.8em">{{ lot_produksi }}</td>
+                            <td style="font-size:0.8em">HMMI</td>
                         </tr>
                         <tr>
-                            <td class="p-0" colspan="2">Part No</td>
-                            <td class="p-0" colspan="2">Part Name</td>
-                            <td class="p-0 display-3 fw-bolder" rowspan="2">{{ part_color }}</td>
+                            <td class="p-0" colspan="2" style="font-size:0.7em">Part No</td>
+                            <td class="p-0" colspan="2" style="font-size:0.7em">Part Name</td>
+                            <td class="p-0  fw-bolder" rowspan="2">{{ part_color }}</td>
                         </tr>
                         <tr>
-                            <td colspan="2"><b>{{ part_number }}</b></td>
-                            <td colspan="2"><b>{{ part_description }}</b></td>
+                            <td colspan="2" style="font-size:0.7em">{{ part_number }}</td>
+                            <td colspan="2" style="font-size:0.7em">{{ part_description }}</td>
                         </tr>
                         <tr>
-                            <td>QTY</td>
-                            <td>LEADER</td>
-                            <td>MANPOWER PROD</td>
-                            <td>MANPOWER QUALITY</td>
-                            <td>QR Code</td>
+                            <td style="font-size:0.6em">QTY</td>
+                            <td style="font-size:0.6em">LEADER</td>
+                            <td style="font-size:0.6em">MANPOWER PROD</td>
+                            <td style="font-size:0.6em">MANPOWER QUALITY</td>
+                            <td style="font-size:0.6em">QR Code</td>
 
                         </tr>
                         <tr class="align-middle p-0">
                             <td>{{ part_qty }} PCS</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td><img src="{% static 'images/part_qrcodes/' %}{{ part_number }}.png" height="50" width="50" ></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-5">
-                <table class="table table-bordered border-dark table-sm">
-                    <tbody>
-                        <tr>
-                            <td class="p-0" colspan="2"><small>No. Form : F.PRO.45.REV.01</small></td>
-                            <td class="p-0" colspan="3"><small>Tgl Efektif : 07 Agustus 2017</small></td>
-                        </tr>
-                        <tr>
-                            <td><img src="{% static 'images/' %}fln1.png" height="50" width="50"></td>
-                            <td class="text-center align-middle" colspan="3">LABEL PACKAGING</td>
-                            <td class="text-center align-middle p-0 display-2 fw-bolder" colspan="1" rowspan="3">{{ part_position }}</td>
-                        </tr>
-                        <tr>
-                            <td>Tgl Prod</td>
-                            <td>Shift</td>
-                            <td>Lot No Prod</td>
-                            <td>Customer</td>
-                        </tr>
-                        <tr>
-                            <td>{{ tanggal }}</td>
-                            <td>{{ shift }}</td>
-                            <td>{{ lot_produksi }}</td>
-                            <td>HMMI</td>
-                        </tr>
-                        <tr>
-                            <td class="p-0" colspan="2">Part No</td>
-                            <td class="p-0" colspan="2">Part Name</td>
-                            <td class="p-0 display-3 fw-bolder" rowspan="2">{{ part_color }}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2"><b>{{ part_number }}</b></td>
-                            <td colspan="2"><b>{{ part_description }}</b></td>
-                        </tr>
-                        <tr>
-                            <td>QTY</td>
-                            <td>LEADER</td>
-                            <td>MANPOWER PROD</td>
-                            <td>MANPOWER QUALITY</td>
-                            <td>QR Code</td>
-
-                        </tr>
-                        <tr class="align-middle p-0">
-                            <td>{{ part_qty }} PCS</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td><img src="{% static 'images/part_qrcodes/' %}{{ part_number }}.png" height="50" width="50" ></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-1"></div>
-            <div class="col-5">
-                <table class="table table-bordered border-dark table-sm">
-                    <tbody>
-                        <tr>
-                            <td class="p-0" colspan="2"><small>No. Form : F.PRO.45.REV.01</small></td>
-                            <td class="p-0" colspan="3"><small>Tgl Efektif : 07 Agustus 2017</small></td>
-                        </tr>
-                        <tr>
-                            <td><img src="{% static 'images/' %}fln1.png" height="50" width="50"></td>
-                            <td class="text-center align-middle" colspan="3">LABEL PACKAGING</td>
-                            <td class="text-center align-middle p-0 display-2 fw-bolder" colspan="1" rowspan="3">{{ part_position }}</td>
-                        </tr>
-                        <tr>
-                            <td>Tgl Prod</td>
-                            <td>Shift</td>
-                            <td>Lot No Prod</td>
-                            <td>Customer</td>
-                        </tr>
-                        <tr>
-                            <td>{{ tanggal }}</td>
-                            <td>{{ shift }}</td>
-                            <td>{{ lot_produksi }}</td>
-                            <td>HMMI</td>
-                        </tr>
-                        <tr>
-                            <td class="p-0" colspan="2">Part No</td>
-                            <td class="p-0" colspan="2">Part Name</td>
-                            <td class="p-0 display-3 fw-bolder" rowspan="2">{{ part_color }}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2"><b>{{ part_number }}</b></td>
-                            <td colspan="2"><b>{{ part_description }}</b></td>
-                        </tr>
-                        <tr>
-                            <td>QTY</td>
-                            <td>LEADER</td>
-                            <td>MANPOWER PROD</td>
-                            <td>MANPOWER QUALITY</td>
-                            <td>QR Code</td>
-
-                        </tr>
-                        <tr class="align-middle p-0">
-                            <td>{{ part_qty }} PCS</td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ leader }}</td>
+                            <td>{{ manpower }}</td>
                             <td></td>
                             <td><img src="{% static 'images/part_qrcodes/' %}{{ part_number }}.png" height="50" width="50" ></td>
                         </tr>
@@ -477,6 +265,213 @@
                 </table>
             </div>
         </div>
-    </div>
+        <div class="row" style="height:7cm">
+            <div class="col-6" style="width:9.5cm">
+                <table class="table table-bordered border-dark table-sm">
+                    <tbody>
+                        <tr style="width:0.9cm">
+                            <td class="p-0" colspan="2" style="font-size:0.6em; padding:0px">No. Form : F.PRO.45.REV.01</td>
+                            <td class="p-0" colspan="3" style="font-size:0.6em; padding:0px">Tgl Efektif : 07 Agustus 2017</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:0px"><img src="{% static 'images/' %}fln1.png" height="30" width="30"></td>
+                            <td class="text-center align-middle" colspan="3">LABEL PACKAGING</td>
+                            <td class="text-center align-middle  fw-bolder" colspan="1" rowspan="3">{{ part_position }}</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size:0.7em">Tgl Prod</td>
+                            <td style="font-size:0.7em">Shift</td>
+                            <td style="font-size:0.7em">Lot No Prod</td>
+                            <td style="font-size:0.7em">Customer</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size:0.8em">{{ tanggal }}</td>
+                            <td style="font-size:0.8em">{{ shift }}</td>
+                            <td style="font-size:0.8em">{{ lot_produksi }}</td>
+                            <td style="font-size:0.8em">HMMI</td>
+                        </tr>
+                        <tr>
+                            <td class="p-0" colspan="2" style="font-size:0.7em">Part No</td>
+                            <td class="p-0" colspan="2" style="font-size:0.7em">Part Name</td>
+                            <td class="p-0  fw-bolder" rowspan="2">{{ part_color }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="font-size:0.7em">{{ part_number }}</td>
+                            <td colspan="2" style="font-size:0.7em">{{ part_description }}</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size:0.6em">QTY</td>
+                            <td style="font-size:0.6em">LEADER</td>
+                            <td style="font-size:0.6em">MANPOWER PROD</td>
+                            <td style="font-size:0.6em">MANPOWER QUALITY</td>
+                            <td style="font-size:0.6em">QR Code</td>
+
+                        </tr>
+                        <tr class="align-middle p-0">
+                            <td>{{ part_qty }} PCS</td>
+                            <td>{{ leader }}</td>
+                            <td>{{ manpower }}</td>
+                            <td></td>
+                            <td><img src="{% static 'images/part_qrcodes/' %}{{ part_number }}.png" height="50" width="50" ></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-6" style="width:9.5cm">
+                <table class="table table-bordered border-dark table-sm">
+                    <tbody>
+                        <tr style="width:0.9cm">
+                            <td class="p-0" colspan="2" style="font-size:0.6em; padding:0px">No. Form : F.PRO.45.REV.01</td>
+                            <td class="p-0" colspan="3" style="font-size:0.6em; padding:0px">Tgl Efektif : 07 Agustus 2017</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:0px"><img src="{% static 'images/' %}fln1.png" height="30" width="30"></td>
+                            <td class="text-center align-middle" colspan="3">LABEL PACKAGING</td>
+                            <td class="text-center align-middle  fw-bolder" colspan="1" rowspan="3">{{ part_position }}</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size:0.7em">Tgl Prod</td>
+                            <td style="font-size:0.7em">Shift</td>
+                            <td style="font-size:0.7em">Lot No Prod</td>
+                            <td style="font-size:0.7em">Customer</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size:0.8em">{{ tanggal }}</td>
+                            <td style="font-size:0.8em">{{ shift }}</td>
+                            <td style="font-size:0.8em">{{ lot_produksi }}</td>
+                            <td style="font-size:0.8em">HMMI</td>
+                        </tr>
+                        <tr>
+                            <td class="p-0" colspan="2" style="font-size:0.7em">Part No</td>
+                            <td class="p-0" colspan="2" style="font-size:0.7em">Part Name</td>
+                            <td class="p-0  fw-bolder" rowspan="2">{{ part_color }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="font-size:0.7em">{{ part_number }}</td>
+                            <td colspan="2" style="font-size:0.7em">{{ part_description }}</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size:0.6em">QTY</td>
+                            <td style="font-size:0.6em">LEADER</td>
+                            <td style="font-size:0.6em">MANPOWER PROD</td>
+                            <td style="font-size:0.6em">MANPOWER QUALITY</td>
+                            <td style="font-size:0.6em">QR Code</td>
+
+                        </tr>
+                        <tr class="align-middle p-0">
+                            <td>{{ part_qty }} PCS</td>
+                            <td>{{ leader }}</td>
+                            <td>{{ manpower }}</td>
+                            <td></td>
+                            <td><img src="{% static 'images/part_qrcodes/' %}{{ part_number }}.png" height="50" width="50" ></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row" style="height:7cm">
+            <div class="col-6" style="width:9.5cm">
+                <table class="table table-bordered border-dark table-sm">
+                    <tbody>
+                        <tr style="width:0.9cm">
+                            <td class="p-0" colspan="2" style="font-size:0.6em; padding:0px">No. Form : F.PRO.45.REV.01</td>
+                            <td class="p-0" colspan="3" style="font-size:0.6em; padding:0px">Tgl Efektif : 07 Agustus 2017</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:0px"><img src="{% static 'images/' %}fln1.png" height="30" width="30"></td>
+                            <td class="text-center align-middle" colspan="3">LABEL PACKAGING</td>
+                            <td class="text-center align-middle  fw-bolder" colspan="1" rowspan="3">{{ part_position }}</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size:0.7em">Tgl Prod</td>
+                            <td style="font-size:0.7em">Shift</td>
+                            <td style="font-size:0.7em">Lot No Prod</td>
+                            <td style="font-size:0.7em">Customer</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size:0.8em">{{ tanggal }}</td>
+                            <td style="font-size:0.8em">{{ shift }}</td>
+                            <td style="font-size:0.8em">{{ lot_produksi }}</td>
+                            <td style="font-size:0.8em">HMMI</td>
+                        </tr>
+                        <tr>
+                            <td class="p-0" colspan="2" style="font-size:0.7em">Part No</td>
+                            <td class="p-0" colspan="2" style="font-size:0.7em">Part Name</td>
+                            <td class="p-0  fw-bolder" rowspan="2">{{ part_color }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="font-size:0.7em">{{ part_number }}</td>
+                            <td colspan="2" style="font-size:0.7em">{{ part_description }}</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size:0.6em">QTY</td>
+                            <td style="font-size:0.6em">LEADER</td>
+                            <td style="font-size:0.6em">MANPOWER PROD</td>
+                            <td style="font-size:0.6em">MANPOWER QUALITY</td>
+                            <td style="font-size:0.6em">QR Code</td>
+
+                        </tr>
+                        <tr class="align-middle p-0">
+                            <td>{{ part_qty }} PCS</td>
+                            <td>{{ leader }}</td>
+                            <td>{{ manpower }}</td>
+                            <td></td>
+                            <td><img src="{% static 'images/part_qrcodes/' %}{{ part_number }}.png" height="50" width="50" ></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-6" style="width:9.5cm">
+                <table class="table table-bordered border-dark table-sm">
+                    <tbody>
+                        <tr style="width:0.9cm">
+                            <td class="p-0" colspan="2" style="font-size:0.6em; padding:0px">No. Form : F.PRO.45.REV.01</td>
+                            <td class="p-0" colspan="3" style="font-size:0.6em; padding:0px">Tgl Efektif : 07 Agustus 2017</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:0px"><img src="{% static 'images/' %}fln1.png" height="30" width="30"></td>
+                            <td class="text-center align-middle" colspan="3">LABEL PACKAGING</td>
+                            <td class="text-center align-middle fw-bolder" colspan="1" rowspan="3">{{ part_position }}</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size:0.7em">Tgl Prod</td>
+                            <td style="font-size:0.7em">Shift</td>
+                            <td style="font-size:0.7em">Lot No Prod</td>
+                            <td style="font-size:0.7em">Customer</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size:0.8em">{{ tanggal }}</td>
+                            <td style="font-size:0.8em">{{ shift }}</td>
+                            <td style="font-size:0.8em">{{ lot_produksi }}</td>
+                            <td style="font-size:0.8em">HMMI</td>
+                        </tr>
+                        <tr>
+                            <td class="p-0" colspan="2" style="font-size:0.7em">Part No</td>
+                            <td class="p-0" colspan="2" style="font-size:0.7em">Part Name</td>
+                            <td class="p-0  fw-bolder" rowspan="2">{{ part_color }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="font-size:0.7em">{{ part_number }}</td>
+                            <td colspan="2" style="font-size:0.7em">{{ part_description }}</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size:0.6em">QTY</td>
+                            <td style="font-size:0.6em">LEADER</td>
+                            <td style="font-size:0.6em">MANPOWER PROD</td>
+                            <td style="font-size:0.6em">MANPOWER QUALITY</td>
+                            <td style="font-size:0.6em">QR Code</td>
+
+                        </tr>
+                        <tr class="align-middle p-0">
+                            <td>{{ part_qty }} PCS</td>
+                            <td>{{ leader }}</td>
+                            <td>{{ manpower }}</td>
+                            <td></td>
+                            <td><img src="{% static 'images/part_qrcodes/' %}{{ part_number }}.png" height="50" width="50" ></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 </body>
 {% endblock content %}
