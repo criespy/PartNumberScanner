@@ -18,6 +18,7 @@ class HomePageView(LoginRequiredMixin, ListView):
     login_url = 'auth/login/'
     model = Barang
     template_name = 'home.html'
+    queryset = Barang.objects.filter(status="Aktif")
 
 class Print8View(LoginRequiredMixin, ListView):
     login_url = 'auth/login/'
@@ -123,12 +124,15 @@ class BuatRencanaKirim(LoginRequiredMixin, CreateView):
     #fields = ['nomor_sj', 'tanggal']
     #diubah dengan settingan form di forms.py
     form_class = FormRencanaKirim
+    #queryset = Barang.objects.filter(status="Disabled")
 
     #buat tampilkan rencana kirim detail
     def get_context_data(self, **kwargs):
         form_class = FormRencanaKirimDetail
         detail = super(BuatRencanaKirim, self).get_context_data(**kwargs)
         detail['konteks'] = RencanaKirimDetail.objects.all()
+        #memfilter barang dengan status aktif saja
+        #detail['konteks'] = RencanaKirimDetail.objects.filter(barang__status='Disabled')
 
         if self.request.POST:
             detail["konteks"] = BarangFormset(self.request.POST)
