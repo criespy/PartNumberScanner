@@ -65,6 +65,8 @@ class PrintBarcode(LoginRequiredMixin, DetailView):
         tanggal = request.GET.get('tanggal')
         shift = request.GET.get('shift')
         mesin = request.GET.get('mesin')
+        leader = request.GET.get('leader')
+        manpower = request.GET.get('manprod')
 
         barang = barang.split("#")
         part_number = barang[0]
@@ -75,7 +77,7 @@ class PrintBarcode(LoginRequiredMixin, DetailView):
         tgl = tanggal.split("/")
         lot_produksi = tgl[0][2:4]+"."+tgl[1]+"."+tgl[2]+"."+shift+"."+mesin
 
-        context = {"part_number":part_number, "part_description":part_description, "part_color":part_color, "part_position":part_position, "tanggal":tanggal, "shift":shift, "lot_produksi":lot_produksi, "part_qty": part_qty}
+        context = {"part_number":part_number, "part_description":part_description, "part_color":part_color, "part_position":part_position, "tanggal":tanggal, "shift":shift, "lot_produksi":lot_produksi, "part_qty": part_qty, "leader":leader, "manpower":manpower}
         #return HttpResponse("Berhasil %s" % tanggal)
         #kirim id ke print_barcode.html
         return TemplateResponse(request, 'print_label_produksi.html', context)
